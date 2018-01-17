@@ -1,3 +1,8 @@
 import * as React from 'react'
 
-export const AdminPage = () => <div>Admin page</div>;
+import * as config from './config'
+
+import * as text from './admin.text'
+
+
+export const AdminPage = () => <div>{text.adminPage[config.LANG()]}</div>;
