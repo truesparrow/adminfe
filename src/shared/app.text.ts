@@ -1,6 +1,4 @@
 import { Message, MessageWith1Arg } from './messages'
-
-
 export const pageTitle: Message = {
     en: "Truesparrow",
     ro: "Truesparrow"
