@@ -2,6 +2,7 @@ import * as compression from 'compression'
 import { createNamespace } from 'continuation-local-storage'
 import * as express from 'express'
 import * as HttpStatus from 'http-status-codes'
+import 'log-timestamp'
 import * as Mustache from 'mustache'
 import { MarshalFrom } from 'raynor'
 import * as React from 'react'
@@ -66,6 +67,8 @@ async function main() {
 
     const namespace = createNamespace(config.CLS_NAMESPACE_NAME);
 
+    console.log('Starting up');
+
     function serverSideRender(url: string, session: Session, clientInitialState: ClientInitialState): [string, number | null] {
         const language = inferLanguage(session);
         const store = createStoreFromInitialState(reducers, clientInitialState);
@@ -104,6 +107,8 @@ async function main() {
             WEBPACK_MANIFEST_JS: bundles.getManifestJs(),
         }), specialStatus];
     }
+
+    console.log('Starting web server');
 
     const app = express();
 
