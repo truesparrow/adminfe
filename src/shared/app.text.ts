@@ -1,4 +1,6 @@
-import { Message, MessageWith1Arg } from './messages'
+import { Message, MessageWith1Arg } from '@truesparrow/common-js'
+
+
 export const pageTitle: Message = {
     en: "Truesparrow",
     ro: "Truesparrow"
