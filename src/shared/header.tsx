@@ -6,5 +6,9 @@ import * as text from './header.text'
 
 
 export function Header() {
-    return <div>{text.header[config.LANG()]}</div>;
+    return (
+        <div className="header">
+            {text.header[config.LANG()]}
+        </div>
+    );
 }
