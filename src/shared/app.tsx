@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 
 import { AdminPage } from './admin'
 import * as config from './config'
+import { Footer } from './footer'
+import { Header } from './header'
 import { HomePage } from './home'
 import { NotFound } from './not-found'
 import { FooState } from './store'
@@ -26,7 +28,7 @@ class _App extends React.Component<Props, State> {
                 <Helmet>
                     <title>{text.pageTitle[config.LANG()]}</title>
                 </Helmet>
-                {text.thisIsBlog[config.LANG()](this.props.fooText)}
+                <Header />
                 <header>
                     <NavLink to="/" exact>{text.home[config.LANG()]}</NavLink>
                     <NavLink to="/admin">{text.admin[config.LANG()]}</NavLink>
@@ -38,6 +40,7 @@ class _App extends React.Component<Props, State> {
                         <Route path="*" component={NotFound} />
                     </Switch>
                 </main>
+                <Footer />
             </div>
         );
     }
