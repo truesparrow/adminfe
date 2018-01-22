@@ -8,7 +8,12 @@ import * as text from './header.text'
 export function Header() {
     return (
         <div className="header">
-            {text.header[config.LANG()]}
+            <h1 className="logo-name">
+                {text.logoName[config.LANG()]}
+            </h1>
+            <button className="sign-up">
+                {text.signUp[config.LANG()]}
+            </button>
         </div>
     );
 }
