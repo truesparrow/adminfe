@@ -10,4 +10,32 @@
     <changefreq>always</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <url>
+    <loc>{{{ HOME_URI }}}/company/about</loc>
+    <lastmod>{{ HOME_LAST_MOD }}</lastmod>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>{{{ HOME_URI }}}/company/tos</loc>
+    <lastmod>{{ HOME_LAST_MOD }}</lastmod>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>{{{ HOME_URI }}}/company/privacy</loc>
+    <lastmod>{{ HOME_LAST_MOD }}</lastmod>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>{{{ HOME_URI }}}/company/cookies</loc>
+    <lastmod>{{ HOME_LAST_MOD }}</lastmod>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>

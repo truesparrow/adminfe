@@ -18,6 +18,6 @@ describe('Header', () => {
 
     it('should render', () => {
         const wrapper = shallow(<Header />);
-        expect(wrapper.contains('Header')).to.be.true;
+        expect(wrapper.contains('TrueSparrow')).to.be.true;
     });
 });

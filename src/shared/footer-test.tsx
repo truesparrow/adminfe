@@ -18,6 +18,6 @@ describe('Footer', () => {
 
     it('should render', () => {
         const wrapper = shallow(<Footer />);
-        expect(wrapper.contains('Footer')).to.be.true;
+        expect(wrapper.contains(<span>Copyright © 2018</span>)).to.be.true;
     });
 });

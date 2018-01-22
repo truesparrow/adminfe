@@ -10,7 +10,7 @@ export function Footer() {
         <div className="footer">
             <p className="company-links">
                 <Link to="/company/about">{text.about[config.LANG()]}</Link>
-                <Link to="/company/terms">{text.terms[config.LANG()]}</Link>
+                <Link to="/company/tos">{text.terms[config.LANG()]}</Link>
                 <Link to="/company/privacy">{text.privacy[config.LANG()]}</Link>
                 <Link to="/company/cookies">{text.cookies[config.LANG()]}</Link>
             </p>
