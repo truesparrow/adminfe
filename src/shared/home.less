@@ -1,0 +1,99 @@
+.pricing {
+    display: flex;
+    flex-direction: column;
+
+    .heading {
+        .main-title {
+            height: 3rem;
+            line-height: 3rem;
+            margin: 0rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .subtitle {
+            height: 3rem;
+            line-height: 3rem;
+            margin: 0rem;
+            text-align: center;
+        }
+    }
+
+    .options {
+        display: flex;
+        flex-direction: row;
+        @media all and (max-width: 800px) {
+            flex-direction: column;
+        }
+
+        margin-top: 1rem;
+        border: 1px solid rgba(0, 0, 0, .1);
+        padding: 1.5rem;
+        margin: 2rem;
+
+        .option {
+            width: 50%;
+            @media all and (max-width: 800px) {
+                width: 100%;
+            }
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            @media all and (min-width: 800px) {
+                &:first-child {
+                    border-right: 1px solid rgba(0, 0, 0, .1);
+                }
+            }
+
+            @media all and (max-width: 800px) {
+                &:first-child {
+                    border-bottom: 1px solid rgba(0, 0, 0, .1);
+                    padding-bottom: 1.5rem;
+                    margin-bottom: 2rem;
+                }
+            }
+
+            .name {
+                height: 2rem;
+                line-height: 2rem;
+                font-size: 1.5rem;
+            }
+
+            .price {
+                height: 2rem;
+                line-height: 2rem;
+                font-size: 1.05rem;
+                margin-top: 0.5rem;
+            }
+
+            .features {
+                list-style-type: none;
+                width: 140px;
+                margin-top: 0.5rem;
+
+                .feature {
+                    margin-top: 0.25rem;
+
+                    &:first-child {
+                        margin-top: 0rem;
+                    }
+                }
+            }
+
+            .sign-up {
+                height: 2rem;
+                width: 80px;
+                margin-top: 0.5rem;
+                padding: 0rem;
+
+                @media all and (min-width: 800px) {
+                    &.compensate {
+                        margin-top: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}

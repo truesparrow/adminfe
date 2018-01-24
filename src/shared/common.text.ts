@@ -25,3 +25,8 @@ export const remove: Message = {
     en: "Remove",
     ro: "Șterge"
 };
+
+export const signUp: Message = {
+    en: 'Sign Up',
+    ro: 'Intrați'
+};

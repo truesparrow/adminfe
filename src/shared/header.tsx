@@ -3,7 +3,6 @@ import * as React from 'react'
 import * as config from './config'
 
 import * as commonText from './common.text'
-import * as text from './header.text'
 
 
 export function Header() {
@@ -13,7 +12,7 @@ export function Header() {
                 {commonText.siteName[config.LANG()]}
             </h1>
             <button className="sign-up">
-                {text.signUp[config.LANG()]}
+                {commonText.signUp[config.LANG()]}
             </button>
         </div>
     );

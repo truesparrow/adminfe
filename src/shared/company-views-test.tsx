@@ -8,7 +8,7 @@ import 'mocha'
 import * as config from './config'
 import {
     CompanyAboutView,
-    CompanyTermsView,
+    //CompanyTermsView,
     CompanyPrivacyView,
     CompanyCookiesView
 } from './company-views'
