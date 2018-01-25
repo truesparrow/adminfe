@@ -1,5 +1,20 @@
-import { Message } from '@truesparrow/common-js'
+import { Message, MessageWith0Arg } from '@truesparrow/common-js'
 
+
+export const bigTitle: Message = {
+    en: 'Wedding Websites',
+    ro: 'Site-uri pentru nunți'
+};
+
+export const subTitle: Message = {
+    en: 'The special place for your special day',
+    ro: 'Locul special pentru ziua cea mare'
+};
+
+export const hero: MessageWith0Arg = {
+    en: 'Hero image',
+    ro: 'Imagine erou'
+};
 
 export const features: Message = {
     en: 'Features',

@@ -6,6 +6,25 @@ import * as commonText from './common.text'
 import * as text from './home.text'
 
 
+export function Hero() {
+    return (
+        <div className="hero">
+            <div className="cta">
+                <p className="big-title">{text.bigTitle[config.LANG()]}</p>
+
+                <p className="subtitle">{text.subTitle[config.LANG()]}</p>
+
+                <button className="sign-up">{commonText.signUp[config.LANG()]}</button>
+            </div>
+
+            <div className="hero-image">
+                <img src="https://dummyimage.com/600x400/ede6ed/fff" alt={text.hero[config.LANG()]} />
+            </div>
+        </div>
+    );
+}
+
+
 export function Features() {
     return (
         <div className="features">
@@ -83,6 +102,7 @@ export function Pricing() {
 export function HomePage() {
     return (
         <div>
+            <Hero />
             <Features />
             <Pricing />
         </div>

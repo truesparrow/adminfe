@@ -6,10 +6,21 @@ import * as React from 'react'
 import 'mocha'
 
 import * as config from './config'
-import { Features, HomePage, Pricing } from './home'
+import { Features, Hero, HomePage, Pricing } from './home'
 
 
 Enzyme.configure({ adapter: new Adapter() });
+
+describe('Hero', () => {
+    before('set LANG', () => {
+        (config as any).LANG = () => 'en'; // Not nice
+    });
+
+    it('should render', () => {
+        const wrapper = shallow(<Hero />);
+        expect(wrapper.contains('Wedding Websites')).to.be.true;
+    });
+});
 
 describe('Features', () => {
     before('set LANG', () => {

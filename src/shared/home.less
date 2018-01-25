@@ -1,3 +1,72 @@
+.hero {
+    display: flex;
+    flex-direction: row;
+    @media all and (max-width: 800px) {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    margin: 2rem;
+
+    .cta {
+        width: 50%;
+        @media all and (max-width: 800px) {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        display: flex;
+        flex-direction: column;
+
+
+        .big-title {
+            height: 7rem;
+            line-height: 3.5rem;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+
+            @media all and (max-width: 800px) {
+                height: auto;
+                text-align: center;
+            }
+        }
+
+        .subtitle {
+            height: 4rem;
+            line-height: 2rem;
+            font-size: 1.5rem;
+            padding-right: 2rem;
+            margin-bottom: 0.5rem;
+
+            @media all and (max-width: 800px) {
+                height: auto;
+                text-align: center;
+                padding-right: 0rem;
+            }
+        }
+
+        .sign-up {
+            height: 3rem;
+            width: 10rem;
+            font-size: 1.5rem;
+            @media all and (max-width: 800px) {
+                align-self: center;
+            }
+        }
+    }
+
+    .hero-image {
+        width: 50%;
+        @media all and (max-width: 800px) {
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
 .features, .pricing {
     .heading {
         .main-title {

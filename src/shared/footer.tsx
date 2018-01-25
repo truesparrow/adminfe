@@ -7,7 +7,7 @@ import * as text from './footer.text'
 
 export function Footer() {
     return (
-        <div className="footer">
+        <footer className="footer">
             <p className="company-links">
                 <Link to="/company/about">{text.about[config.LANG()]}</Link>
                 <Link to="/company/tos">{text.terms[config.LANG()]}</Link>
@@ -17,6 +17,6 @@ export function Footer() {
             <p className="copyright">
                 <span>{text.copyright[config.LANG()]}</span>
             </p>
-        </div>
+        </footer>
     );
 }
