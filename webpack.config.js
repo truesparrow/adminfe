@@ -81,7 +81,8 @@ module.exports = {
             {from: './src/shared/static/favicon.ico'},
             {from: './src/shared/static/humans.txt'},
             {from: './src/shared/static/robots.txt'},
-            {from: './src/shared/static/sitemap.xml'}
+            {from: './src/shared/static/sitemap.xml'},
+            {from: './out/client/vendor.bundle.js'}
         ]),
         new ExtractTextPlugin('client.css'),
         new webpack.DllReferencePlugin({
