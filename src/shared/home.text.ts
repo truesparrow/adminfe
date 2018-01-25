@@ -1,9 +1,44 @@
 import { Message } from '@truesparrow/common-js'
 
 
-export const homePage: Message = {
-    en: "Home page",
-    ro: "Pagina de start"
+export const features: Message = {
+    en: 'Features',
+    ro: 'Beneficii'
+};
+
+export const featuresSubtitle: Message = {
+    en: 'There are a bunch of goodies',
+    ro: 'Sunt o groază de bunătați'
+};
+
+export const easyToUse: Message = {
+    en: 'Easy to use',
+    ro: 'Ușor de folosit'
+};
+
+export const easyToUseDesc: Message = {
+    en: 'Upload a bunch of pictures about your event, invite a bunch of friends and you\'re good to go',
+    ro: 'Încărcați un set de poze despre eveniment, invitați prietenii și sunteți gata de drum'
+};
+
+export const galleries: Message = {
+    en: 'Galleries',
+    ro: 'Galerii'
+};
+
+export const galleriesDesc: Message = {
+    en: 'Add a bunch of images of your event and we will generate a nice site with them',
+    ro: 'Adaugați un set de imagini despre eveniment și vom genera un site frumos pentru ele'
+};
+
+export const inviteFriends: Message = {
+    en: 'Invite friends',
+    ro: 'Invită prietenii'
+};
+
+export const inviteFriendsDesc: Message = {
+    en: 'Invite your Facebook friends directly, or via email. You get to see their RSVP status',
+    ro: 'Invitați prietenii de pe Facebook, sau prin email. Poți să vezi RSVP-ul lor'
 };
 
 export const pricing: Message = {
@@ -44,11 +79,6 @@ export const unlimitedPhotos: Message = {
 export const hostedSite: Message = {
     en: 'Hosted site',
     ro: 'Găzduire site`'
-};
-
-export const inviteFriends: Message = {
-    en: 'Invite friends',
-    ro: 'Invită prietenii'
 };
 
 export const monthlyInvoice: Message = {

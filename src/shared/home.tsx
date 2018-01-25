@@ -6,6 +6,35 @@ import * as commonText from './common.text'
 import * as text from './home.text'
 
 
+export function Features() {
+    return (
+        <div className="features">
+            <div className="heading">
+                <h3 className="main-title">{text.features[config.LANG()]}</h3>
+                <h4 className="subtitle">{text.featuresSubtitle[config.LANG()]}</h4>
+            </div>
+
+            <div className="feature-set">
+                <div className="feature">
+                    <p className="name">{text.easyToUse[config.LANG()]}</p>
+                    <p className="description">{text.easyToUseDesc[config.LANG()]}</p>
+                </div>
+
+                <div className="feature">
+                    <p className="name">{text.galleries[config.LANG()]}</p>
+                    <p className="description">{text.galleriesDesc[config.LANG()]}</p>
+                </div>
+
+                <div className="feature">
+                    <p className="name">{text.inviteFriends[config.LANG()]}</p>
+                    <p className="description">{text.inviteFriendsDesc[config.LANG()]}</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
 export function Pricing() {
     return (
         <div className="pricing">
@@ -14,7 +43,7 @@ export function Pricing() {
                 <h4 className="subtitle">{text.pricingSubtitle[config.LANG()]}</h4>
             </div>
 
-            <div className="options">
+            <div className="option-set">
                 <div className="option">
                     <p className="name">{text.quickStarter[config.LANG()]}</p>
 
@@ -54,7 +83,7 @@ export function Pricing() {
 export function HomePage() {
     return (
         <div>
-            {text.homePage[config.LANG()]}
+            <Features />
             <Pricing />
         </div>
     );

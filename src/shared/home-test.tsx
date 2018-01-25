@@ -1,15 +1,26 @@
 import { expect } from 'chai'
 import * as Enzyme from 'enzyme'
-import { mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import * as React from 'react'
 import 'mocha'
 
 import * as config from './config'
-import { HomePage, Pricing } from './home'
+import { Features, HomePage, Pricing } from './home'
 
 
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
+
+describe('Features', () => {
+    before('set LANG', () => {
+        (config as any).LANG = () => 'en'; // Not nice
+    });
+
+    it('should render', () => {
+        const wrapper = shallow(<Features />);
+        expect(wrapper.contains('Features')).to.be.true;
+    });
+});
 
 describe('Pricing', () => {
     before('set LANG', () => {
@@ -17,7 +28,7 @@ describe('Pricing', () => {
     });
 
     it('should render', () => {
-        const wrapper = mount(<Pricing />);
+        const wrapper = shallow(<Pricing />);
         expect(wrapper.contains('Pricing')).to.be.true;
     });
 });
@@ -29,6 +40,6 @@ describe('HomePage', () => {
 
     it('should render', () => {
         const wrapper = mount(<HomePage />);
-        expect(wrapper.contains('Home page')).to.be.true;
+        expect(wrapper.contains('Features')).to.be.true;
     });
 });
