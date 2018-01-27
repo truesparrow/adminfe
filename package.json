@@ -30,7 +30,7 @@
         "@truesparrow/common-js": "=0.0.2",
         "@truesparrow/common-server-js": "=0.0.1",
         "@truesparrow/content-sdk-js": "=0.0.1",
-        "@truesparrow/identity-sdk-js": "=0.0.1",
+        "@truesparrow/identity-sdk-js": "=0.2.0",
         "async-middleware": "=1.2.1",
         "compression": "=1.7.1",
         "cookie-parser": "=1.4.3",
