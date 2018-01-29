@@ -3,7 +3,7 @@ import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 
-import { AdminPage } from './admin'
+import { AdminFrame } from './admin-frame'
 import {
     CompanyAboutView,
     CompanyTermsView,
@@ -38,12 +38,12 @@ class _App extends React.Component<Props, State> {
                 <Header />
                 <header>
                     <NavLink to="/" exact>{text.home[config.LANG()]}</NavLink>
-                    <NavLink to="/admin">{text.admin[config.LANG()]}</NavLink>
+                    <NavLink to="/admin/main">{text.admin[config.LANG()]}</NavLink>
                 </header>
                 <main>
                     <Switch>
                         <Route exact path="/" component={HomePage} />
-                        <Route path="/admin" component={AdminPage} />
+                        <Route path="/admin" component={AdminFrame} />
                         <Route path="/company/about" component={CompanyAboutView} />
                         <Route path="/company/tos" component={CompanyTermsView} />
                         <Route path="/company/privacy" component={CompanyPrivacyView} />

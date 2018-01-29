@@ -16,7 +16,6 @@ import { createStoreFromInitialState, reducers } from '../shared/store'
 
 const clientInitialStateMarshaller = new (MarshalFrom(ClientInitialState))();
 
-
 const rollbar = new Rollbar({
     accessToken: isOnServer(config.ENV) ? (config.ROLLBAR_CLIENT_TOKEN as string) : 'FAKE_TOKEN_WONT_BE_USED_IN_LOCAL_OR_TEST',
     logLevel: 'warning',

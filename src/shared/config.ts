@@ -3,7 +3,12 @@ import { config } from 'dotenv'
 
 import { Env, parseEnv, isOnServer } from '@truesparrow/common-js'
 import { getFromEnv } from '@truesparrow/common-server-js'
-import { Auth0Config, PathMatch } from '@truesparrow/identity-sdk-js'
+import {
+    Auth0ClientConfig,
+    Auth0ServerConfig,
+    PathMatch,
+    serverToClient
+} from '@truesparrow/identity-sdk-js'
 
 
 config();
@@ -11,25 +16,24 @@ config();
 
 export const CLS_NAMESPACE_NAME: string = 'truesparrow.request';
 export const NAME: string = 'adminfe';
-export const ALLOWED_PATHS: PathMatch[] = [{
-    path: '/',
-    mode: 'full'
-}, {
-    path: '/admin',
-    mode: 'full'
-}];
+export const ALLOWED_PATHS: PathMatch[] = [
+    {path: '/', mode: 'full'},
+    {path: '/admin', mode: 'full'},
+    {path: '/admin/', mode: 'prefix'}
+];
 
 export const ENV: Env = parseEnv(getFromEnv('ENV'));
 export const ADDRESS: string = getFromEnv('ADDRESS');
 export const PORT: number = parseInt(getFromEnv('PORT'), 10);
 export const ORIGIN: string = getFromEnv('ORIGIN');
 export const IDENTITY_SERVICE_HOST: string = getFromEnv('IDENTITY_SERVICE_HOST');
-export const AUTH0_CONFIG: Auth0Config = {
+export const AUTH0_SERVER_CONFIG: Auth0ServerConfig = {
     clientId: getFromEnv('AUTH0_CLIENT_ID'),
     clientSecret: getFromEnv('AUTH0_CLIENT_SECRET'),
     domain: getFromEnv('AUTH0_DOMAIN'),
     loginCallbackUri: getFromEnv('AUTH0_LOGIN_CALLBACK_URI')
 };
+export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = serverToClient(AUTH0_SERVER_CONFIG);
 export const LOGGLY_TOKEN: string | null = isOnServer(ENV) ? getFromEnv('LOGGLY_TOKEN') : null;
 export const LOGGLY_SUBDOMAIN: string | null = isOnServer(ENV) ? getFromEnv('LOGGLY_SUBDOMAIN') : null;
 export const ROLLBAR_SERVER_TOKEN: string | null = isOnServer(ENV) ? getFromEnv('ROLLBAR_SERVER_TOKEN') : null;

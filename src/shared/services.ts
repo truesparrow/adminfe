@@ -1,7 +1,7 @@
 import * as Rollbar from 'rollbar'
 
+
 export let ROLLBAR_CLIENT: () => Rollbar;
-export let setServices: (rollbar: Rollbar) => void;
 
 let rollbarClient: Rollbar | null = null;
 
@@ -13,6 +13,6 @@ ROLLBAR_CLIENT = () => {
     return rollbarClient;
 };
 
-setServices = (newRollbarClient: Rollbar) => {
+export function setServices(newRollbarClient: Rollbar): void {
     rollbarClient = newRollbarClient;
-};
+}

@@ -7,15 +7,27 @@ import {
 import * as r from 'raynor'
 
 import { Env, LanguageMarshaller } from '@truesparrow/common-js'
-import { Session } from '@truesparrow/identity-sdk-js'
+import { PathMatch, Session } from '@truesparrow/identity-sdk-js'
 
 
 export class ClientConfig {
+    @MarshalWith(r.ArrayOf(MarshalFrom(PathMatch)))
+    allowedPaths: PathMatch[];
+
     @MarshalWith(MarshalEnum(Env))
     env: Env;
 
     @MarshalWith(r.WebUriMarshaller)
     origin: string;
+
+    @MarshalWith(r.StringMarshaller)
+    auth0ClientId: string;
+
+    @MarshalWith(r.StringMarshaller)
+    auth0Domain: string;
+
+    @MarshalWith(r.UriMarshaller)
+    auth0LoginCallbackUri: string;
 
     @MarshalWith(OptionalOf(r.StringMarshaller))
     rollbarClientToken: string | null;

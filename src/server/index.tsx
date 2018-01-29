@@ -73,9 +73,14 @@ async function main() {
         const language = inferLanguage(session);
         const store = createStoreFromInitialState(reducers, clientInitialState);
 
+        console.log(config.AUTH0_CLIENT_CONFIG);
         const clientConfig = {
+            allowedPaths: config.ALLOWED_PATHS,
             env: config.ENV,
             origin: config.ORIGIN,
+            auth0ClientId: config.AUTH0_CLIENT_CONFIG.clientId,
+            auth0Domain: config.AUTH0_CLIENT_CONFIG.domain,
+            auth0LoginCallbackUri: config.AUTH0_CLIENT_CONFIG.loginCallbackUri,
             rollbarClientToken: config.ROLLBAR_CLIENT_TOKEN,
             session: session,
             language: language
@@ -135,7 +140,7 @@ async function main() {
 
     // Setup the auth0 authentication flow. Has a complex dance wrt sessions.
     app.use('/real/auth0-auth-flow', newAuth0AuthFlowRouter(
-        config.ENV, config.ALLOWED_PATHS, config.AUTH0_CONFIG, internalWebFetcher, identityClient));
+        config.ENV, config.ALLOWED_PATHS, config.AUTH0_SERVER_CONFIG, internalWebFetcher, identityClient));
 
     // An API gateway for the client side code. Needs session to exist in the request.
     app.use('/real/api-gateway', newApiGatewayRouter(internalWebFetcher));
