@@ -3,10 +3,11 @@ import * as Enzyme from 'enzyme'
 import { mount, shallow } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import * as React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import 'mocha'
 
 import * as config from './config'
-import { Features, Hero, HomePage, Pricing } from './home'
+import { Features, Hero, HomePage, Pricing } from './home-page'
 
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -50,7 +51,7 @@ describe('HomePage', () => {
     });
 
     it('should render', () => {
-        const wrapper = mount(<HomePage />);
+        const wrapper = mount(<MemoryRouter><HomePage /></MemoryRouter>);
         expect(wrapper.contains('Features')).to.be.true;
     });
 });

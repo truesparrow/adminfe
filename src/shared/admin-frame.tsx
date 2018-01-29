@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import { AdminPage } from './admin'
+import { AdminMainPage } from './admin-main-page'
 import * as config from './config'
 
 import * as text from './admin-frame.text'
@@ -24,14 +24,14 @@ export class AdminFrame extends React.Component<Props, {}> {
     render() {
         if (!config.SESSION().hasUser()) {
             return <div>{text.shouldBeLoggedIn[config.LANG()]}</div>;
-        } else {
-            return (
-                <div>
-                    <Switch>
-                        <Route path="/admin/main" component={AdminPage} />
-                    </Switch>
-                </div>
-            );
         }
+
+        return (
+            <div>
+                <Switch>
+                    <Route path="/admin/main" component={AdminMainPage} />
+                </Switch>
+            </div>
+        );
     }
 }

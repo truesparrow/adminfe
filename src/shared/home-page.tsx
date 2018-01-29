@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import * as config from './config'
 
 import * as commonText from './common.text'
-import * as text from './home.text'
+import * as text from './home-page.text'
 
 
 export function Hero() {

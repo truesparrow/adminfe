@@ -39,7 +39,7 @@ import {
 } from '@truesparrow/common-server-js'
 
 import { CompiledBundles, Bundles, WebpackDevBundles } from './bundles'
-import { App } from '../shared/app'
+import { AppFrame } from '../shared/app-frame'
 import * as config from '../shared/config'
 import { ClientConfig, ClientInitialState } from '../shared/client-data'
 import { createStoreFromInitialState, reducers } from '../shared/store'
@@ -94,7 +94,7 @@ async function main() {
         const appHtml = ReactDOMServer.renderToString(
             <Provider store={store}>
                 <StaticRouter location={url} context={staticContext}>
-                    <App />
+                    <AppFrame />
                 </StaticRouter>
             </Provider>
         );

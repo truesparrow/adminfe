@@ -9,7 +9,7 @@ import { isOnServer, envToString } from '@truesparrow/common-js'
 
 import * as config from './config'
 import './index.less'
-import { App } from '../shared/app'
+import { AppFrame } from '../shared/app-frame'
 import { ClientInitialState } from '../shared/client-data'
 import * as services from '../shared/services'
 import { createStoreFromInitialState, reducers } from '../shared/store'
@@ -40,7 +40,7 @@ const store = createStoreFromInitialState(reducers, clientInitialState);
 ReactDOM.hydrate(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <AppFrame />
         </BrowserRouter>
     </Provider>,
     document.getElementById('app')

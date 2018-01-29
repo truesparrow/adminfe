@@ -13,12 +13,12 @@ import {
 import * as config from './config'
 import { Footer } from './footer'
 import { Header } from './header'
-import { HomePage } from './home'
-import { NotFound } from './not-found'
+import { HomePage } from './home-page'
+import { NotFoundPage } from './not-found-page'
 import { FooState } from './store'
 
 
-import * as text from './app.text'
+import * as text from './app-frame.text'
 
 
 export interface Props {
@@ -28,7 +28,7 @@ export interface Props {
 export interface State {
 }
 
-class _App extends React.Component<Props, State> {
+class _AppFrame extends React.Component<Props, State> {
     render() {
         return (
             <div>
@@ -44,7 +44,7 @@ class _App extends React.Component<Props, State> {
                         <Route path="/company/tos" component={CompanyTermsView} />
                         <Route path="/company/privacy" component={CompanyPrivacyView} />
                         <Route path="/company/cookies" component={CompanyCookiesView} />
-                        <Route path="*" component={NotFound} />
+                        <Route path="*" component={NotFoundPage} />
                     </Switch>
                 </main>
                 <Footer />
@@ -66,4 +66,4 @@ function dispatchToProps(_dispatch: (newState: FooState) => void) {
 }
 
 
-export const App = withRouter(connect(stateToProps, dispatchToProps)(_App));
+export const AppFrame = withRouter(connect(stateToProps, dispatchToProps)(_AppFrame));
