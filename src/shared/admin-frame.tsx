@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import { Auth0Lock } from '@truesparrow/auth0-lock'
-
 import { AdminPage } from './admin'
 import * as config from './config'
 
@@ -15,9 +13,10 @@ interface Props {
 }
 
 export class AdminFrame extends React.Component<Props, {}> {
-    componentDidMount() {
+    async componentDidMount() {
         if (!config.SESSION().hasUser()) {
-            const auth0Lock = new Auth0Lock(config.ALLOWED_PATHS, config.AUTH0_CLIENT_CONFIG);
+            const auth0LockModule = await import(/* webpackChunkName: "auth0-lock" */ '@truesparrow/auth0-lock');
+            const auth0Lock = new auth0LockModule.Auth0Lock(config.ALLOWED_PATHS, config.AUTH0_CLIENT_CONFIG);
             auth0Lock.showLock(this.props.location, false);
         }
     }

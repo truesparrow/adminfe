@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 import * as config from './config'
 
@@ -14,7 +15,7 @@ export function Hero() {
 
                 <p className="subtitle">{text.subTitle[config.LANG()]}</p>
 
-                <button className="sign-up">{commonText.signUp[config.LANG()]}</button>
+                <Link className="sign-up" to="/admin" role="button">{commonText.signUp[config.LANG()]}</Link>
             </div>
 
             <div className="hero-image">
@@ -75,7 +76,7 @@ export function Pricing() {
                         <li className="feature">✓ {text.monthlyInvoice[config.LANG()]}</li>
                     </ul>
 
-                    <button className="sign-up compensate">{commonText.signUp[config.LANG()]}</button>
+                    <Link className="sign-up compensate" to="/admin" role="button">{commonText.signUp[config.LANG()]}</Link>
                 </div>
 
                 <div className="option">
@@ -91,7 +92,7 @@ export function Pricing() {
                         <li className="feature">✓ <em>{text.save20Pc[config.LANG()]}</em></li>
                     </ul>
 
-                    <button className="sign-up">{commonText.signUp[config.LANG()]}</button>
+                    <Link className="sign-up" to="/admin" role="button">{commonText.signUp[config.LANG()]}</Link>
                 </div>
             </div>
         </div>

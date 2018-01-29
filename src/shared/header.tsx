@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 import * as config from './config'
 
@@ -11,9 +12,9 @@ export function Header() {
             <h1 className="logo-name">
                 {commonText.siteName[config.LANG()]}
             </h1>
-            <button className="sign-up">
+            <Link className="sign-up" to="/admin" role="button">
                 {commonText.signUp[config.LANG()]}
-            </button>
+            </Link>
         </header>
     );
 }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 
@@ -36,10 +36,6 @@ class _App extends React.Component<Props, State> {
                     <title>{text.pageTitle[config.LANG()]}</title>
                 </Helmet>
                 <Header />
-                <header>
-                    <NavLink to="/" exact>{text.home[config.LANG()]}</NavLink>
-                    <NavLink to="/admin/main">{text.admin[config.LANG()]}</NavLink>
-                </header>
                 <main>
                     <Switch>
                         <Route exact path="/" component={HomePage} />
