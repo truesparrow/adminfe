@@ -21,6 +21,7 @@ export const ALLOWED_PATHS: PathMatch[] = [
     {path: '/admin', mode: 'full'},
     {path: '/admin/', mode: 'prefix'}
 ];
+export const LOGOUT_ROUTE_PATH: string = '/real/auth0-auth-flow/logout';
 
 export const ENV: Env = parseEnv(getFromEnv('ENV'));
 export const ADDRESS: string = getFromEnv('ADDRESS');

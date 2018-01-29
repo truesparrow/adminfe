@@ -81,6 +81,7 @@ async function main() {
             auth0ClientId: config.AUTH0_CLIENT_CONFIG.clientId,
             auth0Domain: config.AUTH0_CLIENT_CONFIG.domain,
             auth0LoginCallbackUri: config.AUTH0_CLIENT_CONFIG.loginCallbackUri,
+            logoutRoutePath: config.LOGOUT_ROUTE_PATH,
             rollbarClientToken: config.ROLLBAR_CLIENT_TOKEN,
             session: session,
             language: language

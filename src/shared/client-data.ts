@@ -29,6 +29,9 @@ export class ClientConfig {
     @MarshalWith(r.UriMarshaller)
     auth0LoginCallbackUri: string;
 
+    @MarshalWith(r.AbsolutePathMarshaller)
+    logoutRoutePath: string;
+
     @MarshalWith(OptionalOf(r.StringMarshaller))
     rollbarClientToken: string | null;
 
