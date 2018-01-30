@@ -7,10 +7,10 @@ import 'mocha'
 
 import * as config from './config'
 import {
-    CompanyAboutView,
+    CompanyAboutPage,
     //CompanyTermsView,
-    CompanyPrivacyView,
-    CompanyCookiesView
+    CompanyPrivacyPage,
+    CompanyCookiesPage
 } from './company-views'
 
 
@@ -22,7 +22,7 @@ describe('CompanyAboutView', () => {
     });
 
     it('should render', () => {
-        const wrapper = mount(<CompanyAboutView />);
+        const wrapper = mount(<CompanyAboutPage />);
         expect(wrapper.contains('about')).to.be.true;
     });
 });
@@ -44,7 +44,7 @@ describe('CompanyPrivacyView', () => {
     });
 
     it('should render', () => {
-        const wrapper = mount(<CompanyPrivacyView />);
+        const wrapper = mount(<CompanyPrivacyPage />);
         expect(wrapper.contains('privacy')).to.be.true;
     });
 });
@@ -55,7 +55,7 @@ describe('CompanyCookiesView', () => {
     });
 
     it('should render', () => {
-        const wrapper = mount(<CompanyCookiesView />);
+        const wrapper = mount(<CompanyCookiesPage />);
         expect(wrapper.contains('cookies')).to.be.true;
     });
 });

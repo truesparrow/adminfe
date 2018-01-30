@@ -12,7 +12,7 @@ interface Props {
 }
 
 
-export class CompanyAboutView extends React.Component<Props, {}> {
+export class CompanyAboutPage extends React.Component<Props, {}> {
     render() {
         const realLink = `${config.ORIGIN}/company/about`;
         return (
@@ -42,7 +42,7 @@ export class CompanyAboutView extends React.Component<Props, {}> {
 }
 
 
-export class CompanyTermsView extends React.Component<Props, {}> {
+export class CompanyTermsPage extends React.Component<Props, {}> {
     render() {
         const realLink = `${config.ORIGIN}/company/terms`;
         return (
@@ -72,7 +72,7 @@ export class CompanyTermsView extends React.Component<Props, {}> {
 }
 
 
-export class CompanyPrivacyView extends React.Component<Props, {}> {
+export class CompanyPrivacyPage extends React.Component<Props, {}> {
     render() {
         const realLink = `${config.ORIGIN}/company/privacy`;
         return (
@@ -102,7 +102,7 @@ export class CompanyPrivacyView extends React.Component<Props, {}> {
 }
 
 
-export class CompanyCookiesView extends React.Component<Props, {}> {
+export class CompanyCookiesPage extends React.Component<Props, {}> {
     render() {
         const realLink = `${config.ORIGIN}/company/cookies`;
         return (

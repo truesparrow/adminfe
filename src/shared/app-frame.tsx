@@ -5,10 +5,10 @@ import { connect } from 'react-redux'
 
 import { AdminFrame } from './admin-frame'
 import {
-    CompanyAboutView,
-    CompanyTermsView,
-    CompanyPrivacyView,
-    CompanyCookiesView
+    CompanyAboutPage,
+    CompanyTermsPage,
+    CompanyPrivacyPage,
+    CompanyCookiesPage
 } from './company-views'
 import * as config from './config'
 import { Footer } from './footer'
@@ -40,10 +40,10 @@ class _AppFrame extends React.Component<Props, State> {
                     <Switch>
                         <Route exact path="/" component={HomePage} />
                         <Route path="/admin" component={AdminFrame} />
-                        <Route path="/company/about" component={CompanyAboutView} />
-                        <Route path="/company/tos" component={CompanyTermsView} />
-                        <Route path="/company/privacy" component={CompanyPrivacyView} />
-                        <Route path="/company/cookies" component={CompanyCookiesView} />
+                        <Route path="/company/about" component={CompanyAboutPage} />
+                        <Route path="/company/tos" component={CompanyTermsPage} />
+                        <Route path="/company/privacy" component={CompanyPrivacyPage} />
+                        <Route path="/company/cookies" component={CompanyCookiesPage} />
                         <Route path="*" component={NotFoundPage} />
                     </Switch>
                 </main>
