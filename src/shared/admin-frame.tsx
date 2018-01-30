@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
+import { AdminAccountPage } from './admin-account-page'
+import { AdminEventPage } from './admin-event-page'
 import { AdminMainPage } from './admin-main-page'
 import * as config from './config'
 
@@ -29,7 +31,10 @@ export class AdminFrame extends React.Component<Props, {}> {
         return (
             <div>
                 <Switch>
+                    <Route exact path="/admin" component={AdminMainPage} />
                     <Route path="/admin/main" component={AdminMainPage} />
+                    <Route path="/admin/event" component={AdminEventPage} />
+                    <Route path="/admin/account" component={AdminAccountPage} />
                 </Switch>
             </div>
         );
