@@ -1,1 +1,1 @@
-import './not-found'
+import './not-found-page'
