@@ -83,6 +83,11 @@ module.exports = {
             {from: './src/shared/static/humans.txt'},
             {from: './src/shared/static/robots.txt'},
             {from: './src/shared/static/sitemap.xml'},
+            {from: './src/shared/static/menu-icon.svg'},
+            {from: './src/shared/static/menu-icon-close.svg'},
+            {from: './src/shared/static/cause-icon.svg'},
+            {from: './src/shared/static/cause-analytics-icon.svg'},
+            {from: './src/shared/static/account-icon.svg'},
             {from: './out/client/vendor.bundle.js'}
         ]),
         new ExtractTextPlugin('client.css'),

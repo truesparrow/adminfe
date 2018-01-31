@@ -1,4 +1,6 @@
 @import './common.less';
+@import './colors.less';
+
 
 .header {
     height: 4rem;
@@ -9,5 +11,132 @@
         line-height: 4rem;
         height: 4rem;
         margin: 0rem;
+
+        @media all and (max-width: 800px) {
+            margin-left: 1rem;
+        }
+    }
+
+    button.menu-closed {
+        outline: none;
+        width: 2rem;
+        height: 2rem;
+        background-color: transparent;
+        background-image: url('./static/menu-icon.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: none;
+        position: relative;
+        float: left;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+
+        @media all and (max-width: 800px) {
+            margin-right: 1rem;
+        }
+    }
+
+    .avatar {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 1rem;
+        margin: 1rem;
+    }
+
+    .logged-in-menu {
+        display: flex;
+        justify-content: space-between;
+
+        #overlay-menu {
+            z-index: 1000;
+            background-color: white;
+            border: 1px solid @bordercolor;
+            top: 0px;
+            right: 0px;
+
+            @media all and (min-width: 800px) {
+                position: relative;
+                width: 20rem;
+                right: -1rem;
+                height: 11rem;
+            }
+
+            @media all and (max-width: 800px) {
+                position: fixed;
+                top: 0rem;
+                width: 100%;
+                height: 100vh;
+            }
+
+            .container1 {
+                display: flex;
+                flex-direction: column;
+                margin: 1rem;
+
+                .logout {
+                    align-self: center;
+                }
+
+                .container2 {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .actions {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+
+                        .menu-icon {
+                            background-color: transparent;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            display: inline-block;
+                            width: 1.125rem;
+                            height: 1.125rem;
+                            margin-right: 0.25rem;
+                            position: relative;
+                            top: 0.125rem;
+
+                            &.my-cause {
+                                background-image: url('./static/cause-icon.svg');
+                            }
+
+                            &.cause-analytics {
+                                background-image: url('./static/cause-analytics-icon.svg');
+                            }
+
+                            &.account {
+                                background-image: url('./static/account-icon.svg');
+                            }
+                        }
+
+                        a {
+                            line-height: 2rem;
+                            margin-bottom: 2rem;
+                            text-decoration: none;
+                            font-weight: 900;
+                            font-variant: small-caps;
+                        }
+
+                        a:last-child {
+                            margin-bottom: 0rem;
+                        }
+                    }
+
+                    button.menu-open {
+                        outline: none;
+                        width: 2rem;
+                        height: 2rem;
+                        background-color: transparent;
+                        background-image: url('./static/menu-close-icon.svg');
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        border: none;
+                        padding: 0px;
+                        position: relative;
+                    }
+                }
+            }
+        }
     }
 }
