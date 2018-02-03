@@ -41,7 +41,7 @@ module.exports = {
                 publicPath: '/real/client/'
             })
         }, {
-            test: /\.svg$/,
+            test: /\.svg|.png$/,
             include: [path.resolve(__dirname, 'src', 'shared', 'static')],
             loader: 'url-loader',
             options: {
@@ -88,6 +88,7 @@ module.exports = {
             {from: './src/shared/static/cause-icon.svg'},
             {from: './src/shared/static/cause-analytics-icon.svg'},
             {from: './src/shared/static/account-icon.svg'},
+            {from: './src/shared/static/powered-by-google.png'},
             {from: './out/client/vendor.bundle.js'}
         ]),
         new ExtractTextPlugin('client.css'),

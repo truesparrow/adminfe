@@ -1,7 +1,7 @@
 import { Message } from '@truesparrow/common-js'
 
 
-export const adminEventPage: Message = {
-    en: 'Event page',
-    ro: 'Pagina de eveniment'
+export const fillOut: Message = {
+    en: 'Fill out details about your event here',
+    ro: 'Completați detaliile evenimentului aici'
 };

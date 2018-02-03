@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { NavLink, Route, Switch } from 'react-router-dom'
 
 import { AdminAccountPage } from './admin-account-page'
 import { AdminEventPage } from './admin-event-page'
@@ -29,7 +29,23 @@ export class AdminFrame extends React.Component<Props, {}> {
         }
 
         return (
-            <div>
+            <div className="admin-frame">
+                <div className="side-menu">
+                    <ul className="side-menu-list">
+                        <li>
+                            <span className="menu-icon my-cause"></span>
+                            <NavLink to="/admin/main">{text.main[config.LANG()]}</NavLink>
+                        </li>
+                        <li>
+                            <span className="menu-icon cause-analytics"></span>
+                            <NavLink to="/admin/event">{text.event[config.LANG()]}</NavLink>
+                        </li>
+                        <li>
+                            <span className="menu-icon account"></span>
+                            <NavLink to="/admin/account">{text.account[config.LANG()]}</NavLink>
+                        </li>
+                    </ul>
+                </div>
                 <Switch>
                     <Route exact path="/admin" component={AdminMainPage} />
                     <Route path="/admin/main" component={AdminMainPage} />

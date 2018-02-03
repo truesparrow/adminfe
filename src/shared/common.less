@@ -14,3 +14,27 @@
     text-transform: none;
     text-align: center;
 }
+
+.menu-icon {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-right: 0.25rem;
+    position: relative;
+    top: 0.125rem;
+
+    &.my-cause {
+        background-image: url('./static/cause-icon.svg');
+    }
+
+    &.cause-analytics {
+        background-image: url('./static/cause-analytics-icon.svg');
+    }
+
+    &.account {
+        background-image: url('./static/account-icon.svg');
+    }
+}

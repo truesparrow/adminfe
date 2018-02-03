@@ -7,7 +7,8 @@ import {
     Auth0ClientConfig,
     Auth0ServerConfig,
     PathMatch,
-    serverToClient
+    serverToClient,
+    Session
 } from '@truesparrow/identity-sdk-js'
 
 
@@ -17,9 +18,9 @@ config();
 export const CLS_NAMESPACE_NAME: string = 'truesparrow.request';
 export const NAME: string = 'adminfe';
 export const ALLOWED_PATHS: PathMatch[] = [
-    {path: '/', mode: 'full'},
-    {path: '/admin', mode: 'full'},
-    {path: '/admin/', mode: 'prefix'}
+    { path: '/', mode: 'full' },
+    { path: '/admin', mode: 'full' },
+    { path: '/admin/', mode: 'prefix' }
 ];
 export const LOGOUT_ROUTE_PATH: string = '/real/auth0-auth-flow/logout';
 
@@ -35,16 +36,17 @@ export const AUTH0_SERVER_CONFIG: Auth0ServerConfig = {
     loginCallbackUri: getFromEnv('AUTH0_LOGIN_CALLBACK_URI')
 };
 export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = serverToClient(AUTH0_SERVER_CONFIG);
+export const GOOGLE_MAPS_API_KEY = getFromEnv('GOOGLE_MAPS_API_KEY');
 export const LOGGLY_TOKEN: string | null = isOnServer(ENV) ? getFromEnv('LOGGLY_TOKEN') : null;
 export const LOGGLY_SUBDOMAIN: string | null = isOnServer(ENV) ? getFromEnv('LOGGLY_SUBDOMAIN') : null;
 export const ROLLBAR_SERVER_TOKEN: string | null = isOnServer(ENV) ? getFromEnv('ROLLBAR_SERVER_TOKEN') : null;
 export const ROLLBAR_CLIENT_TOKEN: string | null = isOnServer(ENV) ? getFromEnv('ROLLBAR_CLIENT_TOKEN') : null;
-export const SESSION = () => {
+export const SESSION: () => Session = () => {
     const namespace = getNamespace(CLS_NAMESPACE_NAME);
     const session = namespace.get('SESSION');
     return session;
 };
-export const LANG = () => {
+export const LANG: () => string = () => {
     const namespace = getNamespace(CLS_NAMESPACE_NAME);
     const lang = namespace.get('LANG');
     return lang;

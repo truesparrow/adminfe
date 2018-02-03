@@ -1,0 +1,32 @@
+@import './common.less';
+
+.admin-frame {
+    display: flex;
+    flex-direction: row;
+
+    .side-menu {
+        // CSS disable with narrow viewport.
+        @media all and (max-width: 800px) {
+            display: none;
+        }
+
+        width: 100px;
+
+        .side-menu-list {
+            list-style-type: none;
+
+            li {
+                height: 2rem;
+                line-height: 2rem;
+
+                a {
+                    text-decoration: none;
+
+                    &.active {
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import { MarshalFrom } from 'raynor'
 
 import { Env } from '@truesparrow/common-js'
-import { Auth0ClientConfig, PathMatch } from '@truesparrow/identity-sdk-js'
+import { Auth0ClientConfig, PathMatch, Session } from '@truesparrow/identity-sdk-js'
 
 import { ClientConfig } from '../shared/client-data'
 
@@ -24,5 +24,5 @@ export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = {
 };
 
 export const ROLLBAR_CLIENT_TOKEN: string | null = clientConfig.rollbarClientToken;
-export const SESSION = () => clientConfig.session;
-export const LANG = () => clientConfig.language;
+export const SESSION: () => Session = () => clientConfig.session;
+export const LANG: () => string = () => clientConfig.language;
