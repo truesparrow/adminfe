@@ -20,3 +20,13 @@ export const reception: Message = {
     en: 'Reception',
     ro: 'Party'
 };
+
+export const save: Message = {
+    en: 'Save',
+    ro: 'Salvează'
+};
+
+export const reset: Message = {
+    en: 'Reset',
+    ro: 'Resetează'
+};

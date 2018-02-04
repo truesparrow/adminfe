@@ -21,23 +21,7 @@ interface State {
 export class AdminEventPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        const initialCivilCeremonyDetails = new SubEventDetails();
-        initialCivilCeremonyDetails.haveEvent = true;
-        initialCivilCeremonyDetails.address = '';
-        initialCivilCeremonyDetails.coordinates = [0, 0];
-        initialCivilCeremonyDetails.dateAndTime = new Date('2018-10-1 10:00 UTC');
-
-        const initialReligiousCeremonyDetails = new SubEventDetails();
-        initialReligiousCeremonyDetails.haveEvent = true;
-        initialReligiousCeremonyDetails.address = '';
-        initialReligiousCeremonyDetails.coordinates = [0, 0];
-        initialReligiousCeremonyDetails.dateAndTime = new Date('2018-10-1 12:00 UTC');
-
-        const initialReceptionDetails = new SubEventDetails();
-        initialReceptionDetails.haveEvent = true;
-        initialReceptionDetails.address = '';
-        initialReceptionDetails.coordinates = [0, 0];
-        initialReceptionDetails.dateAndTime = new Date('2018-10-1 18:00 UTC');
+        const [initialCivilCeremonyDetails, initialReligiousCeremonyDetails, initialReceptionDetails] = defaultDetails();
 
         this.state = {
             modified: false,
@@ -74,11 +58,13 @@ export class AdminEventPage extends React.Component<Props, State> {
                 <button
                     disabled={!this.state.modified}
                     type="button">
-                    Save
+                    {text.save[config.LANG()]}
                 </button>
-                <button disabled={!this.state.modified}
-                    type="reset">
-                    Reset
+                <button
+                    disabled={!this.state.modified}
+                    type="button"
+                    onClick={_ => this._handleReset()}>
+                    {text.reset[config.LANG()]}
                 </button>
             </div>
         );
@@ -104,4 +90,38 @@ export class AdminEventPage extends React.Component<Props, State> {
             receptionDetails: newDetails
         });
     }
+
+    private _handleReset(): void {
+        const [initialCivilCeremonyDetails, initialReligiousCeremonyDetails, initialReceptionDetails] = defaultDetails();
+
+        this.setState({
+            modified: false,
+            civilCeremonyDetails: initialCivilCeremonyDetails,
+            religiousCeremonyDetails: initialReligiousCeremonyDetails,
+            receptionDetails: initialReceptionDetails
+        });
+    }
+}
+
+
+function defaultDetails(): [SubEventDetails, SubEventDetails, SubEventDetails] {
+    const initialCivilCeremonyDetails = new SubEventDetails();
+    initialCivilCeremonyDetails.haveEvent = true;
+    initialCivilCeremonyDetails.address = '';
+    initialCivilCeremonyDetails.coordinates = [0, 0];
+    initialCivilCeremonyDetails.dateAndTime = new Date('2018-10-1 10:00 UTC');
+
+    const initialReligiousCeremonyDetails = new SubEventDetails();
+    initialReligiousCeremonyDetails.haveEvent = true;
+    initialReligiousCeremonyDetails.address = '';
+    initialReligiousCeremonyDetails.coordinates = [0, 0];
+    initialReligiousCeremonyDetails.dateAndTime = new Date('2018-10-1 12:00 UTC');
+
+    const initialReceptionDetails = new SubEventDetails();
+    initialReceptionDetails.haveEvent = true;
+    initialReceptionDetails.address = '';
+    initialReceptionDetails.coordinates = [0, 0];
+    initialReceptionDetails.dateAndTime = new Date('2018-10-1 18:00 UTC');
+
+    return [initialCivilCeremonyDetails, initialReligiousCeremonyDetails, initialReceptionDetails];
 }
