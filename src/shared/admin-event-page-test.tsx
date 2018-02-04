@@ -9,7 +9,7 @@ import { AdminEventPage } from './admin-event-page'
 import * as config from './config'
 
 
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('AdminEventPage', () => {
     before('set LANG', () => {
@@ -18,6 +18,6 @@ describe('AdminEventPage', () => {
 
     it('should render', () => {
         const wrapper = shallow(<AdminEventPage />);
-        expect(wrapper.contains('Event page')).to.be.true;
+        expect(wrapper.contains('Fill out details about your event here')).to.be.true;
     });
 });
