@@ -8,6 +8,8 @@ const PlacesAutocomplete = require('react-places-autocomplete').default;
 
 import * as config from './config'
 
+import * as text from './subevent-editor.text'
+
 
 interface Props {
     details: SubEventDetails;
@@ -57,44 +59,50 @@ export class SubEventEditor extends React.Component<Props, State> {
             <div className="subevent-editor">
                 <form>
                     <div>
-                        <label>Have this event</label>
-                        <input
-                            type="checkbox"
-                            checked={this.state.haveEvent}
-                            onChange={e => this._handleHaveEvent(e)} />
+                        <label>
+                            <span>{text.haveEvent[config.LANG()]}</span>
+                            <input
+                                type="checkbox"
+                                checked={this.state.haveEvent}
+                                onChange={e => this._handleHaveEvent(e)} />
+                        </label>
                     </div>
                     <div className="address">
-                        <label>Address</label>
-                        <PlacesAutocomplete
-                            onSelect={(e: string) => this._handleAddress(e)}
-                            onEnterKeyDown={(e: string) => this._handleAddress(e)}
-                            onError={this._handleAddressOnError.bind(this)}
-                            highlightFirstSuggestion={true}
-                            renderSuggestion={addressItem}
-                            renderFooter={addressFooter}
-                            shouldFetchSuggestions={addressShouldFetchSuggestions}
-                            inputProps={{
-                                value: this.state.address,
-                                type: 'text',
-                                placeholder: 'The Marriot',
-                                disabled: !this.state.haveEvent,
-                                onChange: (e: string) => this._handleAddress(e)
-                            }}
-                            classNames={{
-                                root: 'address-root',
-                                input: 'address-input',
-                                autocompleteContainer: 'address-container',
-                                autocompleteItem: 'address-item',
-                                autocompleteItemActive: 'address-item-active'
-                            }} />
+                        <label>
+                            <span>{text.address[config.LANG()]}</span>
+                            <PlacesAutocomplete
+                                onSelect={(e: string) => this._handleAddress(e)}
+                                onEnterKeyDown={(e: string) => this._handleAddress(e)}
+                                onError={this._handleAddressOnError.bind(this)}
+                                highlightFirstSuggestion={true}
+                                renderSuggestion={addressItem}
+                                renderFooter={addressFooter}
+                                shouldFetchSuggestions={addressShouldFetchSuggestions}
+                                inputProps={{
+                                    value: this.state.address,
+                                    type: 'text',
+                                    placeholder: 'The Marriot',
+                                    disabled: !this.state.haveEvent,
+                                    onChange: (e: string) => this._handleAddress(e)
+                                }}
+                                classNames={{
+                                    root: 'address-root',
+                                    input: 'address-input',
+                                    autocompleteContainer: 'address-container',
+                                    autocompleteItem: 'address-item',
+                                    autocompleteItemActive: 'address-item-active'
+                                }} />
+                        </label>
                     </div>
                     <div>
-                        <label>Time And Date</label>
-                        <Datetime
-                            value={this.state.dateAndTime}
-                            onChange={e => this._handleDateAndTime(e)}
-                            locale={config.LANG()}
-                            inputProps={{ disabled: !this.state.haveEvent }} />
+                        <label>
+                            <span>{text.timeAndDate[config.LANG()]}</span>
+                            <Datetime
+                                value={this.state.dateAndTime}
+                                onChange={e => this._handleDateAndTime(e)}
+                                locale={config.LANG()}
+                                inputProps={{ disabled: !this.state.haveEvent }} />
+                        </label>
                     </div>
                 </form>
             </div>);
