@@ -1,9 +1,12 @@
 .powered-by-google {
     display: inline-block;
     width: 100%;
-    height: 2rem;
+    margin-top: 0.5rem;
+    height: 1rem;
     background-image: url('./static/powered-by-google.png');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
 }
 
 .subevent-editor {
@@ -31,7 +34,9 @@
         .address-input {
             display: inline-block;
             width: 100%;
-            padding: 10px;
+            line-height: 2rem;
+            height: 2rem;
+            padding: 0.5rem;
         }
 
         .address-container {
@@ -45,9 +50,21 @@
 
         .address-item {
             background-color: white;
-            padding: 10px;
+            line-height: 2rem;
+            height: 2rem;
+            padding: 0.5rem;
             color: #555555;
             cursor: pointer;
+
+            .suggestion {
+                .main {
+                    margin-right: 0.5rem;
+                }
+
+                .secondary {
+
+                }
+            }
         }
 
         .address-item-active {
@@ -61,6 +78,13 @@
         .label-text {
             line-height: 1rem;
             font-size: 0.75rem;
+        }
+
+        .datetime {
+            input.form-control {
+                line-height: 2rem;
+                height: 2rem;
+            }
         }
     }
 }

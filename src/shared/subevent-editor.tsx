@@ -40,11 +40,9 @@ export class SubEventEditor extends React.Component<Props, State> {
             const formattedSuggestion: any = arg.formattedSuggestion;
 
             return (
-                <div>
-                    <strong>{formattedSuggestion.mainText}</strong>
-                    <small className="text-muted">
-                        {formattedSuggestion.secondaryText}
-                    </small>
+                <div className="suggestion">
+                    <strong className="main">{formattedSuggestion.mainText}</strong>
+                    <small className="secondary">{formattedSuggestion.secondaryText}</small>
                 </div>
             );
         }
@@ -98,6 +96,7 @@ export class SubEventEditor extends React.Component<Props, State> {
                         <label>
                             <span className="label-text">{text.timeAndDate[config.LANG()]}</span>
                             <Datetime
+                                className="datetime"
                                 value={this.state.dateAndTime}
                                 onChange={e => this._handleDateAndTime(e)}
                                 locale={config.LANG()}
