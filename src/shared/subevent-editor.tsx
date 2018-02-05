@@ -58,9 +58,9 @@ export class SubEventEditor extends React.Component<Props, State> {
         return (
             <div className="subevent-editor">
                 <form>
-                    <div>
+                    <div className="have-event">
                         <label>
-                            <span>{text.haveEvent[config.LANG()]}</span>
+                            <span className="label-text">{text.haveEvent[config.LANG()]}</span>
                             <input
                                 type="checkbox"
                                 checked={this.state.haveEvent}
@@ -69,7 +69,7 @@ export class SubEventEditor extends React.Component<Props, State> {
                     </div>
                     <div className="address">
                         <label>
-                            <span>{text.address[config.LANG()]}</span>
+                            <span className="label-text">{text.address[config.LANG()]}</span>
                             <PlacesAutocomplete
                                 onSelect={(e: string) => this._handleAddress(e)}
                                 onEnterKeyDown={(e: string) => this._handleAddress(e)}
@@ -94,9 +94,9 @@ export class SubEventEditor extends React.Component<Props, State> {
                                 }} />
                         </label>
                     </div>
-                    <div>
+                    <div className="time-and-date">
                         <label>
-                            <span>{text.timeAndDate[config.LANG()]}</span>
+                            <span className="label-text">{text.timeAndDate[config.LANG()]}</span>
                             <Datetime
                                 value={this.state.dateAndTime}
                                 onChange={e => this._handleDateAndTime(e)}

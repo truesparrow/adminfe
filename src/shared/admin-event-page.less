@@ -1,0 +1,36 @@
+@import './common.less';
+
+
+.admin-event-page {
+    width: 680px;
+    display: flex;
+    flex-direction: column;
+
+    @media all and (max-width: 800px) {
+        width: 100px;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .fill-out-details {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        line-height: 3rem;
+        background-color: #efefef;
+    }
+
+    .subevent-section {
+        margin-bottom: 1rem;
+
+        .subevent-title {
+            line-height: 2rem;
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: row;
+    }
+}

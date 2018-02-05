@@ -34,38 +34,42 @@ export class AdminEventPage extends React.Component<Props, State> {
     render() {
         return (
             <div className="admin-event-page">
-                <div>
+                <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}
-                </div>
-                <div>
-                    <h3>{text.civilCeremony[config.LANG()]}</h3>
+                </p>
+                <div className="subevent-section">
+                    <h3 className="subevent-title">{text.civilCeremony[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.civilCeremonyDetails}
                         onDetailsChange={newDetails => this._handleCivilCeremonyDetails(newDetails)} />
                 </div>
-                <div>
-                    <h3>{text.religiousCeremony[config.LANG()]}</h3>
+                <div className="subevent-section">
+                    <h3 className="subevent-title">{text.religiousCeremony[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.religiousCeremonyDetails}
                         onDetailsChange={newDetails => this._handleReligiousCeremonyDetails(newDetails)} />
                 </div>
-                <div>
-                    <h3>{text.reception[config.LANG()]}</h3>
+                <div className="subevent-section">
+                    <h3 className="subevent-title">{text.reception[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.receptionDetails}
                         onDetailsChange={newDetails => this._handleReceptionDetails(newDetails)} />
                 </div>
-                <button
-                    disabled={!this.state.modified}
-                    type="button">
-                    {text.save[config.LANG()]}
-                </button>
-                <button
-                    disabled={!this.state.modified}
-                    type="button"
-                    onClick={_ => this._handleReset()}>
-                    {text.reset[config.LANG()]}
-                </button>
+                <div className="action-buttons">
+                    <button
+                        className="sign-up"
+                        disabled={!this.state.modified}
+                        type="button">
+                        {text.save[config.LANG()]}
+                    </button>
+                    <button
+                        className="sign-up"
+                        disabled={!this.state.modified}
+                        type="button"
+                        onClick={_ => this._handleReset()}>
+                        {text.reset[config.LANG()]}
+                    </button>
+                </div>
             </div>
         );
     }
