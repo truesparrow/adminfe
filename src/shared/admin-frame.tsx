@@ -18,6 +18,7 @@ import * as commonText from './common.text'
 
 interface Props {
     location: Location;
+    isPreloaded: boolean;
     isLoading: boolean;
     isReady: boolean;
     isFailed: boolean;
@@ -38,6 +39,10 @@ class _AdminFrame extends React.Component<Props, State> {
             const auth0LockModule = await import(/* webpackChunkName: "auth0-lock" */ '@truesparrow/auth0-lock');
             const auth0Lock = new auth0LockModule.Auth0Lock(config.ALLOWED_PATHS, config.AUTH0_CLIENT_CONFIG);
             auth0Lock.showLock(this.props.location, false);
+            return;
+        }
+
+        if (this.props.isPreloaded) {
             return;
         }
 
@@ -131,8 +136,9 @@ class _AdminFrame extends React.Component<Props, State> {
 
 function stateToProps(state: any) {
     return {
+        isPreloaded: state.event.type == OpState.Preloaded,
         isLoading: state.event.type == OpState.Init || state.event.type == OpState.Loading,
-        isRead: state.event.type == OpState.Ready,
+        isReady: state.event.type == OpState.Ready,
         isFailed: state.event.type == OpState.Failed,
         eventIsDeleted: state.event.type == OpState.Ready ? state.event.eventIsDeleted : false,
         event: state.event.type == OpState.Ready ? state.event.event : null,

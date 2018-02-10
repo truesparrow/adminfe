@@ -27,7 +27,7 @@ export interface EventInit {
 export interface EventPreloaded {
     part: StatePart.Event,
     type: OpState.Preloaded;
-    text: string;
+    event: string;
 }
 export interface EventLoading {
     part: StatePart.Event,
@@ -77,16 +77,16 @@ export const reducers: Reducer<any> = combineReducers({
 });
 
 
-export function createStoreFromInitialState(reducers: Reducer<any>, _clientInitialState: ClientInitialState): Store<any> {
+export function createStoreFromInitialState(reducers: Reducer<any>, clientInitialState: ClientInitialState): Store<any> {
     const store = createStore(reducers);
 
-    // if (clientInitialState.event != null) {
-    //     store.dispatch({
-    //         part: StatePart.Event,
-    //         type: OpState.Preloaded,
-    //         event: clientInitialState.event
-    //     });
-    // }
+    if (clientInitialState.event != null) {
+        store.dispatch({
+            part: StatePart.Event,
+            type: OpState.Preloaded,
+            event: clientInitialState.event
+        });
+    }
 
     return store;
 }

@@ -1,3 +1,4 @@
+import { wrap } from 'async-middleware'
 import * as compression from 'compression'
 import { createNamespace } from 'continuation-local-storage'
 import * as express from 'express'
@@ -26,6 +27,11 @@ import {
     newNamespaceMiddleware,
     Request
 } from '@truesparrow/common-server-js'
+import {
+    ContentPrivateClient,
+    Event,
+    newContentPrivateClient
+} from '@truesparrow/content-sdk-js'
 import {
     IdentityClient,
     newIdentityClient,
@@ -57,7 +63,10 @@ async function main() {
     const clientInitialStateMarshaller = new (MarshalFrom(ClientInitialState))();
 
     const internalWebFetcher: WebFetcher = new InternalWebFetcher();
-    const identityClient: IdentityClient = newIdentityClient(config.ENV, config.ORIGIN, config.IDENTITY_SERVICE_HOST, internalWebFetcher);
+    const identityClient: IdentityClient = newIdentityClient(
+        config.ENV, config.ORIGIN, config.IDENTITY_SERVICE_HOST, internalWebFetcher);
+    const contentPrivateClient: ContentPrivateClient = newContentPrivateClient(
+        config.ENV, config.ORIGIN, config.CONTENT_SERVICE_HOST, internalWebFetcher);
 
     const bundles: Bundles = isLocal(config.ENV)
         ? new WebpackDevBundles(theWebpackDevMiddleware(webpack(webpackConfig), {
@@ -195,14 +204,50 @@ async function main() {
     const appRouter = express.Router();
 
     appRouter.use(newSessionMiddleware(SessionLevel.None, SessionInfoSource.Cookie, config.ENV, identityClient));
-    appRouter.get('*', (req: RequestWithIdentity, res: express.Response) => {
+    appRouter.get('/admin*', wrap(async (req: RequestWithIdentity, res: express.Response) => {
+        let event: Event | null = null;
+
+        try {
+            event = await contentPrivateClient.withContext(req.sessionToken).getEvent();
+        } catch (e) {
+            if (e.name == 'EventNotFoundError') {
+                try {
+                    event = await contentPrivateClient.withContext(req.sessionToken).createEvent(req.session);
+                } catch (e) {
+                    // Nothing happens here. We'll try again on the client. But we do log the error.
+                    req.log.warn(e);
+                    req.errorLog.warn(e);
+                }
+            } else {
+                // Nothing happens here. We'll try again on the client. But we do log the error.
+                req.log.warn(e);
+                req.errorLog.warn(e);
+            }
+        }
+
         const initialState: ClientInitialState = {
-            //event: event
+            event: event
         };
 
         const [content, specialStatus] = serverSideRender(
             req.url,
-            req.session, // TODO: use req.session here
+            req.session,
+            initialState
+        );
+
+        res.status(specialStatus != null ? specialStatus : HttpStatus.OK);
+        res.type('html');
+        res.write(content);
+        res.end();
+    }));
+    appRouter.get('*', (req: RequestWithIdentity, res: express.Response) => {
+        const initialState: ClientInitialState = {
+            event: null
+        };
+
+        const [content, specialStatus] = serverSideRender(
+            req.url,
+            req.session,
             initialState
         );
 

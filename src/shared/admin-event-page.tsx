@@ -139,7 +139,7 @@ class _AdminEventPage extends React.Component<Props, State> {
 
 
 function stateToProps(state: any) {
-    if (state.event.type != OpState.Ready) {
+    if (state.event.type != OpState.Preloaded && state.event.type != OpState.Ready) {
         throw new Error('Should not mount this component when things are not ready');
     }
 
