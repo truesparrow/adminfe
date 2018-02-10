@@ -15,7 +15,17 @@ import * as theWebpackDevMiddleware from 'webpack-dev-middleware'
 import * as serializeJavascript from 'serialize-javascript'
 
 import { inferLanguage } from '@truesparrow/business-rules-js'
-import { isLocal } from '@truesparrow/common-js'
+import {
+    InternalWebFetcher,
+    isLocal,
+    WebFetcher
+} from '@truesparrow/common-js'
+import {
+    newCommonServerMiddleware,
+    newLocalCommonServerMiddleware,
+    newNamespaceMiddleware,
+    Request
+} from '@truesparrow/common-server-js'
 import {
     IdentityClient,
     newIdentityClient,
@@ -29,14 +39,6 @@ import {
     SessionLevel,
     SessionInfoSource
 } from '@truesparrow/identity-sdk-js/server'
-import {
-    InternalWebFetcher,
-    newCommonServerMiddleware,
-    newLocalCommonServerMiddleware,
-    newNamespaceMiddleware,
-    Request,
-    WebFetcher
-} from '@truesparrow/common-server-js'
 
 import { CompiledBundles, Bundles, WebpackDevBundles } from './bundles'
 import { AppFrame } from '../shared/app-frame'
@@ -77,6 +79,7 @@ async function main() {
             allowedPaths: config.ALLOWED_PATHS,
             env: config.ENV,
             origin: config.ORIGIN,
+            contentServiceHost: config.CONTENT_SERVICE_HOST,
             auth0ClientId: config.AUTH0_CLIENT_CONFIG.clientId,
             auth0Domain: config.AUTH0_CLIENT_CONFIG.domain,
             auth0LoginCallbackUri: config.AUTH0_CLIENT_CONFIG.loginCallbackUri,
@@ -194,7 +197,7 @@ async function main() {
     appRouter.use(newSessionMiddleware(SessionLevel.None, SessionInfoSource.Cookie, config.ENV, identityClient));
     appRouter.get('*', (req: RequestWithIdentity, res: express.Response) => {
         const initialState: ClientInitialState = {
-            text: 'hello world'
+            //event: event
         };
 
         const [content, specialStatus] = serverSideRender(

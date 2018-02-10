@@ -1,13 +1,22 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 
-import { SubEventDetails } from '@truesparrow/content-sdk-js'
+import { Event, SubEventDetails } from '@truesparrow/content-sdk-js'
+import { UpdateEventOptions } from '@truesparrow/content-sdk-js/client'
 
 import * as config from './config'
 
 import * as text from './admin-event-page.text'
 import { SubEventEditor } from './subevent-editor'
+import { EventState, OpState, StatePart } from './store'
+import * as services from './services'
+
 
 interface Props {
+    event: Event;
+    onEventLoading: () => void;
+    onEventReady: (eventIsDeleted: boolean, event: Event | null) => void;
+    onEventFailed: (errorMessage: string) => void;
 }
 
 interface State {
@@ -18,16 +27,15 @@ interface State {
 }
 
 
-export class AdminEventPage extends React.Component<Props, State> {
+class _AdminEventPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        const [initialCivilCeremonyDetails, initialReligiousCeremonyDetails, initialReceptionDetails] = defaultDetails();
 
         this.state = {
             modified: false,
-            civilCeremonyDetails: initialCivilCeremonyDetails,
-            religiousCeremonyDetails: initialReligiousCeremonyDetails,
-            receptionDetails: initialReceptionDetails
+            civilCeremonyDetails: this.props.event.subEventDetails[0],
+            religiousCeremonyDetails: this.props.event.subEventDetails[1],
+            receptionDetails: this.props.event.subEventDetails[2]
         };
     }
 
@@ -59,7 +67,8 @@ export class AdminEventPage extends React.Component<Props, State> {
                     <button
                         className="sign-up"
                         disabled={!this.state.modified}
-                        type="button">
+                        type="button"
+                        onClick={_ => this._handleSave()}>
                         {text.save[config.LANG()]}
                     </button>
                     <button
@@ -95,37 +104,56 @@ export class AdminEventPage extends React.Component<Props, State> {
         });
     }
 
-    private _handleReset(): void {
-        const [initialCivilCeremonyDetails, initialReligiousCeremonyDetails, initialReceptionDetails] = defaultDetails();
+    private async _handleSave() {
+        try {
+            const updateOptions: UpdateEventOptions = {
+                subEventDetails: [
+                    this.state.religiousCeremonyDetails,
+                    this.state.civilCeremonyDetails,
+                    this.state.receptionDetails
+                ]
+            };
 
+            const event = await services.CONTENT_PRIVATE_CLIENT().updateEvent(config.SESSION(), updateOptions);
+            this.props.onEventReady(false, event);
+        } catch (e) {
+            if (e.name == 'DeletedEventForUserError') {
+                this.props.onEventReady(true, null);
+            } else {
+                console.log(e);
+                services.ROLLBAR_CLIENT().error(e);
+                this.props.onEventFailed('Could not load event for user');
+            }
+        }
+    }
+
+    private _handleReset(): void {
         this.setState({
             modified: false,
-            civilCeremonyDetails: initialCivilCeremonyDetails,
-            religiousCeremonyDetails: initialReligiousCeremonyDetails,
-            receptionDetails: initialReceptionDetails
+            civilCeremonyDetails: this.props.event.subEventDetails[0],
+            religiousCeremonyDetails: this.props.event.subEventDetails[1],
+            receptionDetails: this.props.event.subEventDetails[2]
         });
     }
 }
 
 
-function defaultDetails(): [SubEventDetails, SubEventDetails, SubEventDetails] {
-    const initialCivilCeremonyDetails = new SubEventDetails();
-    initialCivilCeremonyDetails.haveEvent = true;
-    initialCivilCeremonyDetails.address = '';
-    initialCivilCeremonyDetails.coordinates = [0, 0];
-    initialCivilCeremonyDetails.dateAndTime = new Date('2018-10-1 10:00 UTC');
+function stateToProps(state: any) {
+    if (state.event.type != OpState.Ready) {
+        throw new Error('Should not mount this component when things are not ready');
+    }
 
-    const initialReligiousCeremonyDetails = new SubEventDetails();
-    initialReligiousCeremonyDetails.haveEvent = true;
-    initialReligiousCeremonyDetails.address = '';
-    initialReligiousCeremonyDetails.coordinates = [0, 0];
-    initialReligiousCeremonyDetails.dateAndTime = new Date('2018-10-1 12:00 UTC');
-
-    const initialReceptionDetails = new SubEventDetails();
-    initialReceptionDetails.haveEvent = true;
-    initialReceptionDetails.address = '';
-    initialReceptionDetails.coordinates = [0, 0];
-    initialReceptionDetails.dateAndTime = new Date('2018-10-1 18:00 UTC');
-
-    return [initialCivilCeremonyDetails, initialReligiousCeremonyDetails, initialReceptionDetails];
+    return {
+        event: state.event.event as Event
+    };
 }
+
+function dispatchToProps(dispatch: (newState: EventState) => void) {
+    return {
+        onEventLoading: () => dispatch({ part: StatePart.Event, type: OpState.Loading }),
+        onEventReady: (eventIsDeleted: boolean, event: Event) => dispatch({ part: StatePart.Event, type: OpState.Ready, eventIsDeleted: eventIsDeleted, event: event }),
+        onEventFailed: (errorMessage: string) => dispatch({ part: StatePart.Event, type: OpState.Failed, errorMessage })
+    };
+}
+
+export const AdminEventPage = connect(stateToProps, dispatchToProps)(_AdminEventPage);

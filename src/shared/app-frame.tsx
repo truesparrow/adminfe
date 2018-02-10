@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import { connect } from 'react-redux'
 
 import { AdminFrame } from './admin-frame'
 import {
@@ -15,20 +14,18 @@ import { Footer } from './footer'
 import { Header } from './header'
 import { HomePage } from './home-page'
 import { NotFoundPage } from './not-found-page'
-import { FooState } from './store'
 
 
 import * as text from './app-frame.text'
 
 
 export interface Props {
-    fooText: string;
 }
 
 export interface State {
 }
 
-class _AppFrame extends React.Component<Props, State> {
+export class AppFrame extends React.Component<Props, State> {
     render() {
         return (
             <div>
@@ -52,18 +49,3 @@ class _AppFrame extends React.Component<Props, State> {
         );
     }
 }
-
-
-function stateToProps(state: any) {
-    return {
-        fooText: state.foo.text
-    };
-}
-
-
-function dispatchToProps(_dispatch: (newState: FooState) => void) {
-    return {};
-}
-
-
-export const AppFrame = withRouter(connect(stateToProps, dispatchToProps)(_AppFrame));

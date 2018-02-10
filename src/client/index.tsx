@@ -5,7 +5,12 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import * as Rollbar from 'rollbar'
 
-import { isOnServer, envToString } from '@truesparrow/common-js'
+import {
+    ApiGatewayWebFetcher,
+    isOnServer,
+    envToString
+} from '@truesparrow/common-js'
+import { newContentPrivateClient } from '@truesparrow/content-sdk-js'
 
 import * as config from './config'
 import './index.less'
@@ -15,6 +20,11 @@ import * as services from '../shared/services'
 import { createStoreFromInitialState, reducers } from '../shared/store'
 
 const clientInitialStateMarshaller = new (MarshalFrom(ClientInitialState))();
+
+const webFetcher = new ApiGatewayWebFetcher(config.ORIGIN);
+
+const contentPrivateClient = newContentPrivateClient(
+    config.ENV, config.ORIGIN, config.CONTENT_SERVICE_HOST, webFetcher);
 
 const rollbar = new Rollbar({
     accessToken: isOnServer(config.ENV) ? (config.ROLLBAR_CLIENT_TOKEN as string) : 'FAKE_TOKEN_WONT_BE_USED_IN_LOCAL_OR_TEST',
@@ -30,7 +40,7 @@ const rollbar = new Rollbar({
     }
 });
 
-services.setServices(rollbar);
+services.setServices(contentPrivateClient, rollbar);
 
 const clientInitialState = clientInitialStateMarshaller.extract((window as any).__TRUESPARROW_CLIENT_INITIAL_STATE);
 delete (window as any).__TRUESPARROW_INITIAL_STATE;

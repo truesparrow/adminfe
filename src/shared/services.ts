@@ -1,11 +1,20 @@
 import * as Rollbar from 'rollbar'
 
+import { ContentPrivateClient } from '@truesparrow/content-sdk-js'
 
-export let ROLLBAR_CLIENT: () => Rollbar;
 
+let contentPrivateClient: ContentPrivateClient | null;
 let rollbarClient: Rollbar | null = null;
 
-ROLLBAR_CLIENT = () => {
+export const CONTENT_PRIVATE_CLIENT: () => ContentPrivateClient = () => {
+    if (contentPrivateClient == null) {
+        throw new Error('Content private client not provided');
+    }
+
+    return contentPrivateClient;
+}
+
+export const ROLLBAR_CLIENT: () => Rollbar = () => {
     if (rollbarClient == null) {
         throw new Error('Rollbar client not provided');
     }
@@ -13,6 +22,7 @@ ROLLBAR_CLIENT = () => {
     return rollbarClient;
 };
 
-export function setServices(newRollbarClient: Rollbar): void {
+export function setServices(newContentPrivateClient: ContentPrivateClient, newRollbarClient: Rollbar): void {
+    contentPrivateClient = newContentPrivateClient;
     rollbarClient = newRollbarClient;
 }

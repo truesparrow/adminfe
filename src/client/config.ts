@@ -17,6 +17,7 @@ export const ALLOWED_PATHS: PathMatch[] = clientConfig.allowedPaths;
 export const LOGOUT_ROUTE_PATH: string = clientConfig.logoutRoutePath;
 export const ENV: Env = clientConfig.env;
 export const ORIGIN: string = clientConfig.origin;
+export const CONTENT_SERVICE_HOST: string = clientConfig.contentServiceHost;
 export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = {
     clientId: clientConfig.auth0ClientId,
     domain: clientConfig.auth0Domain,

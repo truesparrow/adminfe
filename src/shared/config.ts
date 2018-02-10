@@ -29,6 +29,7 @@ export const ADDRESS: string = getFromEnv('ADDRESS');
 export const PORT: number = parseInt(getFromEnv('PORT'), 10);
 export const ORIGIN: string = getFromEnv('ORIGIN');
 export const IDENTITY_SERVICE_HOST: string = getFromEnv('IDENTITY_SERVICE_HOST');
+export const CONTENT_SERVICE_HOST: string = getFromEnv('CONTENT_SERVICE_HOST');
 export const AUTH0_SERVER_CONFIG: Auth0ServerConfig = {
     clientId: getFromEnv('AUTH0_CLIENT_ID'),
     clientSecret: getFromEnv('AUTH0_CLIENT_SECRET'),
