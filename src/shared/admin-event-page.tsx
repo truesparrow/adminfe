@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { Event, SubEventDetails } from '@truesparrow/content-sdk-js'
-import { UpdateEventOptions } from '@truesparrow/content-sdk-js/client'
+import { Event, SubEventDetails, UpdateEventOptions } from '@truesparrow/content-sdk-js'
 
 import * as config from './config'
 
