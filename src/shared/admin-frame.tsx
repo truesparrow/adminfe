@@ -36,8 +36,7 @@ interface State {
 class _AdminFrame extends React.Component<Props, State> {
     async componentDidMount() {
         if (!config.SESSION().hasUser()) {
-            const auth0LockModule = await import(/* webpackChunkName: "auth0-lock" */ '@truesparrow/auth0-lock');
-            const auth0Lock = new auth0LockModule.Auth0Lock(config.ALLOWED_PATHS, config.AUTH0_CLIENT_CONFIG);
+            const auth0Lock = await services.AUTH0_LOCK();
             auth0Lock.showLock(this.props.location, false);
             return;
         }

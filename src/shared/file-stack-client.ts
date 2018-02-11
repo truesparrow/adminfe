@@ -1,9 +1,7 @@
 import { Picture } from '@truesparrow/content-sdk-js'
 
-import { FileStorageClient } from '../shared/file-storage-client'
 
-
-export class FileStackClient implements FileStorageClient {
+export class FileStackClient {
 
     private readonly _key: string;
 

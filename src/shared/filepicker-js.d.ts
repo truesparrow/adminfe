@@ -321,7 +321,7 @@ declare module "filepicker-js" {
          * @param onError The function to call if there is an error when removing the file.
          * @returns {}
          */
-        remove(blob: FileBlob, security_options: Object, onSuccess: (blobs: FileBlob) => void, onError: (error: Error) => void);
+        remove(blob: FileBlob, security_options: Object, onSuccess: (blobs: FileBlob) => void, onError: (error: Error) => void): void;
 
         /**
          *
@@ -332,6 +332,6 @@ declare module "filepicker-js" {
          * @param onProgress The progress of the write operation.
          * @returns {}
          */
-        write(target: FileBlob, data: Object, security_options: Object, onSuccess: (blob: FileBlob) => void, onError: (error: Error) => void, onProgress: (data: ProgressData) => void);
+        write(target: FileBlob, data: Object, security_options: Object, onSuccess: (blob: FileBlob) => void, onError: (error: Error) => void, onProgress: (data: ProgressData) => void): void;
     }
 }
