@@ -13,6 +13,7 @@ import {
 import { newContentPrivateClient } from '@truesparrow/content-sdk-js'
 
 import * as config from './config'
+import { FileStackClient } from './file-storage'
 import './index.less'
 import { AppFrame } from '../shared/app-frame'
 import { ClientInitialState } from '../shared/client-data'
@@ -25,6 +26,8 @@ const webFetcher = new ApiGatewayWebFetcher(config.ORIGIN);
 
 const contentPrivateClient = newContentPrivateClient(
     config.ENV, config.ORIGIN, config.CONTENT_SERVICE_HOST, webFetcher);
+
+const fileStorageClient = new FileStackClient('Foo');
 
 const rollbar = new Rollbar({
     accessToken: isOnServer(config.ENV) ? (config.ROLLBAR_CLIENT_TOKEN as string) : 'FAKE_TOKEN_WONT_BE_USED_IN_LOCAL_OR_TEST',
@@ -40,7 +43,7 @@ const rollbar = new Rollbar({
     }
 });
 
-services.setServices(contentPrivateClient, rollbar);
+services.setServices(contentPrivateClient, fileStorageClient, rollbar);
 
 const clientInitialState = clientInitialStateMarshaller.extract((window as any).__TRUESPARROW_CLIENT_INITIAL_STATE);
 delete (window as any).__TRUESPARROW_INITIAL_STATE;

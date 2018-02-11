@@ -146,15 +146,15 @@ export class SubEventEditor extends React.Component<Props, State> {
     }
 
     private _handleDateAndTime(e: React.FormEvent<HTMLInputElement> | moment.Moment | string): void {
-        let newDateAndTime = null;
+        let newDateAndTime: moment.Moment | string | null = null;
         if (typeof e == 'object' && e.hasOwnProperty('bubbles')) {
             newDateAndTime = (e as any).currentTarget.value;
         } else {
-            newDateAndTime = e as moment.Moment | string;
+            newDateAndTime = e as (moment.Moment | string);
         }
 
         this.setState({
-            dateAndTime: newDateAndTime,
+            dateAndTime: newDateAndTime as (moment.Moment | string),
             dateAndTimeIsValid: e instanceof moment
         }, this._updateOwner);
     }
