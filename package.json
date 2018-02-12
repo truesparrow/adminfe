@@ -31,6 +31,7 @@
         "@truesparrow/common-js": "latest",
         "@truesparrow/common-server-js": "latest",
         "@truesparrow/content-sdk-js": "latest",
+        "@truesparrow/filestack-picker": "latest",
         "@truesparrow/identity-sdk-js": "latest",
         "async-middleware": "=1.2.1",
         "auth0-lock": "=11.1.2",
