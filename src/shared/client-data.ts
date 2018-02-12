@@ -36,6 +36,9 @@ export class ClientConfig {
     @MarshalWith(r.AbsolutePathMarshaller)
     logoutRoutePath: string;
 
+    @MarshalWith(r.StringMarshaller)
+    fileStackApiKey: string;
+
     @MarshalWith(OptionalOf(r.StringMarshaller))
     rollbarClientToken: string | null;
 

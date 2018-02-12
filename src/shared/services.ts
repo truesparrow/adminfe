@@ -40,7 +40,7 @@ export async function AUTH0_LOCK() /* : Promise<Auth0Lock> */ {
 
 export async function FILE_STACK_CLIENT() /* : Promise<FileStackPicker> */ {
     const fileStackPickerModule = await import(/* webpackChunkName: "filestack-picker" */ '@truesparrow/filestack-picker');
-    return new fileStackPickerModule.FileStackPicker('AAAA');
+    return new fileStackPickerModule.FileStackPicker(config.FILESTACK_API_KEY);
 }
 
 export function ROLLBAR_CLIENT(): Rollbar {

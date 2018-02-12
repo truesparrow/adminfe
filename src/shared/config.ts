@@ -37,6 +37,7 @@ export const AUTH0_SERVER_CONFIG: Auth0ServerConfig = {
     loginCallbackUri: getFromEnv('AUTH0_LOGIN_CALLBACK_URI')
 };
 export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = serverToClient(AUTH0_SERVER_CONFIG);
+export const FILESTACK_API_KEY = getFromEnv('FILESTACK_API_KEY');
 export const GOOGLE_MAPS_API_KEY = getFromEnv('GOOGLE_MAPS_API_KEY');
 export const LOGGLY_TOKEN: string | null = isOnServer(ENV) ? getFromEnv('LOGGLY_TOKEN') : null;
 export const LOGGLY_SUBDOMAIN: string | null = isOnServer(ENV) ? getFromEnv('LOGGLY_SUBDOMAIN') : null;

@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 
 import { Event, SubEventDetails, UpdateEventOptions } from '@truesparrow/content-sdk-js'
 
+import * as commonText from './common.text'
 import * as config from './config'
-
-import * as text from './admin-event-page.text'
 import { SubEventEditor } from './subevent-editor'
 import { EventState, OpState, StatePart } from './store'
 import * as services from './services'
+
+import * as text from './admin-event-page.text'
 
 
 interface Props {
@@ -36,6 +37,15 @@ class _AdminEventPage extends React.Component<Props, State> {
             religiousCeremonyDetails: this.props.event.subEventDetails[1],
             receptionDetails: this.props.event.subEventDetails[2]
         };
+    }
+
+    componentWillReceiveProps(newProps: Props) {
+        this.setState({
+            modified: false,
+            civilCeremonyDetails: newProps.event.subEventDetails[0],
+            religiousCeremonyDetails: newProps.event.subEventDetails[1],
+            receptionDetails: newProps.event.subEventDetails[2]
+        });
     }
 
     render() {
@@ -68,14 +78,14 @@ class _AdminEventPage extends React.Component<Props, State> {
                         disabled={!this.state.modified}
                         type="button"
                         onClick={_ => this._handleSave()}>
-                        {text.save[config.LANG()]}
+                        {commonText.save[config.LANG()]}
                     </button>
                     <button
                         className="sign-up"
                         disabled={!this.state.modified}
                         type="button"
                         onClick={_ => this._handleReset()}>
-                        {text.reset[config.LANG()]}
+                        {commonText.reset[config.LANG()]}
                     </button>
                 </div>
             </div>

@@ -23,7 +23,7 @@ export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = {
     domain: clientConfig.auth0Domain,
     loginCallbackUri: clientConfig.auth0LoginCallbackUri
 };
-
+export const FILESTACK_API_KEY: string = clientConfig.fileStackApiKey;
 export const ROLLBAR_CLIENT_TOKEN: string | null = clientConfig.rollbarClientToken;
 export const SESSION: () => Session = () => clientConfig.session;
 export const LANG: () => string = () => clientConfig.language;
