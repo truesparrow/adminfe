@@ -106,6 +106,8 @@ class _AdminMainPage extends React.Component<Props, State> {
     }
 
     private async _handleSave() {
+        this.props.onEventLoading();
+
         try {
             const pictureSet = new PictureSet();
             pictureSet.pictures = this.state.pictures;

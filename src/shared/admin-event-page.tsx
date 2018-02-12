@@ -114,11 +114,13 @@ class _AdminEventPage extends React.Component<Props, State> {
     }
 
     private async _handleSave() {
+        this.props.onEventLoading();
+
         try {
             const updateOptions: UpdateEventOptions = {
                 subEventDetails: [
-                    this.state.religiousCeremonyDetails,
                     this.state.civilCeremonyDetails,
+                    this.state.religiousCeremonyDetails,
                     this.state.receptionDetails
                 ]
             };
