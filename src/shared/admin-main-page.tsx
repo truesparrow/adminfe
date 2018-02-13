@@ -60,7 +60,7 @@ class _AdminMainPage extends React.Component<Props, State> {
 
         return (
             <div>
-                {text.adminMainPage[config.LANG()]}
+                {this.state.hasSelectPictureError && <div>{text.errorUploadingImage[config.LANG()]} </div>}
                 <button onClick={_ => this._handleAddImage()}>{text.addImage[config.LANG()]}</button>
                 {pictureRegion}
                 <div className="action-buttons">
@@ -103,7 +103,6 @@ class _AdminMainPage extends React.Component<Props, State> {
             console.log(e);
             services.ROLLBAR_CLIENT().error(e);
 
-            // TODO: update state here with failures
             this.setState({
                 hasSelectPictureError: true,
                 modified: false
