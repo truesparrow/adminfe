@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { List } from 'immutable'
 
 import {
     Event,
@@ -26,7 +27,7 @@ interface Props {
 interface State {
     hasSelectPictureError: boolean;
     modified: boolean;
-    pictures: Picture[];
+    pictures: List<Picture>;
 }
 
 class _AdminMainPage extends React.Component<Props, State> {
@@ -35,7 +36,7 @@ class _AdminMainPage extends React.Component<Props, State> {
         this.state = {
             hasSelectPictureError: false,
             modified: false,
-            pictures: props.event.pictureSet.pictures
+            pictures: List(props.event.pictureSet.pictures)
         };
     }
 
@@ -43,19 +44,24 @@ class _AdminMainPage extends React.Component<Props, State> {
         this.setState({
             hasSelectPictureError: false,
             modified: false,
-            pictures: newProps.event.pictureSet.pictures
+            pictures: List(newProps.event.pictureSet.pictures)
         });
     }
 
     render() {
         const pictureRegion = this.state.pictures.map((pic: Picture) => {
-            return <div key={pic.position}><img src={pic.uri} width="100px" height="100px" /></div>;
+            return (
+                <div key={pic.position}>
+                    <img src={pic.uri} width="100px" height="100px" />
+                    <button onClick={_ => this._handleRemovePicture(pic.position)}>x</button>
+                </div>
+            );
         })
 
         return (
             <div>
                 {text.adminMainPage[config.LANG()]}
-                <button onClick={_ => this._handleAddImage()}>Add Image</button>
+                <button onClick={_ => this._handleAddImage()}>{text.addImage[config.LANG()]}</button>
                 {pictureRegion}
                 <div className="action-buttons">
                     <button
@@ -80,8 +86,8 @@ class _AdminMainPage extends React.Component<Props, State> {
     private async _handleAddImage(): Promise<void> {
         try {
             const fileStackPicker = await services.FILE_STACK_CLIENT();
-            const newPicture = await fileStackPicker.selectImageWithWidget(this.state.pictures.length + 1);
-            const newPictures = this.state.pictures.concat(newPicture);
+            const newPicture = await fileStackPicker.selectImageWithWidget(this.state.pictures.size + 1);
+            const newPictures = this.state.pictures.push(newPicture);
 
             this.setState({
                 hasSelectPictureError: false,
@@ -105,12 +111,24 @@ class _AdminMainPage extends React.Component<Props, State> {
         }
     }
 
-    private async _handleSave() {
+    private _handleRemovePicture(position: number): void {
+        const newPictures = this.state.pictures
+            .remove(position - 1)
+            .map((pic: Picture, position: number) => Object.assign({}, pic, { position: position + 1 }))
+            .toList();
+        this.setState({
+            hasSelectPictureError: false,
+            modified: true,
+            pictures: newPictures
+        });
+    }
+
+    private async _handleSave(): Promise<void> {
         this.props.onEventLoading();
 
         try {
             const pictureSet = new PictureSet();
-            pictureSet.pictures = this.state.pictures;
+            pictureSet.pictures = this.state.pictures.toArray();
 
             const updateOptions: UpdateEventOptions = {
                 pictureSet: pictureSet
@@ -133,7 +151,7 @@ class _AdminMainPage extends React.Component<Props, State> {
         this.setState({
             hasSelectPictureError: false,
             modified: false,
-            pictures: this.props.event.pictureSet.pictures
+            pictures: List(this.props.event.pictureSet.pictures)
         });
     }
 }
