@@ -1,6 +1,11 @@
 import { Message } from '@truesparrow/common-js'
 
 
+export const fillOut: Message = {
+    en: 'Add pictures about your event here',
+    ro: 'Adăugați poze despre eveniment aici'
+};
+
 export const addImage: Message = {
     en: 'Add image',
     ro: 'Adaugați imagine'

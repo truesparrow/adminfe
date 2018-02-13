@@ -1,0 +1,66 @@
+@import './common.less';
+
+.admin-main-page {
+    width: 680px;
+    display: flex;
+    flex-direction: column;
+
+    @media all and (max-width: 800px) {
+        width: 100%;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .fill-out-details {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        line-height: 3rem;
+        background-color: #efefef;
+    }
+
+    .big-editor {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-bottom: 1rem;
+        line-height: 3rem;
+
+        .sign-up {
+            width: 100px;
+        }
+    }
+
+    .pictures-section {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .picture {
+            width: 340px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 1rem;
+
+            .thumbnail {
+                width: 300px;
+                height: 170px;
+            }
+
+            button.remove-picture {
+                width: 2rem;
+                height: 2rem;
+                position: absolute;
+                top: 1rem;
+                right: 2rem;
+            }
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: row;
+    }
+}

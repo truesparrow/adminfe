@@ -51,18 +51,39 @@ class _AdminMainPage extends React.Component<Props, State> {
     render() {
         const pictureRegion = this.state.pictures.map((pic: Picture) => {
             return (
-                <div key={pic.position}>
-                    <img src={pic.uri} width="100px" height="100px" />
-                    <button onClick={_ => this._handleRemovePicture(pic.position)}>x</button>
+                <div
+                    key={pic.position}
+                    className="picture">
+                    <img
+                        className="thumbnail"
+                        src={pic.uri}
+                        width="300px" />
+                    <button
+                        className="remove-picture"
+                        onClick={_ => this._handleRemovePicture(pic.position)}>
+                        x
+                    </button>
                 </div>
             );
         })
 
         return (
-            <div>
+            <div className="admin-main-page">
                 {this.state.hasSelectPictureError && <div>{text.errorUploadingImage[config.LANG()]} </div>}
-                <button onClick={_ => this._handleAddImage()}>{text.addImage[config.LANG()]}</button>
-                {pictureRegion}
+                <p className="fill-out-details">
+                    {text.fillOut[config.LANG()]}
+                </p>
+                <div className="big-editor">
+                    <button
+                        className="sign-up"
+                        type="button"
+                        onClick={_ => this._handleAddImage()}>
+                        {text.addImage[config.LANG()]}
+                    </button>
+                </div>
+                <div className="pictures-section">
+                    {pictureRegion}
+                </div>
                 <div className="action-buttons">
                     <button
                         className="sign-up"
