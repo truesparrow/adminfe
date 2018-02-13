@@ -105,6 +105,7 @@ class _AdminFrame extends React.Component<Props, State> {
         } else {
             return (
                 <div className="admin-frame">
+                    {helmet}
                     <div className="side-menu">
                         <ul className="side-menu-list">
                             <li>
