@@ -56,8 +56,9 @@ class _AdminMainPage extends React.Component<Props, State> {
                     className="picture">
                     <img
                         className="thumbnail"
-                        src={pic.uri}
-                        width="300px" />
+                        src={pic.thumbnailImage.uri}
+                        width={`${Picture.THUMBNAIL_WIDTH}`}
+                        height={`${Picture.THUMBNAIL_HEIGHT}`} />
                     <button
                         className="remove-picture"
                         onClick={_ => this._handleRemovePicture(pic.position)}>
