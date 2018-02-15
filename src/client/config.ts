@@ -1,6 +1,6 @@
 import { MarshalFrom } from 'raynor'
 
-import { Env } from '@truesparrow/common-js'
+import { Context, Env } from '@truesparrow/common-js'
 import { Auth0ClientConfig, PathMatch, Session } from '@truesparrow/identity-sdk-js'
 
 import { ClientConfig } from '../shared/client-data'
@@ -16,6 +16,7 @@ export const NAME: string = 'adminfe';
 export const ALLOWED_PATHS: PathMatch[] = clientConfig.allowedPaths;
 export const LOGOUT_ROUTE_PATH: string = clientConfig.logoutRoutePath;
 export const ENV: Env = clientConfig.env;
+export const CONTEXT: Context = Context.Client;
 export const ORIGIN: string = clientConfig.origin;
 export const CONTENT_SERVICE_HOST: string = clientConfig.contentServiceHost;
 export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = {
