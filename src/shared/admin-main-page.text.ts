@@ -2,8 +2,8 @@ import { Message } from '@truesparrow/common-js'
 
 
 export const fillOut: Message = {
-    en: 'Add pictures about your event here',
-    ro: 'Adăugați poze despre eveniment aici'
+    en: 'Add pictures about your event here. You can reorder them by drag-and-drop',
+    ro: 'Adăugați poze despre eveniment aici. Le puteți reordona cu drag-and-drop'
 };
 
 export const addImage: Message = {

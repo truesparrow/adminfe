@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
 
+import { isClient } from '@truesparrow/common-js'
 import {
     Event,
     Picture,
@@ -16,6 +17,8 @@ import { EventState, OpState, StatePart } from './store'
 
 import * as text from './admin-main-page.text'
 
+const Dragula = isClient(config.CONTEXT) ? require('react-dragula') : undefined;
+
 
 interface Props {
     event: Event;
@@ -28,15 +31,26 @@ interface State {
     hasSelectPictureError: boolean;
     modified: boolean;
     pictures: List<Picture>;
+    /*
+     * A counter incremented every time a new drag and drop event occurs. This is used as a sort of
+     * cache-buster for the React DOM diff algorithm and ensures that the elements in the gallery
+     * have a new key prop after every drag and drop event. React won't try to do any
+     * funny business and will just redraw stuff in the order given by the pictures.
+     * Don't alter this! It took me the better part of a day to figure out.
+     */
+    dragAndDropGeneration: number;
 }
 
 class _AdminMainPage extends React.Component<Props, State> {
+    private _drake: any = null;
+
     constructor(props: Props) {
         super(props);
         this.state = {
             hasSelectPictureError: false,
             modified: false,
-            pictures: List(props.event.pictureSet.pictures)
+            pictures: List(props.event.pictureSet.pictures),
+            dragAndDropGeneration: 0
         };
     }
 
@@ -52,18 +66,22 @@ class _AdminMainPage extends React.Component<Props, State> {
         const pictureRegion = this.state.pictures.map((pic: Picture) => {
             return (
                 <div
-                    key={pic.position}
+                    key={`${this.state.dragAndDropGeneration}${pic.position}`}
+                    data-generation={this.state.dragAndDropGeneration}
+                    data-position={pic.position}
                     className="picture">
-                    <img
-                        className="thumbnail"
-                        src={pic.thumbnailImage.uri}
-                        width={`${Picture.THUMBNAIL_WIDTH}`}
-                        height={`${Picture.THUMBNAIL_HEIGHT}`} />
-                    <button
-                        className="remove-picture"
-                        onClick={_ => this._handleRemovePicture(pic.position)}>
-                        x
-                    </button>
+                    <div className="picture-container">
+                        <img
+                            className="thumbnail"
+                            src={pic.thumbnailImage.uri}
+                            width={`${Picture.THUMBNAIL_WIDTH}`}
+                            height={`${Picture.THUMBNAIL_HEIGHT}`} />
+                        <button
+                            className="remove-picture"
+                            onClick={_ => this._handleRemovePicture(pic.position)}>
+                            x
+                        </button>
+                    </div>
                 </div>
             );
         })
@@ -82,7 +100,7 @@ class _AdminMainPage extends React.Component<Props, State> {
                         {text.addImage[config.LANG()]}
                     </button>
                 </div>
-                <div className="pictures-section">
+                <div className="pictures-section" ref={this._decorateForDragula.bind(this)}>
                     {pictureRegion}
                 </div>
                 <div className="action-buttons">
@@ -103,6 +121,25 @@ class _AdminMainPage extends React.Component<Props, State> {
                 </div>
             </div>
         );
+    }
+
+    private _decorateForDragula(picturesSectionElement: HTMLDivElement | null) {
+        if (!isClient(config.CONTEXT)) {
+            return;
+        }
+
+        // Whatever happens here we need to clear the drake and possibly create a new one.
+        if (this._drake != null) {
+            this._drake.destroy();
+            this._drake = null;
+        }
+
+        // This is null when the refed element is unmounting. Either because the page
+        // is switched by the router, or rendering needed to read it to the scene.
+        if (picturesSectionElement != null) {
+            this._drake = Dragula([picturesSectionElement]);
+            this._drake.on('drop', this._handleMovePictureViaDragula.bind(this));
+        }
     }
 
     private async _handleAddImage(): Promise<void> {
@@ -142,6 +179,31 @@ class _AdminMainPage extends React.Component<Props, State> {
             modified: true,
             pictures: newPictures
         });
+    }
+
+    private _handleMovePictureViaDragula(_el: HTMLDivElement, target: HTMLDivElement, _sibling: HTMLDivElement, _source: HTMLDivElement): void {
+        // Need to correct the positions of elements.
+        const newPictures: Picture[] = [];
+        let position = 1;
+        for (let ch of target.childNodes) {
+            const originalPosition = Number.parseInt((ch as HTMLDivElement).getAttribute('data-position') as string);
+            const picture = this.state.pictures.get(originalPosition - 1);
+            newPictures.push(Object.assign({}, picture, { position }));
+            position++;
+        }
+
+        // It is _super_ important to do this in a separate tick. Otherwise the setState is likely
+        // to trigger a render, which will trigger a removal of the pictures section
+        // div, which will trigger a call to _decorateForDragula, which will call
+        // destroy, which will call this function all over again and cause all manner
+        // of niceties.
+        setTimeout(() => {
+            this.setState({
+                modified: true,
+                pictures: List(newPictures),
+                dragAndDropGeneration: this.state.dragAndDropGeneration + 1
+            });
+        }, 0);
     }
 
     private async _handleSave(): Promise<void> {
