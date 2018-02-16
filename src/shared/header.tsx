@@ -41,7 +41,7 @@ class LoggedInMenu extends React.Component<Props, State> {
                                     <span>
                                         <span className="menu-icon my-cause"></span>
                                         <Link
-                                            onClick={this._handleCloseMenu.bind(this)}
+                                            onClick={_ => this._handleCloseMenu()}
                                             to="/admin/main">
                                             {text.aboutUs[config.LANG()]}
                                         </Link>
@@ -49,7 +49,7 @@ class LoggedInMenu extends React.Component<Props, State> {
                                     <span>
                                         <span className="menu-icon cause-analytics"></span>
                                         <Link
-                                            onClick={this._handleCloseMenu.bind(this)}
+                                            onClick={_ => this._handleCloseMenu()}
                                             to="/admin/event">
                                             {text.event[config.LANG()]}
                                         </Link>
@@ -57,7 +57,7 @@ class LoggedInMenu extends React.Component<Props, State> {
                                     <span>
                                         <span className="menu-icon account"></span>
                                         <Link
-                                            onClick={this._handleCloseMenu.bind(this)}
+                                            onClick={_ => this._handleCloseMenu()}
                                             to="/admin/account">
                                             {text.account[config.LANG()]}
                                         </Link>
@@ -66,7 +66,7 @@ class LoggedInMenu extends React.Component<Props, State> {
                                 <div>
                                     <button
                                         className="menu-open"
-                                        onClick={this._handleCloseMenu.bind(this)}>
+                                        onClick={_ => this._handleCloseMenu()}>
                                     </button>
                                 </div>
                             </div>
@@ -91,11 +91,11 @@ class LoggedInMenu extends React.Component<Props, State> {
     }
 
     private _handleOpenMenu() {
-        this.setState({showMenu: true});
+        this.setState({ showMenu: true });
     }
 
     private _handleCloseMenu() {
-        this.setState({showMenu: false});
+        this.setState({ showMenu: false });
     }
 }
 
@@ -107,10 +107,10 @@ export function Header() {
             </h1>
             {
                 config.SESSION().hasUser()
-                ? <LoggedInMenu />
-                : <Link className="sign-up" to="/admin" role="button">
-                    {commonText.signUp[config.LANG()]}
-                </Link>
+                    ? <LoggedInMenu />
+                    : <Link className="sign-up" to="/admin" role="button">
+                        {commonText.signUp[config.LANG()]}
+                    </Link>
             }
         </header>
     );

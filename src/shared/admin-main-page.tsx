@@ -20,6 +20,80 @@ import * as text from './admin-main-page.text'
 const Dragula = isClient(config.CONTEXT) ? require('react-dragula') : undefined;
 
 
+interface PicturesCarouselProps {
+    pictures: List<Picture>;
+    initialIndex: number;
+    onCloseCarousel: () => void;
+}
+
+interface PicturesCarouselState {
+    currentIndex: number;
+}
+
+
+class PicturesCarousel extends React.Component<PicturesCarouselProps, PicturesCarouselState> {
+    constructor(props: PicturesCarouselProps) {
+        super(props);
+        this.state = {
+            currentIndex: props.initialIndex
+        };
+    }
+
+    componentWillReceiveProps(newProps: PicturesCarouselProps) {
+        this.setState({
+            currentIndex: newProps.initialIndex
+        });
+    }
+
+    render() {
+        const { pictures } = this.props;
+        const picture = pictures.get(this.state.currentIndex);
+
+        return (
+            <div className="pictures-carousel">
+                <div className="carousel-header">
+                    <button
+                        className="carousel-button close"
+                        onClick={_ => this._handleClose()}>
+                    </button>
+                </div>
+                <div className="carousel-big-picture">
+                    <button
+                        className="carousel-button backward"
+                        onClick={_ => this._handleBackward()}>
+                    </button>
+                    <img
+                        className="carousel-image"
+                        src={picture.mainImage.uri}
+                        width="800px"
+                        height="450px" />
+                    <button
+                        className="carousel-button forward"
+                        onClick={_ => this._handleForward()}>
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    private _handleClose(): void {
+        this.props.onCloseCarousel();
+    }
+
+    private _handleBackward(): void {
+        this.setState({
+            currentIndex: (this.state.currentIndex + 1) % this.props.pictures.size
+        });
+    }
+
+    private _handleForward(): void {
+        this.setState({
+            currentIndex: (this.state.currentIndex - 1) % this.props.pictures.size
+        });
+    }
+}
+
+
 interface Props {
     event: Event;
     onEventLoading: () => void;
@@ -39,6 +113,8 @@ interface State {
      * Don't alter this! It took me the better part of a day to figure out.
      */
     dragAndDropGeneration: number;
+    showCarousel: boolean;
+    carouselPictureIndex: number | null;
 }
 
 class _AdminMainPage extends React.Component<Props, State> {
@@ -50,7 +126,9 @@ class _AdminMainPage extends React.Component<Props, State> {
             hasSelectPictureError: false,
             modified: false,
             pictures: List(props.event.pictureSet.pictures),
-            dragAndDropGeneration: 0
+            dragAndDropGeneration: 0,
+            showCarousel: false,
+            carouselPictureIndex: null
         };
     }
 
@@ -58,7 +136,10 @@ class _AdminMainPage extends React.Component<Props, State> {
         this.setState({
             hasSelectPictureError: false,
             modified: false,
-            pictures: List(newProps.event.pictureSet.pictures)
+            pictures: List(newProps.event.pictureSet.pictures),
+            // Skip dragAndDropGeneration - nothing changes this.
+            showCarousel: false,
+            carouselPictureIndex: null
         });
     }
 
@@ -75,7 +156,8 @@ class _AdminMainPage extends React.Component<Props, State> {
                             className="thumbnail"
                             src={pic.thumbnailImage.uri}
                             width={`${Picture.THUMBNAIL_WIDTH}`}
-                            height={`${Picture.THUMBNAIL_HEIGHT}`} />
+                            height={`${Picture.THUMBNAIL_HEIGHT}`}
+                            onClick={_ => this._handleOpenCarousel(pic)} />
                         <button
                             className="remove-picture"
                             onClick={_ => this._handleRemovePicture(pic.position)}>
@@ -84,7 +166,7 @@ class _AdminMainPage extends React.Component<Props, State> {
                     </div>
                 </div>
             );
-        })
+        });
 
         return (
             <div className="admin-main-page">
@@ -119,6 +201,11 @@ class _AdminMainPage extends React.Component<Props, State> {
                         {commonText.reset[config.LANG()]}
                     </button>
                 </div>
+                {this.state.showCarousel &&
+                    <PicturesCarousel
+                        pictures={this.state.pictures}
+                        initialIndex={this.state.carouselPictureIndex as number}
+                        onCloseCarousel={() => this._handleCloseCarousel()} />}
             </div>
         );
     }
@@ -151,7 +238,8 @@ class _AdminMainPage extends React.Component<Props, State> {
             this.setState({
                 hasSelectPictureError: false,
                 modified: true,
-                pictures: newPictures
+                pictures: newPictures,
+                showCarousel: false
             });
         } catch (e) {
             // If the user canceled the dialog, we don't do anything.
@@ -164,7 +252,8 @@ class _AdminMainPage extends React.Component<Props, State> {
 
             this.setState({
                 hasSelectPictureError: true,
-                modified: false
+                modified: false,
+                showCarousel: false
             });
         }
     }
@@ -177,7 +266,8 @@ class _AdminMainPage extends React.Component<Props, State> {
         this.setState({
             hasSelectPictureError: false,
             modified: true,
-            pictures: newPictures
+            pictures: newPictures,
+            showCarousel: false
         });
     }
 
@@ -201,9 +291,24 @@ class _AdminMainPage extends React.Component<Props, State> {
             this.setState({
                 modified: true,
                 pictures: List(newPictures),
-                dragAndDropGeneration: this.state.dragAndDropGeneration + 1
+                dragAndDropGeneration: this.state.dragAndDropGeneration + 1,
+                showCarousel: false
             });
         }, 0);
+    }
+
+    private _handleOpenCarousel(picture: Picture): void {
+        this.setState({
+            showCarousel: true,
+            carouselPictureIndex: picture.position - 1
+        });
+    }
+
+    private _handleCloseCarousel(): void {
+        this.setState({
+            showCarousel: false,
+            carouselPictureIndex: null
+        });
     }
 
     private async _handleSave(): Promise<void> {
@@ -234,7 +339,10 @@ class _AdminMainPage extends React.Component<Props, State> {
         this.setState({
             hasSelectPictureError: false,
             modified: false,
-            pictures: List(this.props.event.pictureSet.pictures)
+            pictures: List(this.props.event.pictureSet.pictures),
+            // Nothing changes dragAndDropGeneration
+            showCarousel: false,
+            carouselPictureIndex: null
         });
     }
 }
