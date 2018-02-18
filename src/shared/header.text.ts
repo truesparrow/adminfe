@@ -21,6 +21,11 @@ export const event: Message = {
     ro: 'Evenimentul'
 };
 
+export const site: Message = {
+    en: 'Site',
+    ro: 'Site'
+};
+
 export const account: Message = {
     en: 'Account',
     ro: 'Cont'

@@ -88,8 +88,9 @@ module.exports = {
             {from: './src/shared/static/menu-icon-close-white.svg'},
             {from: './src/shared/static/left-arrow-white.svg'},
             {from: './src/shared/static/right-arrow-white.svg'},
-            {from: './src/shared/static/cause-icon.svg'},
-            {from: './src/shared/static/cause-analytics-icon.svg'},
+            {from: './src/shared/static/main-icon.svg'},
+            {from: './src/shared/static/event-icon.svg'},
+            {from: './src/shared/static/site-icon.svg'},
             {from: './src/shared/static/account-icon.svg'},
             {from: './src/shared/static/powered-by-google.png'},
             {from: './out/client/vendor.bundle.js'}

@@ -39,7 +39,7 @@ class LoggedInMenu extends React.Component<Props, State> {
                             <div className="container2">
                                 <div className="actions">
                                     <span>
-                                        <span className="menu-icon my-cause"></span>
+                                        <span className="menu-icon main"></span>
                                         <Link
                                             onClick={_ => this._handleCloseMenu()}
                                             to="/admin/main">
@@ -47,11 +47,19 @@ class LoggedInMenu extends React.Component<Props, State> {
                                         </Link>
                                     </span>
                                     <span>
-                                        <span className="menu-icon cause-analytics"></span>
+                                        <span className="menu-icon event"></span>
                                         <Link
                                             onClick={_ => this._handleCloseMenu()}
                                             to="/admin/event">
                                             {text.event[config.LANG()]}
+                                        </Link>
+                                    </span>
+                                    <span>
+                                        <span className="menu-icon site"></span>
+                                        <Link
+                                            onClick={_ => this._handleCloseMenu()}
+                                            to="/admin/site">
+                                            {text.site[config.LANG()]}
                                         </Link>
                                     </span>
                                     <span>

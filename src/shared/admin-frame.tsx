@@ -8,6 +8,7 @@ import { Event } from '@truesparrow/content-sdk-js'
 import { AdminAccountPage } from './admin-account-page'
 import { AdminEventPage } from './admin-event-page'
 import { AdminMainPage } from './admin-main-page'
+import { AdminSitePage } from './admin-site-page'
 import * as config from './config'
 import * as services from './services'
 import { EventState, OpState, StatePart } from './store'
@@ -109,12 +110,16 @@ class _AdminFrame extends React.Component<Props, State> {
                     <div className="side-menu">
                         <ul className="side-menu-list">
                             <li>
-                                <span className="menu-icon my-cause"></span>
+                                <span className="menu-icon main"></span>
                                 <NavLink to="/admin/main">{text.main[config.LANG()]}</NavLink>
                             </li>
                             <li>
-                                <span className="menu-icon cause-analytics"></span>
+                                <span className="menu-icon event"></span>
                                 <NavLink to="/admin/event">{text.event[config.LANG()]}</NavLink>
+                            </li>
+                            <li>
+                                <span className="menu-icon site"></span>
+                                <NavLink to="/admin/site">{text.site[config.LANG()]}</NavLink>
                             </li>
                             <li>
                                 <span className="menu-icon account"></span>
@@ -126,6 +131,7 @@ class _AdminFrame extends React.Component<Props, State> {
                         <Route exact path="/admin" component={AdminMainPage} />
                         <Route path="/admin/main" component={AdminMainPage} />
                         <Route path="/admin/event" component={AdminEventPage} />
+                        <Route path="/admin/site" component={AdminSitePage} />
                         <Route path="/admin/account" component={AdminAccountPage} />
                     </Switch>
                 </div>
