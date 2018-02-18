@@ -18,6 +18,7 @@ export const LOGOUT_ROUTE_PATH: string = clientConfig.logoutRoutePath;
 export const ENV: Env = clientConfig.env;
 export const CONTEXT: Context = Context.Client;
 export const ORIGIN: string = clientConfig.origin;
+export const SITEFE_EXTERNAL_HOST: string = clientConfig.siteFeExternalHost;
 export const CONTENT_SERVICE_HOST: string = clientConfig.contentServiceHost;
 export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = {
     clientId: clientConfig.auth0ClientId,

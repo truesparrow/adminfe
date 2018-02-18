@@ -29,6 +29,7 @@ export const CONTEXT: Context = parseContext(getFromEnv('CONTEXT'));
 export const ADDRESS: string = getFromEnv('ADDRESS');
 export const PORT: number = parseInt(getFromEnv('PORT'), 10);
 export const ORIGIN: string = getFromEnv('ORIGIN');
+export const SITEFE_EXTERNAL_HOST: string = getFromEnv('SITEFE_EXTERNAL_HOST');
 export const IDENTITY_SERVICE_HOST: string = getFromEnv('IDENTITY_SERVICE_HOST');
 export const CONTENT_SERVICE_HOST: string = getFromEnv('CONTENT_SERVICE_HOST');
 export const AUTH0_SERVER_CONFIG: Auth0ServerConfig = {

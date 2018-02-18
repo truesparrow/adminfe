@@ -22,6 +22,9 @@ export class ClientConfig {
     origin: string;
 
     @MarshalWith(r.StringMarshaller)
+    siteFeExternalHost: string;
+
+    @MarshalWith(r.StringMarshaller)
     contentServiceHost: string;
 
     @MarshalWith(r.StringMarshaller)

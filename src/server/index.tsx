@@ -88,6 +88,7 @@ async function main() {
             allowedPaths: config.ALLOWED_PATHS,
             env: config.ENV,
             origin: config.ORIGIN,
+            siteFeExternalHost: config.SITEFE_EXTERNAL_HOST,
             contentServiceHost: config.CONTENT_SERVICE_HOST,
             auth0ClientId: config.AUTH0_CLIENT_CONFIG.clientId,
             auth0Domain: config.AUTH0_CLIENT_CONFIG.domain,

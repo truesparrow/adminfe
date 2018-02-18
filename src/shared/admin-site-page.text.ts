@@ -1,4 +1,4 @@
-import { Message } from '@truesparrow/common-js'
+import { Message, MessageWith1Arg } from '@truesparrow/common-js'
 
 
 export const fillOut: Message = {
@@ -6,7 +6,17 @@ export const fillOut: Message = {
     ro: 'Schimbați detalii despre site-ul generat aici'
 };
 
-export const spite: Message = {
-    en: 'Spite',
-    ro: 'Spite'
+export const dns: Message = {
+    en: 'DNS',
+    ro: 'DNS'
+}
+
+export const subDomain: Message = {
+    en: 'Sub Domain',
+    ro: 'Subdomeniul'
+};
+
+export const siteFeDomain: MessageWith1Arg = {
+    en: (host: string) => `.${host}`,
+    ro: (host: string) => `.${host}`
 };

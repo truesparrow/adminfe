@@ -46,7 +46,25 @@ class _AdminSitePage extends React.Component<Props, State> {
                 <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}
                 </p>
-                {text.spite[config.LANG()]}
+                <div className="admin-section">
+                    <h3 className="admin-title">{text.dns[config.LANG()]}</h3>
+                    <div className="subdomain">
+                        <label>
+                            <span
+                                className="label-text">
+                                {text.subDomain[config.LANG()]}
+                            </span>
+                            <input
+                                className="subdomain-input"
+                                type="text"
+                                value={this.state.subDomain}
+                                onChange={e => this._handleChangeSubDomain(e)} />
+                            <span className="sitefe-reference">
+                                {text.siteFeDomain[config.LANG()](config.SITEFE_EXTERNAL_HOST)}
+                            </span>
+                        </label>
+                    </div>
+                </div>
                 <div className="action-buttons">
                     <button
                         className="sign-up"
@@ -65,6 +83,13 @@ class _AdminSitePage extends React.Component<Props, State> {
                 </div>
             </div>
         );
+    }
+
+    private _handleChangeSubDomain(e: React.FormEvent<HTMLInputElement>) {
+        this.setState({
+            modified: true,
+            subDomain: e.currentTarget.value
+        });
     }
 
     private async _handleSave() {
