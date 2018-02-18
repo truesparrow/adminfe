@@ -1,7 +1,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { Event, UpdateEventOptions } from '@truesparrow/content-sdk-js'
+import {
+    Event,
+    UpdateEventOptions,
+    SubDomainErrorReason,
+    SubDomainMarshaller
+} from '@truesparrow/content-sdk-js'
 
 import * as commonText from './common.text'
 import * as config from './config'
@@ -20,21 +25,28 @@ interface Props {
 
 interface State {
     modified: boolean;
+    subDomainError: SubDomainErrorReason;
     subDomain: string;
 }
 
 class _AdminSitePage extends React.Component<Props, State> {
+    private readonly _subDomainMarshaller: SubDomainMarshaller;
+
     constructor(props: Props) {
         super(props);
         this.state = {
             modified: false,
+            subDomainError: SubDomainErrorReason.OK,
             subDomain: props.event.subDomain
         };
+
+        this._subDomainMarshaller = new SubDomainMarshaller();
     }
 
     componentWillReceiveProps(newProps: Props) {
         this.setState({
             modified: false,
+            subDomainError: SubDomainErrorReason.OK,
             subDomain: newProps.event.subDomain
         });
     }
@@ -58,9 +70,19 @@ class _AdminSitePage extends React.Component<Props, State> {
                                 className="subdomain-input"
                                 type="text"
                                 value={this.state.subDomain}
-                                onChange={e => this._handleChangeSubDomain(e)} />
+                                onChange={e => this._handleChangeSubDomain(e)}
+                                onBlur={e => this._handleLeaveSubDomainEdit(e)}
+                                placeholder={text.subDomainPlaceholder[config.LANG()]}
+                                required={true}
+                                minLength={Event.SUBDOMAIN_MIN_SIZE}
+                                maxLength={Event.SUBDOMAIN_MAX_SIZE} />
                             <span className="sitefe-reference">
                                 {text.siteFeDomain[config.LANG()](config.SITEFE_EXTERNAL_HOST)}
+                            </span>
+                            <span className="error">
+                                {this.state.subDomainError == SubDomainErrorReason.TooShort ? text.subDomainTooShort[config.LANG()] :
+                                    this.state.subDomainError == SubDomainErrorReason.TooLong ? text.subDomainTooLong[config.LANG()] :
+                                        this.state.subDomainError == SubDomainErrorReason.InvalidCharacters ? text.subDomainInvalidCharacters[config.LANG()] : ''}
                             </span>
                         </label>
                     </div>
@@ -68,7 +90,7 @@ class _AdminSitePage extends React.Component<Props, State> {
                 <div className="action-buttons">
                     <button
                         className="sign-up"
-                        disabled={!this.state.modified}
+                        disabled={!this.state.modified || this.state.subDomainError != SubDomainErrorReason.OK}
                         type="button"
                         onClick={_ => this._handleSave()}>
                         {commonText.save[config.LANG()]}
@@ -88,11 +110,20 @@ class _AdminSitePage extends React.Component<Props, State> {
     private _handleChangeSubDomain(e: React.FormEvent<HTMLInputElement>) {
         this.setState({
             modified: true,
+            subDomainError: this._subDomainMarshaller.verify(e.currentTarget.value),
             subDomain: e.currentTarget.value
         });
     }
 
+    private _handleLeaveSubDomainEdit(_e: React.FormEvent<HTMLInputElement>) {
+        console.log('here');
+    }
+
     private async _handleSave() {
+        if (!this.state.modified || this.state.subDomainError != SubDomainErrorReason.OK) {
+            throw new Error('Unallowed call to save');
+        }
+
         this.props.onEventLoading();
 
         try {
@@ -116,6 +147,7 @@ class _AdminSitePage extends React.Component<Props, State> {
     private _handleReset(): void {
         this.setState({
             modified: false,
+            subDomainError: SubDomainErrorReason.OK,
             subDomain: this.props.event.subDomain
         });
     }
