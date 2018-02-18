@@ -26,10 +26,14 @@ interface Props {
 interface State {
     modified: boolean;
     subDomainError: SubDomainErrorReason;
+    subDomainAvailable: boolean;
     subDomain: string;
 }
 
 class _AdminSitePage extends React.Component<Props, State> {
+    private static readonly CHANGE_TIMEOUT_IN_MS: number = 1000;
+
+    private _subDomainChangeTimeoutId: number | null;
     private readonly _subDomainMarshaller: SubDomainMarshaller;
 
     constructor(props: Props) {
@@ -37,9 +41,11 @@ class _AdminSitePage extends React.Component<Props, State> {
         this.state = {
             modified: false,
             subDomainError: SubDomainErrorReason.OK,
+            subDomainAvailable: true,
             subDomain: props.event.subDomain
         };
 
+        this._subDomainChangeTimeoutId = null;
         this._subDomainMarshaller = new SubDomainMarshaller();
     }
 
@@ -47,6 +53,7 @@ class _AdminSitePage extends React.Component<Props, State> {
         this.setState({
             modified: false,
             subDomainError: SubDomainErrorReason.OK,
+            subDomainAvailable: true,
             subDomain: newProps.event.subDomain
         });
     }
@@ -83,6 +90,8 @@ class _AdminSitePage extends React.Component<Props, State> {
                                 {this.state.subDomainError == SubDomainErrorReason.TooShort ? text.subDomainTooShort[config.LANG()] :
                                     this.state.subDomainError == SubDomainErrorReason.TooLong ? text.subDomainTooLong[config.LANG()] :
                                         this.state.subDomainError == SubDomainErrorReason.InvalidCharacters ? text.subDomainInvalidCharacters[config.LANG()] : ''}
+                                {this.state.modified && this.state.subDomainAvailable && text.subDomainAvailable[config.LANG()]}
+                                {this.state.modified && !this.state.subDomainAvailable && text.subDomainNotAvailable[config.LANG()]}
                             </span>
                         </label>
                     </div>
@@ -90,7 +99,10 @@ class _AdminSitePage extends React.Component<Props, State> {
                 <div className="action-buttons">
                     <button
                         className="sign-up"
-                        disabled={!this.state.modified || this.state.subDomainError != SubDomainErrorReason.OK}
+                        disabled={
+                            !this.state.modified ||
+                            !this.state.subDomainAvailable ||
+                            this.state.subDomainError != SubDomainErrorReason.OK}
                         type="button"
                         onClick={_ => this._handleSave()}>
                         {commonText.save[config.LANG()]}
@@ -108,20 +120,54 @@ class _AdminSitePage extends React.Component<Props, State> {
     }
 
     private _handleChangeSubDomain(e: React.FormEvent<HTMLInputElement>) {
+        if (this._subDomainChangeTimeoutId != null) {
+            window.clearTimeout(this._subDomainChangeTimeoutId);
+        }
+
         this.setState({
             modified: true,
             subDomainError: this._subDomainMarshaller.verify(e.currentTarget.value),
             subDomain: e.currentTarget.value
         });
+
+        this._subDomainChangeTimeoutId = window.setTimeout(async () => {
+            try {
+                const available = await services.CONTENT_PRIVATE_CLIENT().checkSubDomainAvailable(this.state.subDomain);
+                this.setState({ subDomainAvailable: available });
+            } catch (e) {
+                this.props.onEventFailed('Could not check whether the subdomain was available');
+                return;
+            }
+        }, _AdminSitePage.CHANGE_TIMEOUT_IN_MS);
     }
 
-    private _handleLeaveSubDomainEdit(_e: React.FormEvent<HTMLInputElement>) {
-        console.log('here');
+    private async _handleLeaveSubDomainEdit(_e: React.FormEvent<HTMLInputElement>) {
+        try {
+            const available = await services.CONTENT_PRIVATE_CLIENT().checkSubDomainAvailable(this.state.subDomain);
+            this.setState({ subDomainAvailable: available });
+        } catch (e) {
+            this.props.onEventFailed('Could not check whether the subdomain was available');
+            return;
+        }
     }
 
     private async _handleSave() {
-        if (!this.state.modified || this.state.subDomainError != SubDomainErrorReason.OK) {
+        if (!this.state.modified
+            || !this.state.subDomainAvailable
+            || this.state.subDomainError != SubDomainErrorReason.OK) {
             throw new Error('Unallowed call to save');
+        }
+
+        // Do a last check that the subdomain is available.
+        try {
+            const available = await services.CONTENT_PRIVATE_CLIENT().checkSubDomainAvailable(this.state.subDomain);
+            if (!available) {
+                this.setState({ subDomainAvailable: false });
+                return;
+            }
+        } catch (e) {
+            this.props.onEventFailed('Could not check whether the subdomain was available');
+            return;
         }
 
         this.props.onEventLoading();
@@ -136,6 +182,8 @@ class _AdminSitePage extends React.Component<Props, State> {
         } catch (e) {
             if (e.name == 'DeletedEventForUserError') {
                 this.props.onEventReady(true, null);
+            } else if (e.name == 'SubDomainInUseError') {
+                this.props.onEventFailed('Subdomain was reserved in the meantime');
             } else {
                 console.log(e);
                 services.ROLLBAR_CLIENT().error(e);
@@ -148,6 +196,7 @@ class _AdminSitePage extends React.Component<Props, State> {
         this.setState({
             modified: false,
             subDomainError: SubDomainErrorReason.OK,
+            subDomainAvailable: true,
             subDomain: this.props.event.subDomain
         });
     }

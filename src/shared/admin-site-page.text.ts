@@ -37,6 +37,16 @@ export const subDomainInvalidCharacters: Message = {
     ro: 'Subdomeniul conține caractere nepermise. Numai litere din alfabetul englez, numere si linia sunt permise.'
 };
 
+export const subDomainAvailable: Message = {
+    en: 'Subdomain is currently available',
+    ro: 'Subdomeniul este liber'
+};
+
+export const subDomainNotAvailable: Message = {
+    en: 'Subdomain is already in use',
+    ro: 'Subdomeniul este deja folosit'
+};
+
 export const siteFeDomain: MessageWith1Arg = {
     en: (host: string) => `.${host}`,
     ro: (host: string) => `.${host}`
