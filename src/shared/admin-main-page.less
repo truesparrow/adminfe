@@ -1,4 +1,6 @@
+@import './admin-common.less';
 @import './common.less';
+
 
 .pictures-carousel {
     display: flex;
@@ -73,24 +75,7 @@
 }
 
 .admin-main-page {
-    width: 680px;
-    display: flex;
-    flex-direction: column;
-
-    @media all and (max-width: 800px) {
-        width: 100%;
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-
-    .fill-out-details {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        line-height: 3rem;
-        background-color: #efefef;
-    }
+    .admin-panel();
 
     .big-editor {
         padding-left: 1rem;
@@ -108,11 +93,6 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-    }
-
-    .action-buttons {
-        display: flex;
-        flex-direction: row;
     }
 }
 
