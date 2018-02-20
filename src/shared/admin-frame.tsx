@@ -113,7 +113,7 @@ class _AdminFrame extends React.Component<Props, State> {
                         <ul className="side-menu-list">
                             <li>
                                 <span className="menu-icon main"></span>
-                                <NavLink to="/admin/main">{text.main[config.LANG()]}</NavLink>
+                                <NavLink to="/admin/main">{text.aboutUs[config.LANG()]}</NavLink>
                             </li>
                             <li>
                                 <span className="menu-icon event"></span>

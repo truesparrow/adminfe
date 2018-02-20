@@ -206,24 +206,26 @@ async function main() {
     const appRouter = express.Router();
 
     appRouter.use(newSessionMiddleware(SessionLevel.None, SessionInfoSource.Cookie, config.ENV, identityClient));
-    appRouter.get('/admin*', wrap(async (req: RequestWithIdentity, res: express.Response) => {
+    appRouter.get('*', wrap(async (req: RequestWithIdentity, res: express.Response) => {
         let event: Event | null = null;
 
-        try {
-            event = await contentPrivateClient.withContext(req.sessionToken).getEvent();
-        } catch (e) {
-            if (e.name == 'EventNotFoundError') {
-                try {
-                    event = await contentPrivateClient.withContext(req.sessionToken).createEvent(req.session);
-                } catch (e) {
+        if (req.session.hasUser()) {
+            try {
+                event = await contentPrivateClient.withContext(req.sessionToken).getEvent();
+            } catch (e) {
+                if (e.name == 'EventNotFoundError') {
+                    try {
+                        event = await contentPrivateClient.withContext(req.sessionToken).createEvent(req.session);
+                    } catch (e) {
+                        // Nothing happens here. We'll try again on the client. But we do log the error.
+                        req.log.warn(e);
+                        req.errorLog.warn(e);
+                    }
+                } else {
                     // Nothing happens here. We'll try again on the client. But we do log the error.
                     req.log.warn(e);
                     req.errorLog.warn(e);
                 }
-            } else {
-                // Nothing happens here. We'll try again on the client. But we do log the error.
-                req.log.warn(e);
-                req.errorLog.warn(e);
             }
         }
 
@@ -242,22 +244,6 @@ async function main() {
         res.write(content);
         res.end();
     }));
-    appRouter.get('*', (req: RequestWithIdentity, res: express.Response) => {
-        const initialState: ClientInitialState = {
-            event: null
-        };
-
-        const [content, specialStatus] = serverSideRender(
-            req.url,
-            req.session,
-            initialState
-        );
-
-        res.status(specialStatus != null ? specialStatus : HttpStatus.OK);
-        res.type('html');
-        res.write(content);
-        res.end();
-    });
 
     app.use('/', appRouter);
 

@@ -11,9 +11,9 @@ export const pageTitle: Message = {
     ro: 'Administrare'
 };
 
-export const main: Message = {
-    en: 'Main',
-    ro: 'Principal'
+export const aboutUs: Message = {
+    en: 'About Us',
+    ro: 'Despre noi'
 };
 
 export const event: Message = {
