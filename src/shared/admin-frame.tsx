@@ -42,6 +42,8 @@ class _AdminFrame extends React.Component<Props, State> {
             return;
         }
 
+        console.log(this.props.event);
+
         if (this.props.isPreloaded) {
             return;
         }
@@ -146,8 +148,8 @@ function stateToProps(state: any) {
         isLoading: state.event.type == OpState.Init || state.event.type == OpState.Loading,
         isReady: state.event.type == OpState.Ready,
         isFailed: state.event.type == OpState.Failed,
-        eventIsDeleted: state.event.type == OpState.Ready ? state.event.eventIsDeleted : false,
-        event: state.event.type == OpState.Ready ? state.event.event : null,
+        eventIsDeleted: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.eventIsDeleted : false,
+        event: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.event : null,
         errorMessage: state.event.type == OpState.Failed ? state.event.errorMessage : null
     };
 }

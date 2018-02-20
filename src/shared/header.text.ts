@@ -11,6 +11,11 @@ export const avatar: MessageWith0Arg = {
     ro: 'Poza de profil'
 };
 
+export const preview: Message = {
+    en: 'Preview',
+    ro: 'Previzualizare'
+};
+
 export const aboutUs: Message = {
     en: 'About us',
     ro: 'Despre noi'

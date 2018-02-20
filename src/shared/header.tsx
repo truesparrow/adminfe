@@ -1,27 +1,28 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { Event } from '@truesparrow/content-sdk-js'
 import { User } from '@truesparrow/identity-sdk-js'
 
 import * as config from './config'
+import { EventState, OpState } from './store'
 
 import * as commonText from './common.text'
 import * as text from './header.text'
 
 
-
-
-interface Props {
+interface LoggedInMenuProps {
 }
 
 
-interface State {
+interface LoggedInMenuState {
     showMenu: boolean;
 }
 
 
-class LoggedInMenu extends React.Component<Props, State> {
-    constructor(props: Props) {
+class LoggedInMenu extends React.Component<LoggedInMenuProps, LoggedInMenuState> {
+    constructor(props: LoggedInMenuProps) {
         super(props);
         this.state = {
             showMenu: false
@@ -107,19 +108,54 @@ class LoggedInMenu extends React.Component<Props, State> {
     }
 }
 
-export function Header() {
-    return (
-        <header className="header">
-            <h1 className="logo-name">
-                {commonText.siteName[config.LANG()]}
-            </h1>
-            {
-                config.SESSION().hasUser()
-                    ? <LoggedInMenu />
-                    : <Link className="sign-up" to="/admin" role="button">
-                        {commonText.signUp[config.LANG()]}
-                    </Link>
-            }
-        </header>
-    );
+interface HeaderProps {
+    event: Event | null;
 }
+
+interface HeaderState {
+
+}
+
+class _Header extends React.Component<HeaderProps, HeaderState> {
+    render() {
+        return (
+            <header className="header">
+                <h1 className="logo-name">
+                    {commonText.siteName[config.LANG()]}
+                </h1>
+                {
+                    this.props.event != null &&
+                    <div className="preview">
+                        <a
+                            className="sign-up"
+                            role="button"
+                            target="_blank"
+                            href={this.props.event.homeUri(config.ENV, config.SITEFE_EXTERNAL_HOST)} >
+                            <span>{text.preview[config.LANG()]}</span>
+                            <span className="menu-icon open-in-new-tab"></span>
+                        </a>
+                    </div>
+                }
+                {
+                    config.SESSION().hasUser()
+                        ? <LoggedInMenu />
+                        : <Link className="sign-up" to="/admin" role="button">
+                            {commonText.signUp[config.LANG()]}
+                        </Link>
+                }
+            </header>
+        );
+    }
+}
+
+function stateToProps(state: any) {
+    return {
+        event: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.event : null
+    };
+}
+
+function dispatchToProps(_dispatch: (newState: EventState) => void) {
+    return {};
+}
+
+export const Header = connect(stateToProps, dispatchToProps)(_Header);
