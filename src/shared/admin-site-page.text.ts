@@ -47,6 +47,11 @@ export const subDomainNotAvailable: Message = {
     ro: 'Subdomeniul este deja folosit'
 };
 
+export const subDomainChecking: Message = {
+    en: 'Checking ...',
+    ro: 'Verificăm ...'
+};
+
 export const siteFeDomain: MessageWith1Arg = {
     en: (host: string) => `.${host}`,
     ro: (host: string) => `.${host}`

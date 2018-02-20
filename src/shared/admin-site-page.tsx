@@ -26,7 +26,7 @@ interface Props {
 interface State {
     modified: boolean;
     subDomainError: SubDomainErrorReason;
-    subDomainAvailable: boolean;
+    subDomainAvailable: boolean | null;
     subDomain: string;
 }
 
@@ -89,9 +89,11 @@ class _AdminSitePage extends React.Component<Props, State> {
                             <span className="error">
                                 {this.state.subDomainError == SubDomainErrorReason.TooShort ? text.subDomainTooShort[config.LANG()] :
                                     this.state.subDomainError == SubDomainErrorReason.TooLong ? text.subDomainTooLong[config.LANG()] :
-                                        this.state.subDomainError == SubDomainErrorReason.InvalidCharacters ? text.subDomainInvalidCharacters[config.LANG()] : ''}
-                                {this.state.modified && this.state.subDomainAvailable && text.subDomainAvailable[config.LANG()]}
-                                {this.state.modified && !this.state.subDomainAvailable && text.subDomainNotAvailable[config.LANG()]}
+                                        this.state.subDomainError == SubDomainErrorReason.InvalidCharacters ? text.subDomainInvalidCharacters[config.LANG()] :
+                                            this.state.subDomainError == SubDomainErrorReason.OK ?
+                                                (this.state.subDomainAvailable == true ? text.subDomainAvailable[config.LANG()] :
+                                                    this.state.subDomainAvailable == false ? text.subDomainNotAvailable[config.LANG()] :
+                                                        text.subDomainChecking[config.LANG()]) : ''}
                             </span>
                         </label>
                     </div>
@@ -124,11 +126,18 @@ class _AdminSitePage extends React.Component<Props, State> {
             window.clearTimeout(this._subDomainChangeTimeoutId);
         }
 
+        const error = this._subDomainMarshaller.verify(e.currentTarget.value);
+
         this.setState({
             modified: true,
-            subDomainError: this._subDomainMarshaller.verify(e.currentTarget.value),
+            subDomainError: error,
+            subDomainAvailable: null,
             subDomain: e.currentTarget.value
         });
+
+        if (error != SubDomainErrorReason.OK) {
+            return;
+        }
 
         this._subDomainChangeTimeoutId = window.setTimeout(async () => {
             try {
