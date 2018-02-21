@@ -42,8 +42,6 @@ class _AdminFrame extends React.Component<Props, State> {
             return;
         }
 
-        console.log(this.props.event);
-
         if (this.props.isPreloaded) {
             return;
         }

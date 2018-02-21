@@ -15,8 +15,7 @@ export enum OpState {
     Preloaded = 1,
     Loading = 2,
     Ready = 3,
-    PartialUpdate = 4,
-    Failed = 5
+    Failed = 4
 }
 
 
