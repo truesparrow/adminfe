@@ -18,6 +18,7 @@ interface Props {
 
 interface State {
     haveEvent: boolean;
+    slug: string;
     address: string;
     addressIsValid: boolean;
     coordinates: [number, number];
@@ -116,6 +117,7 @@ export class SubEventEditor extends React.Component<Props, State> {
 
         return {
             haveEvent: details.haveEvent,
+            slug: details.slug,
             address: details.address,
             addressIsValid: true,
             coordinates: details.coordinates,
@@ -170,6 +172,7 @@ export class SubEventEditor extends React.Component<Props, State> {
 
         const newDetails = new SubEventDetails();
         newDetails.haveEvent = this.state.haveEvent;
+        newDetails.slug = this.state.slug;
         newDetails.address = this.state.address;
         newDetails.coordinates = this.state.coordinates;
         newDetails.dateAndTime = (this.state.dateAndTime as moment.Moment).toDate();
