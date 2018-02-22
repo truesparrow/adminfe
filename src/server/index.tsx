@@ -158,7 +158,7 @@ async function main() {
         config.ENV, config.ALLOWED_PATHS, config.AUTH0_SERVER_CONFIG, internalWebFetcher, identityClient));
 
     // An API gateway for the client side code. Needs session to exist in the request.
-    app.use('/real/api-gateway', newApiGatewayRouter(internalWebFetcher));
+    app.use('/real/api-gateway', newApiGatewayRouter(config.ORIGIN, internalWebFetcher));
 
     // Static serving of the client side code assets (index.html, vendor.js etc). No session. Derived
     // from the bundles.
