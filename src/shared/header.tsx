@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { Event } from '@truesparrow/content-sdk-js'
+import { Event, EventState as EntityEventState } from '@truesparrow/content-sdk-js'
 import { User } from '@truesparrow/identity-sdk-js'
 
 import * as config from './config'
@@ -125,6 +125,7 @@ class _Header extends React.Component<HeaderProps, HeaderState> {
                 </h1>
                 {
                     this.props.event != null &&
+                    this.props.event.state == EntityEventState.Active &&
                     <div className="preview">
                         <a
                             className="sign-up"
