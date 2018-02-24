@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as Datetime from 'react-datetime'
 import * as moment from 'moment'
 
+import { MessageWith0Arg } from '@truesparrow/common-js'
 import { SubEventDetails } from '@truesparrow/content-sdk-js'
 
 const PlacesAutocomplete = require('react-places-autocomplete').default;
@@ -18,6 +19,7 @@ interface Props {
 
 interface State {
     haveEvent: boolean;
+    title: MessageWith0Arg;
     slug: string;
     address: string;
     addressIsValid: boolean;
@@ -117,6 +119,7 @@ export class SubEventEditor extends React.Component<Props, State> {
 
         return {
             haveEvent: details.haveEvent,
+            title: details.title,
             slug: details.slug,
             address: details.address,
             addressIsValid: true,
@@ -172,6 +175,7 @@ export class SubEventEditor extends React.Component<Props, State> {
 
         const newDetails = new SubEventDetails();
         newDetails.haveEvent = this.state.haveEvent;
+        newDetails.title = this.state.title;
         newDetails.slug = this.state.slug;
         newDetails.address = this.state.address;
         newDetails.coordinates = this.state.coordinates;

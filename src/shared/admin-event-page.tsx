@@ -55,19 +55,19 @@ class _AdminEventPage extends React.Component<Props, State> {
                     {text.fillOut[config.LANG()]}
                 </p>
                 <div className="admin-section">
-                    <h3 className="admin-title">{text.civilCeremony[config.LANG()]}</h3>
+                    <h3 className="admin-title">{this.state.civilCeremonyDetails.title[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.civilCeremonyDetails}
                         onDetailsChange={newDetails => this._handleCivilCeremonyDetails(newDetails)} />
                 </div>
                 <div className="admin-section">
-                    <h3 className="admin-title">{text.religiousCeremony[config.LANG()]}</h3>
+                    <h3 className="admin-title">{this.state.religiousCeremonyDetails.title[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.religiousCeremonyDetails}
                         onDetailsChange={newDetails => this._handleReligiousCeremonyDetails(newDetails)} />
                 </div>
                 <div className="admin-section">
-                    <h3 className="admin-title">{text.reception[config.LANG()]}</h3>
+                    <h3 className="admin-title">{this.state.receptionDetails.title[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.receptionDetails}
                         onDetailsChange={newDetails => this._handleReceptionDetails(newDetails)} />
