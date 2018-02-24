@@ -93,7 +93,7 @@ export const unlimitedPhotos: Message = {
 
 export const hostedSite: Message = {
     en: 'Hosted site',
-    ro: 'Găzduire site`'
+    ro: 'Găzduire site'
 };
 
 export const monthlyInvoice: Message = {
