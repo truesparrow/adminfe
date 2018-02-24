@@ -1,28 +1,42 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { Event } from '@truesparrow/content-sdk-js'
+
 import * as config from './config'
+import { EventState, OpState } from './store'
 
 import * as commonText from './common.text'
 import * as text from './home-page.text'
 
+interface HeroProps {
+    event: Event | null;
+}
 
-export function Hero() {
-    return (
-        <div className="hero">
-            <div className="cta">
-                <p className="big-title">{text.bigTitle[config.LANG()]}</p>
 
-                <p className="subtitle">{text.subTitle[config.LANG()]}</p>
+export class Hero extends React.Component<HeroProps, {}> {
+    render() {
+        const { event } = this.props;
 
-                <Link className="sign-up" to="/admin" role="button">{commonText.signUp[config.LANG()]}</Link>
+        return (
+            <div className="hero">
+                <div className="cta">
+                    <p className="big-title">{text.bigTitle[config.LANG()]}</p>
+
+                    <p className="subtitle">{text.subTitle[config.LANG()]}</p>
+
+                    <Link className="sign-up" to="/admin" role="button">
+                        {event == null ? commonText.signUp[config.LANG()] : text.goToAdmin[config.LANG()]}
+                    </Link>
+                </div>
+
+                <div className="hero-image">
+                    <img src="https://dummyimage.com/600x400/ede6ed/fff" alt={text.hero[config.LANG()]} />
+                </div>
             </div>
-
-            <div className="hero-image">
-                <img src="https://dummyimage.com/600x400/ede6ed/fff" alt={text.hero[config.LANG()]} />
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
 
@@ -100,12 +114,34 @@ export function Pricing() {
 }
 
 
-export function HomePage() {
-    return (
-        <div>
-            <Hero />
-            <Features />
-            <Pricing />
-        </div>
-    );
+interface HomePageProps {
+    event: Event | null;
 }
+
+interface HomePageState {
+}
+
+
+class _HomePage extends React.Component<HomePageProps, HomePageState> {
+    render() {
+        return (
+            <div>
+                <Hero event={this.props.event} />
+                <Features />
+                <Pricing />
+            </div>
+        );
+    }
+}
+
+function stateToProps(state: any) {
+    return {
+        event: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.event : null
+    };
+}
+
+function dispatchToProps(_dispatch: (newState: EventState) => void) {
+    return {};
+}
+
+export const HomePage = connect(stateToProps, dispatchToProps)(_HomePage);

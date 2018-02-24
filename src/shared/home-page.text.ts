@@ -11,6 +11,11 @@ export const subTitle: Message = {
     ro: 'Locul special pentru ziua cea mare'
 };
 
+export const goToAdmin: Message = {
+    en: 'Your Event',
+    ro: 'Evenimentul'
+};
+
 export const hero: MessageWith0Arg = {
     en: 'Hero image',
     ro: 'Imagine erou'
