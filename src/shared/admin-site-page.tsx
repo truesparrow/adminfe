@@ -38,24 +38,13 @@ class _AdminSitePage extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-        this.state = {
-            modified: false,
-            subDomainError: SubDomainErrorReason.OK,
-            subDomainAvailable: true,
-            subDomain: props.event.subDomain
-        };
-
+        this.state = this._stateFromProps(props);
         this._subDomainChangeTimeoutId = null;
         this._subDomainMarshaller = new SubDomainMarshaller();
     }
 
     componentWillReceiveProps(newProps: Props) {
-        this.setState({
-            modified: false,
-            subDomainError: SubDomainErrorReason.OK,
-            subDomainAvailable: true,
-            subDomain: newProps.event.subDomain
-        });
+        this.setState(this._stateFromProps(newProps));
     }
 
     render() {
@@ -81,8 +70,8 @@ class _AdminSitePage extends React.Component<Props, State> {
                                 onBlur={e => this._handleLeaveSubDomainEdit(e)}
                                 placeholder={text.subDomainPlaceholder[config.LANG()]}
                                 required={true}
-                                minLength={Event.SUBDOMAIN_MIN_SIZE}
-                                maxLength={Event.SUBDOMAIN_MAX_SIZE} />
+                                minLength={SubDomainMarshaller.SUBDOMAIN_MIN_SIZE}
+                                maxLength={SubDomainMarshaller.SUBDOMAIN_MAX_SIZE} />
                             <span className="sitefe-reference">
                                 {text.siteFeDomain[config.LANG()](config.SITEFE_EXTERNAL_HOST)}
                             </span>
@@ -121,7 +110,7 @@ class _AdminSitePage extends React.Component<Props, State> {
         );
     }
 
-    private _handleChangeSubDomain(e: React.FormEvent<HTMLInputElement>) {
+    private _handleChangeSubDomain(e: React.FormEvent<HTMLInputElement>): void {
         if (this._subDomainChangeTimeoutId != null) {
             window.clearTimeout(this._subDomainChangeTimeoutId);
         }
@@ -202,12 +191,16 @@ class _AdminSitePage extends React.Component<Props, State> {
     }
 
     private _handleReset(): void {
-        this.setState({
+        this.setState(this._stateFromProps(this.props));
+    }
+
+    private _stateFromProps(props: Props): State {
+        return {
             modified: false,
             subDomainError: SubDomainErrorReason.OK,
             subDomainAvailable: true,
-            subDomain: this.props.event.subDomain
-        });
+            subDomain: props.event.subDomain
+        };
     }
 }
 

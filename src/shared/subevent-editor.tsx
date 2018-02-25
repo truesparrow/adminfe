@@ -114,21 +114,6 @@ export class SubEventEditor extends React.Component<Props, State> {
             </div>);
     }
 
-    private _stateFromProps(props: Props): State {
-        const { details } = props;
-
-        return {
-            haveEvent: details.haveEvent,
-            title: details.title,
-            slug: details.slug,
-            address: details.address,
-            addressIsValid: true,
-            coordinates: details.coordinates,
-            dateAndTime: moment(details.dateAndTime),
-            dateAndTimeIsValid: true
-        };
-    }
-
     private _handleHaveEvent(e: React.FormEvent<HTMLInputElement>): void {
         this.setState({
             haveEvent: e.currentTarget.checked
@@ -182,5 +167,20 @@ export class SubEventEditor extends React.Component<Props, State> {
         newDetails.dateAndTime = (this.state.dateAndTime as moment.Moment).toDate();
 
         this.props.onDetailsChange(newDetails);
+    }
+
+    private _stateFromProps(props: Props): State {
+        const { details } = props;
+
+        return {
+            haveEvent: details.haveEvent,
+            title: details.title,
+            slug: details.slug,
+            address: details.address,
+            addressIsValid: true,
+            coordinates: details.coordinates,
+            dateAndTime: moment(details.dateAndTime),
+            dateAndTimeIsValid: true
+        };
     }
 }
