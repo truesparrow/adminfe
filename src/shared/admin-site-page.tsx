@@ -56,36 +56,39 @@ class _AdminSitePage extends React.Component<Props, State> {
                 </p>
                 <div className="admin-section">
                     <h3 className="admin-title">{text.dns[config.LANG()]}</h3>
-                    <div className="subdomain">
-                        <label>
+                    <form className="admin-form subdomain">
+                        <label className="admin-form-group">
                             <span
-                                className="label-text">
+                                className="admin-form-label">
                                 {text.subDomain[config.LANG()]}
+                                <span className="admin-form-error">
+                                    {this.state.subDomainError == SubDomainErrorReason.TooShort ? text.subDomainTooShort[config.LANG()] :
+                                        this.state.subDomainError == SubDomainErrorReason.TooLong ? text.subDomainTooLong[config.LANG()] :
+                                            this.state.subDomainError == SubDomainErrorReason.InvalidCharacters ? text.subDomainInvalidCharacters[config.LANG()] :
+                                                this.state.subDomainError == SubDomainErrorReason.OK ?
+                                                    (this.state.subDomainAvailable == false ? text.subDomainNotAvailable[config.LANG()] : '') : ''}
+                                </span>
+                                {this.state.subDomainError == SubDomainErrorReason.OK &&
+                                    (this.state.subDomainAvailable == true ? text.subDomainAvailable[config.LANG()] :
+                                        this.state.subDomainAvailable == null ? text.subDomainChecking[config.LANG()] : '')}
                             </span>
-                            <input
-                                className="subdomain-input"
-                                type="text"
-                                value={this.state.subDomain}
-                                onChange={e => this._handleChangeSubDomain(e)}
-                                onBlur={e => this._handleLeaveSubDomainEdit(e)}
-                                placeholder={text.subDomainPlaceholder[config.LANG()]}
-                                required={true}
-                                minLength={SubDomainMarshaller.SUBDOMAIN_MIN_SIZE}
-                                maxLength={SubDomainMarshaller.SUBDOMAIN_MAX_SIZE} />
-                            <span className="sitefe-reference">
-                                {text.siteFeDomain[config.LANG()](config.SITEFE_EXTERNAL_HOST)}
-                            </span>
-                            <span className="error">
-                                {this.state.subDomainError == SubDomainErrorReason.TooShort ? text.subDomainTooShort[config.LANG()] :
-                                    this.state.subDomainError == SubDomainErrorReason.TooLong ? text.subDomainTooLong[config.LANG()] :
-                                        this.state.subDomainError == SubDomainErrorReason.InvalidCharacters ? text.subDomainInvalidCharacters[config.LANG()] :
-                                            this.state.subDomainError == SubDomainErrorReason.OK ?
-                                                (this.state.subDomainAvailable == true ? text.subDomainAvailable[config.LANG()] :
-                                                    this.state.subDomainAvailable == false ? text.subDomainNotAvailable[config.LANG()] :
-                                                        text.subDomainChecking[config.LANG()]) : ''}
+                            <span className="subdomain-part-input">
+                                <input
+                                    className={"admin-form-input" + (this.state.subDomainError != SubDomainErrorReason.OK ? " admin-form-error" : "")}
+                                    type="text"
+                                    value={this.state.subDomain}
+                                    onChange={e => this._handleChangeSubDomain(e)}
+                                    onBlur={e => this._handleLeaveSubDomainEdit(e)}
+                                    placeholder={text.subDomainPlaceholder[config.LANG()]}
+                                    required={true}
+                                    minLength={SubDomainMarshaller.SUBDOMAIN_MIN_SIZE}
+                                    maxLength={SubDomainMarshaller.SUBDOMAIN_MAX_SIZE} />
+                                <span className="sitefe-reference">
+                                    {text.siteFeDomain[config.LANG()](config.SITEFE_EXTERNAL_HOST)}
+                                </span>
                             </span>
                         </label>
-                    </div>
+                    </form>
                 </div>
                 <div className="action-buttons">
                     <button
@@ -140,6 +143,12 @@ class _AdminSitePage extends React.Component<Props, State> {
     }
 
     private async _handleLeaveSubDomainEdit(_e: React.FormEvent<HTMLInputElement>) {
+        // If we've not modified the field, or if we've modified it but with an error, don't do
+        // the check here.
+        if (!this.state.modified || this.state.subDomainError != SubDomainErrorReason.OK) {
+            return;
+        }
+
         try {
             const available = await services.CONTENT_PRIVATE_CLIENT().checkSubDomainAvailable(this.state.subDomain);
             this.setState({ subDomainAvailable: available });

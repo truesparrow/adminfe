@@ -54,10 +54,19 @@ class _AdminEventPage extends React.Component<Props, State> {
                 <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}
                 </p>
-                <form>
-                    <label>
-                        <span>{text.eventTitle[config.LANG()]}</span>
+                <form className="admin-form">
+                    <label className="admin-form-group">
+                        <span
+                            className="admin-form-label">
+                            {text.eventTitle[config.LANG()]}
+                            <span
+                                className="admin-form-error">
+                                {this.state.titleError == TitleErrorReason.TooShort ? text.titleTooShort[config.LANG()] :
+                                    this.state.titleError == TitleErrorReason.TooLong ? text.titleTooLong[config.LANG()] : ''}
+                            </span>
+                        </span>
                         <input
+                            className={"admin-form-input" + (this.state.titleError != TitleErrorReason.OK ? " admin-form-error" : "")}
                             type="text"
                             value={this.state.title}
                             onChange={e => this._handleChangeTitle(e)}
@@ -65,10 +74,6 @@ class _AdminEventPage extends React.Component<Props, State> {
                             required={true}
                             minLength={TitleMarshaller.TITLE_MIN_SIZE}
                             maxLength={TitleMarshaller.TITLE_MAX_SIZE} />
-                        <span className="error">
-                            {this.state.titleError == TitleErrorReason.TooShort ? text.titleTooShort[config.LANG()] :
-                                this.state.titleError == TitleErrorReason.TooLong ? text.titleTooLong[config.LANG()] : ''}
-                        </span>
                     </label>
                 </form>
                 <h2 className="subevents">{text.subEvents[config.LANG()]}</h2>
