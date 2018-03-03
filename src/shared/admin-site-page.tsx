@@ -74,7 +74,7 @@ class _AdminSitePage extends React.Component<Props, State> {
                             </span>
                             <span className="subdomain-part-input">
                                 <input
-                                    className={"admin-form-input" + (this.state.subDomainError != SubDomainErrorReason.OK ? " admin-form-error" : "")}
+                                    className={"admin-form-input" + (this.state.subDomainError != SubDomainErrorReason.OK ? " admin-form-input-error" : "")}
                                     type="text"
                                     value={this.state.subDomain}
                                     onChange={e => this._handleChangeSubDomain(e)}

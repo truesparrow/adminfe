@@ -29,8 +29,11 @@ interface State {
     modified: boolean;
     titleError: TitleErrorReason,
     title: string;
+    civilCeremonyDetailsValid: boolean;
     civilCeremonyDetails: SubEventDetails;
+    religiousCeremonyDetailsValid: boolean;
     religiousCeremonyDetails: SubEventDetails;
+    receptionDetailsValid: boolean;
     receptionDetails: SubEventDetails;
 }
 
@@ -66,7 +69,7 @@ class _AdminEventPage extends React.Component<Props, State> {
                             </span>
                         </span>
                         <input
-                            className={"admin-form-input" + (this.state.titleError != TitleErrorReason.OK ? " admin-form-error" : "")}
+                            className={"admin-form-input" + (this.state.titleError != TitleErrorReason.OK ? " admin-form-input-error" : "")}
                             type="text"
                             value={this.state.title}
                             onChange={e => this._handleChangeTitle(e)}
@@ -81,24 +84,32 @@ class _AdminEventPage extends React.Component<Props, State> {
                     <h3 className="admin-title">{this.state.civilCeremonyDetails.title[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.civilCeremonyDetails}
-                        onDetailsChange={newDetails => this._handleCivilCeremonyDetails(newDetails)} />
+                        onDetailsChange={newDetails => this._handleCivilCeremonyDetails(newDetails)}
+                        onDetailsWithErrors={() => this.setState({ civilCeremonyDetailsValid: false })} />
                 </div>
                 <div className="admin-section">
                     <h3 className="admin-title">{this.state.religiousCeremonyDetails.title[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.religiousCeremonyDetails}
-                        onDetailsChange={newDetails => this._handleReligiousCeremonyDetails(newDetails)} />
+                        onDetailsChange={newDetails => this._handleReligiousCeremonyDetails(newDetails)}
+                        onDetailsWithErrors={() => this.setState({ religiousCeremonyDetailsValid: false })} />
                 </div>
                 <div className="admin-section">
                     <h3 className="admin-title">{this.state.receptionDetails.title[config.LANG()]}</h3>
                     <SubEventEditor
                         details={this.state.receptionDetails}
-                        onDetailsChange={newDetails => this._handleReceptionDetails(newDetails)} />
+                        onDetailsChange={newDetails => this._handleReceptionDetails(newDetails)}
+                        onDetailsWithErrors={() => this.setState({ receptionDetailsValid: false })} />
                 </div>
                 <div className="action-buttons">
                     <button
                         className="sign-up"
-                        disabled={!this.state.modified || this.state.titleError != TitleErrorReason.OK}
+                        disabled={
+                            !this.state.modified ||
+                            this.state.titleError != TitleErrorReason.OK ||
+                            !this.state.civilCeremonyDetailsValid ||
+                            !this.state.religiousCeremonyDetailsValid ||
+                            !this.state.receptionDetailsValid}
                         type="button"
                         onClick={_ => this._handleSave()}>
                         {commonText.save[config.LANG()]}
@@ -128,6 +139,7 @@ class _AdminEventPage extends React.Component<Props, State> {
     private _handleCivilCeremonyDetails(newDetails: SubEventDetails): void {
         this.setState({
             modified: true,
+            civilCeremonyDetailsValid: true,
             civilCeremonyDetails: newDetails
         });
     }
@@ -135,6 +147,7 @@ class _AdminEventPage extends React.Component<Props, State> {
     private _handleReligiousCeremonyDetails(newDetails: SubEventDetails): void {
         this.setState({
             modified: true,
+            religiousCeremonyDetailsValid: true,
             religiousCeremonyDetails: newDetails
         });
     }
@@ -142,12 +155,17 @@ class _AdminEventPage extends React.Component<Props, State> {
     private _handleReceptionDetails(newDetails: SubEventDetails): void {
         this.setState({
             modified: true,
+            receptionDetailsValid: true,
             receptionDetails: newDetails
         });
     }
 
     private async _handleSave() {
-        if (!this.state.modified || this.state.titleError != TitleErrorReason.OK) {
+        if (!this.state.modified ||
+            this.state.titleError != TitleErrorReason.OK ||
+            !this.state.civilCeremonyDetailsValid ||
+            !this.state.religiousCeremonyDetailsValid ||
+            !this.state.receptionDetailsValid) {
             throw new Error('Unallowed call to save');
         }
 
@@ -187,8 +205,11 @@ class _AdminEventPage extends React.Component<Props, State> {
             modified: false,
             titleError: TitleErrorReason.OK,
             title: event.title,
+            civilCeremonyDetailsValid: true,
             civilCeremonyDetails: event.subEventDetails[0],
+            religiousCeremonyDetailsValid: true,
             religiousCeremonyDetails: event.subEventDetails[1],
+            receptionDetailsValid: true,
             receptionDetails: event.subEventDetails[2]
         };
     }

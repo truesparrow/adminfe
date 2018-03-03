@@ -3,7 +3,11 @@ import * as Datetime from 'react-datetime'
 import * as moment from 'moment'
 
 import { MessageWith0Arg } from '@truesparrow/common-js'
-import { SubEventDetails } from '@truesparrow/content-sdk-js'
+import {
+    AddressErrorReason,
+    AddressMarshaller,
+    SubEventDetails
+} from '@truesparrow/content-sdk-js'
 
 const PlacesAutocomplete = require('react-places-autocomplete').default;
 
@@ -15,26 +19,34 @@ import * as text from './subevent-editor.text'
 interface Props {
     details: SubEventDetails;
     onDetailsChange: (newDetails: SubEventDetails) => void;
+    onDetailsWithErrors: () => void;
 }
 
 interface State {
     haveEvent: boolean;
     title: MessageWith0Arg;
     slug: string;
+    addressError: AddressErrorReason,
     address: string;
-    addressIsValid: boolean;
     coordinates: [number, number];
+    dateAndTimeValid: boolean;
     dateAndTime: moment.Moment | string;
-    dateAndTimeIsValid: boolean;
 }
 
 export class SubEventEditor extends React.Component<Props, State> {
+    private readonly _addressMarshaller: AddressMarshaller;
+
     constructor(props: Props) {
         super(props);
+        this._addressMarshaller = new AddressMarshaller();
         this.state = this._stateFromProps(props);
     }
 
     componentWillReceiveProps(newProps: Props): void {
+        if (!this._canAcceptProps()) {
+            return;
+        }
+
         this.setState(this._stateFromProps(newProps));
     }
 
@@ -71,7 +83,14 @@ export class SubEventEditor extends React.Component<Props, State> {
                 {this.props.details.haveEvent &&
                     <React.Fragment>
                         <label className="admin-form-group address">
-                            <span className="admin-form-label">{text.address[config.LANG()]}</span>
+                            <span
+                                className="admin-form-label">
+                                {text.address[config.LANG()]}
+                                <span
+                                    className="admin-form-error">
+                                    {this.state.addressError == AddressErrorReason.TooShort ? text.addressTooShort[config.LANG()] : ''}
+                                </span>
+                            </span>
                             <PlacesAutocomplete
                                 onSelect={(e: string) => this._handleAddress(e)}
                                 onEnterKeyDown={(e: string) => this._handleAddress(e)}
@@ -89,20 +108,26 @@ export class SubEventEditor extends React.Component<Props, State> {
                                 }}
                                 classNames={{
                                     root: 'address-root',
-                                    input: 'address-input',
+                                    input: 'address-input' + (this.state.addressError != AddressErrorReason.OK ? ' admin-form-input-error' : ''),
                                     autocompleteContainer: 'address-container',
                                     autocompleteItem: 'address-item',
                                     autocompleteItemActive: 'address-item-active'
                                 }} />
                         </label>
                         <label className="admin-form-group">
-                            <span className="admin-form-label">{text.timeAndDate[config.LANG()]}</span>
+                            <span className="admin-form-label">
+                                {text.timeAndDate[config.LANG()]}
+                                <span
+                                    className="admin-form-error">
+                                    {!this.state.dateAndTimeValid ? text.dateAndTimeInvalid[config.LANG()] : ''}
+                                </span>
+                            </span>
                             <Datetime
                                 value={this.state.dateAndTime}
                                 onChange={e => this._handleDateAndTime(e)}
                                 locale={config.LANG()}
                                 inputProps={{
-                                    className: 'admin-form-input',
+                                    className: 'admin-form-input' + (!this.state.dateAndTimeValid ? ' admin-form-input-error' : ''),
                                     disabled: !this.state.haveEvent
                                 }} />
                         </label>
@@ -118,9 +143,11 @@ export class SubEventEditor extends React.Component<Props, State> {
     }
 
     private _handleAddress(e: string): void {
+        const error = this._addressMarshaller.verify(e);
+
         this.setState({
-            address: e,
-            addressIsValid: true
+            addressError: error,
+            address: e
         }, this._updateOwner);
     }
 
@@ -141,17 +168,19 @@ export class SubEventEditor extends React.Component<Props, State> {
         }
 
         this.setState({
-            dateAndTime: newDateAndTime as (moment.Moment | string),
-            dateAndTimeIsValid: e instanceof moment
+            dateAndTimeValid: e instanceof moment,
+            dateAndTime: newDateAndTime as (moment.Moment | string)
         }, this._updateOwner);
     }
 
     private _updateOwner() {
-        if (!this.state.addressIsValid) {
+        if (this.state.addressError != AddressErrorReason.OK) {
+            this.props.onDetailsWithErrors();
             return;
         }
 
-        if (!this.state.dateAndTimeIsValid) {
+        if (!this.state.dateAndTimeValid) {
+            this.props.onDetailsWithErrors();
             return;
         }
 
@@ -166,6 +195,18 @@ export class SubEventEditor extends React.Component<Props, State> {
         this.props.onDetailsChange(newDetails);
     }
 
+    private _canAcceptProps(): boolean {
+        if (this.state.addressError != AddressErrorReason.OK) {
+            return false;
+        }
+
+        if (!this.state.dateAndTimeValid) {
+            return false;
+        }
+
+        return true;
+    }
+
     private _stateFromProps(props: Props): State {
         const { details } = props;
 
@@ -173,11 +214,11 @@ export class SubEventEditor extends React.Component<Props, State> {
             haveEvent: details.haveEvent,
             title: details.title,
             slug: details.slug,
+            addressError: this._addressMarshaller.verify(details.address),
             address: details.address,
-            addressIsValid: true,
             coordinates: details.coordinates,
-            dateAndTime: moment(details.dateAndTime),
-            dateAndTimeIsValid: true
+            dateAndTimeValid: true,
+            dateAndTime: moment(details.dateAndTime)
         };
     }
 }

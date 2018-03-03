@@ -24,10 +24,10 @@ export const titlePlaceholder: MessageWith0Arg = {
 
 export const titleTooShort: Message = {
     en: `Title is too short. It must have at least ${TitleMarshaller.TITLE_MIN_SIZE} letters.`,
-    ro: `Titlul este prea scurt. Trebuie sa aiba cel puțin ${TitleMarshaller.TITLE_MIN_SIZE} litere.`
+    ro: `Titlul este prea scurt. Trebuie să aibă cel puțin ${TitleMarshaller.TITLE_MIN_SIZE} litere.`
 };
 
 export const titleTooLong: Message = {
     en: `Title is too long. It must have at least ${TitleMarshaller.TITLE_MAX_SIZE} letters.`,
-    ro: `Titlul este prea lung. Trebuie sa aiba cel mult ${TitleMarshaller.TITLE_MAX_SIZE} litere.`
+    ro: `Titlul este prea lung. Trebuie să aibă cel mult ${TitleMarshaller.TITLE_MAX_SIZE} litere.`
 };
