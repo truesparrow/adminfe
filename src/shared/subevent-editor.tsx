@@ -6,7 +6,8 @@ import { MessageWith0Arg } from '@truesparrow/common-js'
 import {
     AddressErrorReason,
     AddressMarshaller,
-    SubEventDetails
+    SubEventDetails,
+    SubEventDisplayInfo
 } from '@truesparrow/content-sdk-js'
 
 const PlacesAutocomplete = require('react-places-autocomplete').default;
@@ -31,6 +32,7 @@ interface State {
     coordinates: [number, number];
     dateAndTimeValid: boolean;
     dateAndTime: moment.Moment | string;
+    display: SubEventDisplayInfo;
 }
 
 export class SubEventEditor extends React.Component<Props, State> {
@@ -191,6 +193,7 @@ export class SubEventEditor extends React.Component<Props, State> {
         newDetails.address = this.state.address;
         newDetails.coordinates = this.state.coordinates;
         newDetails.dateAndTime = (this.state.dateAndTime as moment.Moment).toDate();
+        newDetails.display = this.state.display;
 
         this.props.onDetailsChange(newDetails);
     }
@@ -218,7 +221,8 @@ export class SubEventEditor extends React.Component<Props, State> {
             address: details.address,
             coordinates: details.coordinates,
             dateAndTimeValid: true,
-            dateAndTime: moment(details.dateAndTime)
+            dateAndTime: moment(details.dateAndTime),
+            display: details.display
         };
     }
 }
