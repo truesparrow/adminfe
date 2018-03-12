@@ -17,8 +17,8 @@ export const preview: Message = {
 };
 
 export const aboutUs: Message = {
-    en: 'About us',
-    ro: 'Despre noi'
+    en: 'About Us',
+    ro: 'Despre Noi'
 };
 
 export const event: Message = {
