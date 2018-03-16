@@ -78,7 +78,10 @@ module.exports = {
             result.request = '../client/config';
         }),
         new CopyPlugin([
-            {from: './src/shared/static/avatar-placeholder.svg'},
+            {from: './src/shared/static/placeholders/avatar.svg'},
+            {from: './src/shared/static/placeholders/ceremony.jpg'},
+            {from: './src/shared/static/placeholders/couple.jpg'},
+            {from: './src/shared/static/placeholders/sparrow.jpg'},
             {from: './src/shared/static/index.html'},
             {from: './src/shared/static/favicon.ico'},
             {from: './src/shared/static/humans.txt'},
