@@ -15,9 +15,13 @@ services:
 
 addons:
   postgresql: "9.6"
+  hosts:
+    - identity.test.truesparrow
+    - content.test.truesparrow
 
 env:
   global:
+  #* Application *#
   - ENV=TEST
   - CONTEXT=SERVER
   - ADDRESS=0.0.0.0
@@ -36,6 +40,7 @@ env:
   - LOGGLY_SUBDOMAIN=null
   - ROLLBAR_SERVER_TOKEN=null
   - ROLLBAR_CLIENT_TOKEN=null
+  #* Travis build *#
   - GEMFURY_USER=truesparrow
   # GEMFURY_API_KEY=???
   - secure: "eOJuJAd3pxJxq0TSVdfDZ5dPx7YarxlliHmXnhM1nPS5LpYKxpnjzUIcL9N8OKqzFJFmoSHdV7CQymZ4+poH9vfPWuWiJI916+W5//+LKokVNazxL4ckHhMfhUYtTEhSdLbZ7I3wpWjTUByg6wvWqUoZFSAfvNoRpNY8oPHngsCKPRi7bHpVWH9daWTPPw/51ao3tMGkBjdHak9AOJbefn97L5I1a+wqIABSQ7p6Qb6MbzkGrEyt/WQxjLLoAMKFcs8WWC5aEh3mWHq5mZusVNvamlh1I/U8i6orQeduwAZJGTu/K/CcgWevNar+AD7ttZO2Gaw5WpYMZen5SHYtxr9oqO5pxWaM/1NTJWfsV/AKc28xCudzf3Z6a4LE70HRt2oNmLf/1YN335zDrvKApjDrzPcAg62vUvAp6HaqkyapzBEeUxrVeWtAQ0Gx+cvBk2IzPumMVBucWECkzfOlI2s4EsndV7rkuiqfcVSCUwDbALJAnS3UlVesiGe+tKCHnt/nnkqQh6SWQ1YwFGBBi9JM8Psy0I5sPtoN+cnDSQxrFn+BfqgsHycK95R2hsEZtSQ38XcdJxO0/qDmt8mh4PMQri7ImzetZyOBpMb1F8kP1d1oMkaeW/Rjt7oTVjVzc/eLKAzwYyw88cJHLeOMX5yzJb44zefncoH4ZjvPg00="

@@ -15,16 +15,7 @@ RUN chown -R truesparrow:truesparrow /truesparrow/out
 
 # Setup the runtime environment for the application.
 
-ENV ENV LOCAL
-ENV CONTEXT SERVER
-ENV ADDRESS 0.0.0.0
-ENV PORT 10000
-ENV ORIGIN http://localhost:10003
-ENV SITEFE_EXTERNAL_HOST localhost:10004
-ENV IDENTITY_SERVICE_HOST truesparrow-identity:10000
-ENV CONTENT_SERVICE_HOST truesparrow-content:10000
-
 WORKDIR /truesparrow
-EXPOSE 10000
+EXPOSE 10003
 USER truesparrow
 ENTRYPOINT ["npm", "run", "serve-dev"]
