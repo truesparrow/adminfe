@@ -1,3 +1,11 @@
+export const IDENTITY_SERVICE_HOST = Cypress.env('COMMON_IDENTITY_SERVICE_HOST');
+export const CONTENT_SERVICE_HOST = Cypress.env('COMMON_CONTENT_SERVICE_HOST');
+export const SITEFE_EXTERNAL_HOST = Cypress.env('COMMON_SITEFE_EXTERNAL_HOST');
+
+export const ORIGIN_DOMAIN = Cypress.env('ADMINFE_ORIGIN_DOMAIN');
+export const ORIGIN = Cypress.env('ADMINFE_ORIGIN');
+
+
 export const COMPANY_PAGES_INFO = [
     {
         title: 'About',

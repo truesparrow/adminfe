@@ -37,6 +37,7 @@ env:
   #** Specific to adminfe service **#
   - ADMINFE_ADDRESS=0.0.0.0
   - ADMINFE_PORT=10003
+  - ADMINFE_ORIGIN_DOMAIN=null
   - ADMINFE_ORIGIN=null
   - ADMINFE_AUTH0_CLIENT_ID=null
   - ADMINFE_AUTH0_CLIENT_SECRET=null

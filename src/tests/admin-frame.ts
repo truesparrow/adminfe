@@ -1,6 +1,6 @@
 import 'mocha'
 
-import { ADMIN_PAGES_INFO } from './data'
+import { ADMIN_PAGES_INFO, ORIGIN } from './shared'
 
 
 describe('Admin frame', () => {
@@ -53,7 +53,7 @@ describe('Admin frame', () => {
                 cy.get('#overlay-menu').contains('Logout').click();
 
                 cy.log('Check we\'re on the home page');
-                cy.url().should('eql', 'http://adminfe.local.truesparrow:10003/');
+                cy.url().should('eql', `${ORIGIN}/`);
                 cy.contains('Sign Up');
 
                 // TODO: fix this sometime

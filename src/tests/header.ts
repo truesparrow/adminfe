@@ -2,6 +2,8 @@ import 'mocha'
 
 import { Env } from '@truesparrow/common-js'
 
+import { SITEFE_EXTERNAL_HOST } from './shared'
+
 
 describe('Header', () => {
     const ADMIN_PAGES_INFO = [
@@ -71,7 +73,7 @@ describe('Header', () => {
                     cy.visit('/');
                     cy.contains('TrueSparrow');
                     cy.get('div.preview').should('exist');
-                    cy.get('div.preview').find('a').should('have.attr', 'href', event.homeUri(Env.Local, 'sitefe.local.truesparrow:10004'))
+                    cy.get('div.preview').find('a').should('have.attr', 'href', event.homeUri(Env.Local, SITEFE_EXTERNAL_HOST))
                     cy.get('img.avatar').should('have.attr', 'src', userData.picture);
                     cy.get('div.logged-in-menu').should('exist');
                 });

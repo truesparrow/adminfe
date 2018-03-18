@@ -8,23 +8,25 @@ import { SessionAndTokenResponse } from '@truesparrow/identity-sdk-js/dtos'
 import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 import '@truesparrow/filestack-picker'
 
+import { ORIGIN, ORIGIN_DOMAIN, IDENTITY_SERVICE_HOST, CONTENT_SERVICE_HOST } from './shared'
+
 
 let uniquor = 0;
 
 
 function clearOutData() {
     cy.request({
-        url: 'http://identity.local.truesparrow:10001/test/clear-out',
+        url: `http://${IDENTITY_SERVICE_HOST}/test/clear-out`,
         method: 'POST',
         headers: {
-            Origin: 'http://adminfe.local.truesparrow:10003'
+            Origin: ORIGIN
         }
     });
     cy.request({
-        url: 'http://content.local.truesparrow:10002/test/clear-out',
+        url: `http://${CONTENT_SERVICE_HOST}/test/clear-out`,
         method: 'POST',
         headers: {
-            Origin: 'http://adminfe.local.truesparrow:10003'
+            Origin: ORIGIN
         }
     });
 }
@@ -36,10 +38,10 @@ function loginAsUser(userFixture: string) {
     cy.fixture(userFixture).then(userData => {
         const newUserData = Object.assign({}, userData, { sub: uuid() });
         cy.request({
-            url: 'http://identity.local.truesparrow:10001/test/create-test-user',
+            url: `http://${IDENTITY_SERVICE_HOST}/test/create-test-user`,
             method: 'POST',
             headers: {
-                Origin: 'http://adminfe.local.truesparrow:10003'
+                Origin: ORIGIN
             },
             body: newUserData
         }).then(response => {
@@ -47,7 +49,7 @@ function loginAsUser(userFixture: string) {
             cy.setCookie(
                 SESSION_TOKEN_COOKIE_NAME,
                 'j:' + encodeURIComponent(JSON.stringify(sessionTokenMarshaller.pack(sessionAndTokenResponse.sessionToken))), {
-                    domain: 'adminfe.local.truesparrow'
+                    domain: ORIGIN_DOMAIN
                 }
             ).then(_newCookie => {
                 return [sessionAndTokenResponse.sessionToken, sessionAndTokenResponse.session, newUserData];
@@ -62,10 +64,10 @@ function addEvent(sessionToken: SessionToken, eventFixture: string) {
     cy.fixture(eventFixture).then(eventData => {
         const newEventData = Object.assign({}, eventData, { subDomain: eventData.subDomain + '-' + uniquor++ });
         cy.request({
-            url: 'http://content.local.truesparrow:10002/test/add-event',
+            url: `http://${CONTENT_SERVICE_HOST}/test/add-event`,
             method: 'POST',
             headers: {
-                Origin: 'http://adminfe.local.truesparrow:10003',
+                Origin: ORIGIN,
                 [SESSION_TOKEN_HEADER_NAME]: JSON.stringify(sessionToken)
             },
             body: newEventData
@@ -121,16 +123,16 @@ export function replaceSelectImage(win: Window) {
 
             switch (position) {
                 case 1:
-                    picture.mainImage.uri = 'http://adminfe.local.truesparrow:10003/real/client/sparrow.jpg';
-                    picture.thumbnailImage.uri = 'http://adminfe.local.truesparrow:10003/real/client/sparrow.jpg';
+                    picture.mainImage.uri = `${ORIGIN}/real/client/sparrow.jpg`;
+                    picture.thumbnailImage.uri = `${ORIGIN}/real/client/sparrow.jpg`;
                     break;
                 case 2:
-                    picture.mainImage.uri = 'http://adminfe.local.truesparrow:10003/real/client/couple.jpg';
-                    picture.thumbnailImage.uri = 'http://adminfe.local.truesparrow:10003/real/client/couple.jpg';
+                    picture.mainImage.uri = `${ORIGIN}/real/client/couple.jpg`;
+                    picture.thumbnailImage.uri = `${ORIGIN}/real/client/couple.jpg`;
                     break;
                 case 3:
-                    picture.mainImage.uri = 'http://adminfe.local.truesparrow:10003/real/client/ceremony.jpg';
-                    picture.thumbnailImage.uri = 'http://adminfe.local.truesparrow:10003/real/client/ceremony.jpg';
+                    picture.mainImage.uri = `${ORIGIN}/real/client/cermeony.jpg`;
+                    picture.thumbnailImage.uri = `${ORIGIN}/real/client/ceremony.jpg`;
                     break;
                 default:
                     throw new Error('Should not get here');

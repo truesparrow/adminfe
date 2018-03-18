@@ -1,6 +1,6 @@
 import 'mocha'
 
-import { COMPANY_PAGES_INFO } from './data'
+import { COMPANY_PAGES_INFO } from './shared'
 
 
 describe('Footer', () => {

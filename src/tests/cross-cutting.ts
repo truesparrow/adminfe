@@ -9,6 +9,8 @@ import { SESSION_TOKEN_COOKIE_NAME } from '@truesparrow/identity-sdk-js/client'
 import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 import '@truesparrow/filestack-picker'
 
+import { ORIGIN_DOMAIN } from './shared'
+
 
 chai.use(raynorChai);
 
@@ -22,7 +24,7 @@ describe('Cross-cutting concerns', () => {
     it('Should set a cookie for the session', () => {
         cy.visit('/');
         cy.getCookie(SESSION_TOKEN_COOKIE_NAME).then(cookie => {
-            expect(cookie).has.property('domain').and.eql('adminfe.local.truesparrow');
+            expect(cookie).has.property('domain').and.eql(ORIGIN_DOMAIN);
             expect(cookie).has.property('path').and.eql('/');
             expect(cookie).has.property('httpOnly').and.eql(true);
             expect(cookie).has.property('secure').and.eql(false);
