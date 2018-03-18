@@ -16,19 +16,3 @@ services:
      - identity
     env_file:
      - ./.env
-  adminfe:
-    container_name: truesparrow.e2e-tests.adminfe
-    image: truesparrow-identity
-    build:
-      context: ./
-    ports:
-     - 10003:10003
-    links:
-     - identity
-     - content
-    env_file:
-     - ./.env
-    volumes:
-     - ./src:/truesparrow/src
-     - ./migrations:/truesparrow/migrations
-     - ./node_modules:/truesparrow/node_modules
