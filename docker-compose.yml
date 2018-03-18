@@ -1,0 +1,34 @@
+version: '2'
+services:
+  identity:
+    container_name: truesparrow.e2e-tests.identity
+    image: eu.gcr.io/chmsqrt2-truesparrow-common/identity:latest
+    ports:
+     - 10001:10001
+    env_file:
+     - ./env
+  content:
+    container_name: truesparrow.e2e-tests.content
+    image: eu.gcr.io/chmsqrt2-truesparrow-common/content:latest
+    ports:
+     - 10002:10002
+    links:
+     - identity
+    env_file:
+     - ./env
+  adminfe:
+    container_name: truesparrow.e2e-tests.adminfe
+    image: truesparrow-identity
+    build:
+      context: ./
+    ports:
+     - 10003:10003
+    links:
+     - identity
+     - content
+    env_file:
+     - ./env
+    volumes:
+     - ./src:/truesparrow/src
+     - ./migrations:/truesparrow/migrations
+     - ./node_modules:/truesparrow/node_modules
