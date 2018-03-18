@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
-const prodPlugins = require('./webpack.prod-plugins');
+// const prodPlugins = require('./webpack.prod-plugins');
 
 
 module.exports = {
@@ -116,7 +116,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'manifest'
         })
-    ].concat(process.env.COMMON_ENV !== 'LOCAL' ? [] /* prodPlugins.prodPlugins */ : []),
+    ].concat(process.env.COMMON_ENV !== 'LOCAL' ? [] /* TODO: fix this prodPlugins.prodPlugins */ : []),
     resolve: {
         extensions: ['.js', '.ts', '.tsx', '.css', '.less'],
         modules: [
