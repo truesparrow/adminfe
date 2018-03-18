@@ -6,7 +6,7 @@ services:
     ports:
      - 10001:10001
     env_file:
-     - ./env
+     - ./.env
   content:
     container_name: truesparrow.e2e-tests.content
     image: eu.gcr.io/chmsqrt2-truesparrow-common/content:latest
@@ -15,7 +15,7 @@ services:
     links:
      - identity
     env_file:
-     - ./env
+     - ./.env
   adminfe:
     container_name: truesparrow.e2e-tests.adminfe
     image: truesparrow-identity
@@ -27,7 +27,7 @@ services:
      - identity
      - content
     env_file:
-     - ./env
+     - ./.env
     volumes:
      - ./src:/truesparrow/src
      - ./migrations:/truesparrow/migrations
