@@ -116,7 +116,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'manifest'
         })
-    ].concat(process.env.COMMON_ENV !== 'LOCAL' ? prodPlugins.prodPlugins : []),
+    ].concat(process.env.COMMON_ENV !== 'LOCAL' ? [] /* prodPlugins.prodPlugins */ : []),
     resolve: {
         extensions: ['.js', '.ts', '.tsx', '.css', '.less'],
         modules: [
