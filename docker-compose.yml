@@ -13,8 +13,6 @@ services:
     image: eu.gcr.io/chmsqrt2-truesparrow-common/content:latest
     ports:
      - 10002:10002
-    links:
-     - identity
     env_file:
      - ./.env
     network_mode: "host"
