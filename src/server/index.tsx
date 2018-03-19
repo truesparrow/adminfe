@@ -19,6 +19,7 @@ import { inferLanguage } from '@truesparrow/business-rules-js'
 import {
     InternalWebFetcher,
     isLocal,
+    isNotOnServer,
     WebFetcher
 } from '@truesparrow/common-js'
 import {
@@ -137,7 +138,7 @@ async function main() {
 
     app.disable('x-powered-by');
     app.use(newNamespaceMiddleware(namespace))
-    if (isLocal(config.ENV)) {
+    if (isNotOnServer(config.ENV)) {
         app.use(newLocalCommonServerMiddleware(config.NAME, config.ENV, false));
     } else {
         app.use(newCommonServerMiddleware(
