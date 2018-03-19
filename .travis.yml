@@ -52,7 +52,7 @@ env:
   - IDENTITY_PORT=10002
   - IDENTITY_ORIGIN=http://identity.test.truesparrow:10001
   - IDENTITY_CLIENTS=http://content.test.truesparrow:10002,http://adminfe.test.truesparrow:10003
-  - IDENTITY_DATABASE_URL=postgresql://truesparrow:truesparrow@truesparrow.e2e-tests.postgres:5432/truesparrow
+  - IDENTITY_DATABASE_URL=postgresql://truesparrow:truesparrow@postgres.test.truesparrow:10000/truesparrow
   - IDENTITY_DATABASE_MIGRATIONS_DIR=./migrations
   - IDENTITY_DATABASE_MIGRATIONS_TABLE=migrations_identity
   # IDENTITY_AUTH0_CLIENT_ID=null
