@@ -16,7 +16,7 @@ services:
      - 10001:10001
     env_file:
      - ./.env
-    link:
+    links:
      - postgres
   content:
     container_name: truesparrow.e2e-tests.content
