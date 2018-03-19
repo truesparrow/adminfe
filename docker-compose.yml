@@ -1,5 +1,14 @@
 version: '2'
 services:
+  postgres:
+    container_name: truesparrow.e2e-tests.postgres
+    image: postgres
+    ports:
+     - 10000:5432
+    environment:
+     - POSTGRES_USER=truesparrow
+     - POSTGRES_PASSWORD=truesparrow
+     - POSTGRES_DB=truesparrow
   identity:
     container_name: truesparrow.e2e-tests.identity
     image: eu.gcr.io/chmsqrt2-truesparrow-common/identity:latest
@@ -7,8 +16,8 @@ services:
      - 10001:10001
     env_file:
      - ./.env
-    extra_hosts:
-     - "postgres.test.truesparrow:172.16.123.1"
+    link:
+     - postgres
   content:
     container_name: truesparrow.e2e-tests.content
     image: eu.gcr.io/chmsqrt2-truesparrow-common/content:latest
@@ -16,6 +25,6 @@ services:
      - 10002:10002
     env_file:
      - ./.env
-    extra_hosts:
-     - "postgres.test.truesparrow:172.16.123.1"
-     - "identity.test.truesparrow:172.16.123.1"
+    links:
+     - postgres
+     - identity

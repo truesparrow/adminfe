@@ -14,7 +14,6 @@ services:
   - docker
 
 addons:
-  postgresql: "9.6"
   hosts:
     - postgres.test.truesparrow
     - identity.test.truesparrow
@@ -27,8 +26,8 @@ env:
   #** Common to all services **#
   - COMMON_ENV=TEST
   - COMMON_CONTEXT=SERVER
-  - COMMON_IDENTITY_SERVICE_HOST=identity.test.truesparrow:10001
-  - COMMON_CONTENT_SERVICE_HOST=content.test.truesparrow:10002
+  - COMMON_IDENTITY_SERVICE_HOST=truesparrow.e2e-tests.identity:10001
+  - COMMON_CONTENT_SERVICE_HOST=truesparrow.e2e-tests.content:10002
   - COMMON_SITEFE_EXTERNAL_HOST=sitefe.test.truesparrow:10004
   # COMMON_FILESTACK_API_KEY=null
   - secure: "YnCeDBAuQB7xEWu+5IEISnVHVY7643QKJ94J6hY4Q1dhfszrO3fwN8aKPhAludQ9cXEwxjJs51wdkvREsySrAeW4zGxLIxsacNu9K7w/4t/O8zavewmsXo0eko+kjo6R1XODGL+R1Rronk6kJnEbZzy62TP6/puaeEmbr1YsxF7cHFTxfCBfgnumROAZ9rtBj01kkMilqi9c4eAb+CBNX3s1+NgoUglswkHmve0iwI7SslioUOrZBl/102PKvvrlSbmkIIugV0JXEQyo49UWCKsmblD4aCHRDV5M04MkXnNvQgVV/10N8aeA06SV1o7aABelbAjbwOtNRYgB5qhzHheEvKviziB1qyACKK9gPa2rCPt21Dt1I1v8YrBvci56fgpH5vZKHeyl/VTS9y2W38gAFmOTvg01H4xAgJlT3gUSwKOzCIhFq1C4Td+7yMEDou8zo5db/i4NI6BnRyKmKOU3fsUEYGDcTAdStSvI9hYLrCXmyaPZOplWS6hIyc7ieN/JwtZ7fsclz+Nx9UJNdQirfBj44C9yDNh7btZpK+uxu0qz0Eil3cj9FRQsbJsT0FF103BKZltipDa4HSsGfBDiY7h4eG+b3DaKVD73iZR/1RemZnlTHpHyBt9+kS/1qlPtvpD+QEJ58e9HWMs+Synb+OFQUzFsktxC6w493+Y="
@@ -54,7 +53,7 @@ env:
   - IDENTITY_PORT=10002
   - IDENTITY_ORIGIN=http://identity.test.truesparrow:10001
   - IDENTITY_CLIENTS=http://content.test.truesparrow:10002,http://adminfe.test.truesparrow:10003
-  - IDENTITY_DATABASE_URL=postgresql://postgres@postgres.test.truesparrow:5432/truesparrow
+  - IDENTITY_DATABASE_URL=postgresql://postgres@truesparrow.e2e-tests.postgres:10000/truesparrow
   - IDENTITY_DATABASE_MIGRATIONS_DIR=./migrations
   - IDENTITY_DATABASE_MIGRATIONS_TABLE=migrations_identity
   # IDENTITY_AUTH0_CLIENT_ID=null
@@ -67,7 +66,7 @@ env:
   - CONTENT_PORT=10002
   - CONTENT_ORIGIN=http://content.test.truesparrow:10002
   - CONTENT_CLIENTS=http://adminfe.test.truesparrow:10003
-  - CONTENT_DATABASE_URL=postgresql://postgres@postgres.test.truesparrow:5432/truesparrow
+  - CONTENT_DATABASE_URL=postgresql://postgres@truesparrow.e2e-tests.postgres:10000/truesparrow
   - CONTENT_DATABASE_MIGRATIONS_DIR=./migrations
   - CONTENT_DATABASE_MIGRATIONS_TABLE=migrations_content
   #* Travis build *#
@@ -80,7 +79,6 @@ install:
 - npm install --registry=https://npm-proxy.fury.io/${GEMFURY_API_KEY}/${GEMFURY_USER}/ --progress=false
 
 before_script:
-- ifconfig lo:0 $DOCKER_AND_HOST_COMMON_ADDRESS netmask 255.0.0.0 up
 - # npm run build
 - psql -c 'create database truesparrow;' -U postgres
 - openssl aes-256-cbc -K $encrypted_e74533fed31a_key -iv $encrypted_e74533fed31a_iv -in gcp-ci-docker-pusher-key.json.enc -out gcp-ci-docker-pusher-key.json -d
