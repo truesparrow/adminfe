@@ -54,7 +54,7 @@ env:
   - IDENTITY_PORT=10002
   - IDENTITY_ORIGIN=http://identity.test.truesparrow:10001
   - IDENTITY_CLIENTS=http://content.test.truesparrow:10002,http://adminfe.test.truesparrow:10003
-  - IDENTITY_DATABASE_URL=postgresql://postgres@postgres.test.truesparrow/truesparrow
+  - IDENTITY_DATABASE_URL=postgresql://postgres@postgres.test.truesparrow:5432/truesparrow
   - IDENTITY_DATABASE_MIGRATIONS_DIR=./migrations
   - IDENTITY_DATABASE_MIGRATIONS_TABLE=migrations_identity
   # IDENTITY_AUTH0_CLIENT_ID=null
@@ -67,7 +67,7 @@ env:
   - CONTENT_PORT=10002
   - CONTENT_ORIGIN=http://content.test.truesparrow:10002
   - CONTENT_CLIENTS=http://adminfe.test.truesparrow:10003
-  - CONTENT_DATABASE_URL=postgresql://postgres@postgres.test.truesparrow/truesparrow
+  - CONTENT_DATABASE_URL=postgresql://postgres@postgres.test.truesparrow:5432/truesparrow
   - CONTENT_DATABASE_MIGRATIONS_DIR=./migrations
   - CONTENT_DATABASE_MIGRATIONS_TABLE=migrations_content
   #* Travis build *#

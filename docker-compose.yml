@@ -7,7 +7,6 @@ services:
      - 10001:10001
     env_file:
      - ./.env
-    network_mode: "host"
   content:
     container_name: truesparrow.e2e-tests.content
     image: eu.gcr.io/chmsqrt2-truesparrow-common/content:latest
@@ -15,4 +14,3 @@ services:
      - 10002:10002
     env_file:
      - ./.env
-    network_mode: "host"
