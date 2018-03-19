@@ -53,6 +53,9 @@ env:
   - IDENTITY_PORT=10002
   - IDENTITY_ORIGIN=http://identity.test.truesparrow:10001
   - IDENTITY_CLIENTS=http://content.test.truesparrow:10002,http://adminfe.test.truesparrow:10003
+  - IDENTITY_DATABASE_URL=postgresql://postgres@postgres.test.truesparrow/truesparrow
+  - IDENTITY_DATABASE_MIGRATIONS_DIR=./migrations
+  - IDENTITY_DATABASE_MIGRATIONS_TABLE=migrations_identity
   # IDENTITY_AUTH0_CLIENT_ID=null
   - secure: "dshzqiM0jOFt43n2fP6J/Vd94FVTMvKqrRopvyG3p0lhoM20KNWNAYKawAmDSXfLPx8TWgkXjPotyV+I+7LVgrtX+9BzVE7YPLbA5FeT8VHM1MfptdPn8wHeO6Mxzuxb5faxak7S/m79yTDuoyb4eyZbVXdC4Pf5c7nvWMRZNpnnhaEE8HP1Vf5GQn3hf+P2ABXoT4jA7GePs4nAt3xXYX/yuUBkCyO5qnq8u3B7cxmCoy2YgyyaxoZCdpkLafXDclmm2RU48APE2ndiQPkvvH4ND37GS28rX9DYcIuPNg8o3pBLajcap0hHP01PAhAl0+Hy9ot0FgdeWCPiVVEzMkipuEfr0fJyKhzy9GPVTgu7oXvVJGKEB8ZG5QUlp3Kmju3FgHEshpNCZMS/My6mnfbzNocpsOLFkCAmCe6Z9ftkHtfCq2s4/JwcyF6OqUsv/hDetfgSYRXp5U/bSuJb1VsnzTjoriUrhl6F2fM3wOi+qlbkYOjilp7qTtadRqMOckAlc1ICqaiQ5UUTkPIOiSOctU28mVINgfdBuHg7V5TVfAuVzY3S6E2WBfJAFqpyKsbiyHEpADJU+HAN26gaw6jxLlCBYoDyE6FTUdGzsakIyDAXpDCog355sJpkGzQg0UWQ9l5iHb8R/e5Vq9vUrfFU7MstDaBN8gxjSdkBcYA="
   # IDENTITY_AUTH0_CLIENT_SECRET=null
@@ -63,6 +66,9 @@ env:
   - CONTENT_PORT=10002
   - CONTENT_ORIGIN=http://content.test.truesparrow:10002
   - CONTENT_CLIENTS=http://adminfe.test.truesparrow:10003
+  - CONTENT_DATABASE_URL=postgresql://postgres@postgres.test.truesparrow/truesparrow
+  - CONTENT_DATABASE_MIGRATIONS_DIR=./migrations
+  - CONTENT_DATABASE_MIGRATIONS_TABLE=migrations_content
   #* Travis build *#
   - GEMFURY_USER=truesparrow
   # GEMFURY_API_KEY=???
