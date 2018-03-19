@@ -16,6 +16,7 @@ services:
 addons:
   postgresql: "9.6"
   hosts:
+    - postgres.test.truesparrow
     - identity.test.truesparrow
     - content.test.truesparrow
     - adminfe.test.truesparrow
