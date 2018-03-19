@@ -8,7 +8,7 @@ services:
     env_file:
      - ./.env
     extra_hosts:
-     - "postgres.test.truesparrow:127.0.0.1"
+     - "postgres.test.truesparrow:172.16.123.1"
   content:
     container_name: truesparrow.e2e-tests.content
     image: eu.gcr.io/chmsqrt2-truesparrow-common/content:latest
@@ -17,5 +17,5 @@ services:
     env_file:
      - ./.env
     extra_hosts:
-     - "postgres.test.truesparrow:127.0.0.1"
-     - "identity.test.truesparrow:127.0.0.1"
+     - "postgres.test.truesparrow:172.16.123.1"
+     - "identity.test.truesparrow:172.16.123.1"
