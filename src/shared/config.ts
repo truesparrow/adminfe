@@ -1,4 +1,5 @@
 import { getNamespace } from 'continuation-local-storage'
+import { config } from 'dotenv'
 
 import { Context, Env, parseContext, parseEnv, isOnServer } from '@truesparrow/common-js'
 import { getFromEnv } from '@truesparrow/common-server-js'
@@ -9,6 +10,8 @@ import {
     serverToClient,
     Session
 } from '@truesparrow/identity-sdk-js'
+
+config();
 
 // Common to all services
 
