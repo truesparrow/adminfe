@@ -50,7 +50,7 @@ env:
   - ADMINFE_AUTH0_LOGIN_CALLBACK_URI=http://adminfe.test.truesparrow:10003/real/auth0-auth-flow/login
   #** Specific to identity service **#
   - IDENTITY_ADDRESS=0.0.0.0
-  - IDENTITY_PORT=10002
+  - IDENTITY_PORT=10001
   - IDENTITY_ORIGIN=http://identity.test.truesparrow:10001
   - IDENTITY_CLIENTS=http://content.test.truesparrow:10002,http://adminfe.test.truesparrow:10003
   - IDENTITY_DATABASE_HOST=postgres.test.truesparrow
