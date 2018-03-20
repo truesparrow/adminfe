@@ -93,6 +93,7 @@ before_script:
 - cat /etc/hosts
 - netstat -tulpn
 - docker-compose ps
+- docker-compose logs
 
 script:
 #- npm run test
