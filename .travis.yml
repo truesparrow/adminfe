@@ -91,10 +91,7 @@ before_script:
 - docker-compose pull
 - docker-compose up -d
 - npm run serve-prod &
-- sleep 90
-- cat /etc/hosts
-- netstat -tulpn
-- docker-compose ps
+- sleep 60
 - docker-compose logs
 
 script:
