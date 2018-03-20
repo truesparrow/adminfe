@@ -93,7 +93,6 @@ before_script:
 - cat /etc/hosts
 - netstat -tulpn
 - docker-compose ps
-- curl http://localhost:10001/
 
 script:
 #- npm run test
