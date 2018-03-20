@@ -95,7 +95,7 @@ before_script:
 - docker-compose logs
 
 script:
-#- npm run test
+- npm run test
 - npm run e2e-tests-prod
 
 after_success:
