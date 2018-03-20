@@ -86,24 +86,6 @@ function clickSave(loadingDoneText: string) {
     });
 }
 
-function visitSiteFe(url: string) {
-    const theUrl = new URL(url);
-    const subdomain = theUrl.hostname.split('.')[0];
-    const rest = theUrl.hostname.split('.').splice(1).join('.');
-    const restUrl = url.replace(`${subdomain}.`, '');
-    cy.setCookie('truesparrow-subdomain', subdomain, { domain: rest });
-    cy.visit(restUrl);
-}
-
-function requestSiteFe(url: string) {
-    const theUrl = new URL(url);
-    const subdomain = theUrl.hostname.split('.')[0];
-    const rest = theUrl.hostname.split('.').splice(1).join('.');
-    const restUrl = url.replace(`${subdomain}.`, '');
-    cy.setCookie('truesparrow-subdomain', subdomain, { domain: rest });
-    cy.request(restUrl);
-}
-
 export function replaceSelectImage(win: Window) {
     // Overwrite with a dumb value it otherwise cy.stub complains about it. We could just use the
     // function from above, but we get extra infrastructure out of Cypress via cy.stub.
@@ -147,5 +129,3 @@ Cypress.Commands.add('clearOutData', clearOutData);
 Cypress.Commands.add('loginAsUser', loginAsUser);
 Cypress.Commands.add('addEvent', addEvent);
 Cypress.Commands.add('clickSave', clickSave);
-Cypress.Commands.add('visitSiteFe', visitSiteFe);
-Cypress.Commands.add('requestSiteFe', requestSiteFe);

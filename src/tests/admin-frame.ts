@@ -1,4 +1,9 @@
+import { JSONCookie } from 'cookie-parser'
 import 'mocha'
+import { MarshalFrom } from 'raynor'
+
+import { SESSION_TOKEN_COOKIE_NAME } from '@truesparrow/identity-sdk-js/client'
+import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 
 import { ADMIN_PAGES_INFO, ORIGIN } from './shared'
 
@@ -44,8 +49,10 @@ describe('Admin frame', () => {
     });
 
     describe('Misc flows', () => {
+        const sessionTokenMarshaller = new (MarshalFrom(SessionToken))();
+
         it.skip('The logout flow', () => {
-            cy.loginAsUser('user1.json').then(([_sessionToken, _session, _data]) => {
+            cy.loginAsUser('user1.json').then(([sessionToken, _session, _data]) => {
                 cy.visit('/admin');
 
                 cy.log('Press the logout button');
