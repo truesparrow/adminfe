@@ -90,7 +90,6 @@ before_script:
 - docker-compose up -d
 - npm run serve-prod &
 - sleep 90
-- curl http://identity.test.truesparrow:10001/
 - curl http://localhost:10001/
 
 script:
