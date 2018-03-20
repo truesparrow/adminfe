@@ -27,4 +27,4 @@ services:
      - ./.env
     links:
      - "postgres:${CONTENT_DATABASE_HOST}"
-     - "identity:${COMMON_IDENTITY_SERVICE}"
+     - "identity:${COMMON_IDENTITY_HOST}"

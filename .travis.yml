@@ -89,7 +89,7 @@ before_script:
 - docker-compose pull
 - docker-compose up -d
 - npm run serve-prod &
-- sleep 60
+- sleep 90
 
 script:
 #- npm run test
