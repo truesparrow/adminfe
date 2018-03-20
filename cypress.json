@@ -1,6 +1,7 @@
 {
-    "baseUrl": "http://adminfe.local.truesparrow:10003",
-    "integrationFolder": "out/tests",
-    "fixturesFolder": "src/tests/fixtures",
-    "sourceType": "module"
+  "baseUrl": "http://adminfe.local.truesparrow:10003",
+  "integrationFolder": "out/tests",
+  "fixturesFolder": "src/tests/fixtures",
+  "sourceType": "module",
+  "projectId": "6p9qoc"
 }
