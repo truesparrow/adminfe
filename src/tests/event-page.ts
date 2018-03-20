@@ -49,7 +49,7 @@ describe('Event page', () => {
             cy.get('main').get('div.admin-section').first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
                 cy.get('input[type=text].address-input').should('have.attr', 'value', 'Bucharest City Hall, Bulevardul Regina Elisabeta, Bucharest, Romania');
-                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/01/2018 10:00 PM');
+                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
             });
         });
     });
@@ -79,7 +79,7 @@ describe('Event page', () => {
             cy.get('main').get('div.admin-section').next().first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
                 cy.get('input[type=text].address-input').should('have.attr', 'value', 'Biserica Icoanei, Strada Icoanei, Bucharest, Romania');
-                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/01/2018 10:00 PM');
+                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
             });
         });
     });
@@ -109,7 +109,7 @@ describe('Event page', () => {
             cy.get('main').get('div.admin-section').next().next().first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
                 cy.get('input[type=text].address-input').should('have.attr', 'value', 'Scala Events, Bulevardul Mircea Eliade, Bucharest, Romania');
-                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/01/2018 10:00 PM');
+                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
             });
         });
     });
