@@ -17,7 +17,7 @@ services:
     env_file:
      - ./.env
     links:
-     - postgres
+     - "postgres:${IDENTITY_DATABASE_HOST}"
   content:
     container_name: truesparrow.e2e-tests.content
     image: eu.gcr.io/chmsqrt2-truesparrow-common/content:latest
@@ -26,5 +26,5 @@ services:
     env_file:
      - ./.env
     links:
-     - postgres
-     - identity
+     - "postgres:${CONTENT_DATABASE_HOST}"
+     - "identity:${COMMON_IDENTITY_SERVICE}"
