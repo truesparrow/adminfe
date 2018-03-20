@@ -34,7 +34,8 @@ describe('Event page', () => {
                 cy.contains('Address');
                 cy.contains('Time and date');
                 cy.get('input[type=text].address-input').clear().type('Bucharest City Hall');
-                cy.get('div.address-item.address-item-active div.suggestion').click();
+                cy.wait(2000); // Wait for maps selector to pass
+                cy.get('input[type=text].address-input').parent().parent().contains('Address').click();
                 cy.get('div.address-container').should('not.be.visible');
                 cy.get('input[type=text].admin-form-input').clear().type('10/02/2022');
                 cy.get('table td[data-value=2]').first().click();
@@ -48,7 +49,7 @@ describe('Event page', () => {
             cy.visit('/admin/event');
             cy.get('main').get('div.admin-section').first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
-                cy.get('input[type=text].address-input').should('have.attr', 'value', 'Bucharest City Hall, Bulevardul Regina Elisabeta, Bucharest, Romania');
+                cy.get('input[type=text].address-input').should('have.attr', 'value', 'Bucharest City Hall');
                 cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
             });
         });
@@ -64,7 +65,8 @@ describe('Event page', () => {
                 cy.contains('Address');
                 cy.contains('Time and date');
                 cy.get('input[type=text].address-input').clear().type('Biserica Icoanei');
-                cy.get('div.address-item.address-item-active div.suggestion').click();
+                cy.wait(2000); // Wait for maps selector to pass
+                cy.get('input[type=text].address-input').parent().parent().contains('Address').click();
                 cy.get('div.address-container').should('not.be.visible');
                 cy.get('input[type=text].admin-form-input').clear().type('10/02/2022');
                 cy.get('table td[data-value=2]').first().click();
@@ -78,7 +80,7 @@ describe('Event page', () => {
             cy.visit('/admin/event');
             cy.get('main').get('div.admin-section').next().first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
-                cy.get('input[type=text].address-input').should('have.attr', 'value', 'Biserica Icoanei, Strada Icoanei, Bucharest, Romania');
+                cy.get('input[type=text].address-input').should('have.attr', 'value', 'Biserica Icoanei');
                 cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
             });
         });
@@ -94,7 +96,8 @@ describe('Event page', () => {
                 cy.contains('Address');
                 cy.contains('Time and date');
                 cy.get('input[type=text].address-input').clear().type('Scala Events');
-                cy.get('div.address-item.address-item-active div.suggestion').click();
+                cy.wait(2000); // Wait for maps selector to pass
+                cy.get('input[type=text].address-input').parent().parent().contains('Address').click();
                 cy.get('div.address-container').should('not.be.visible');
                 cy.get('input[type=text].admin-form-input').clear().type('10/02/2022');
                 cy.get('table td[data-value=2]').first().click();
@@ -108,7 +111,7 @@ describe('Event page', () => {
             cy.visit('/admin/event');
             cy.get('main').get('div.admin-section').next().next().first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
-                cy.get('input[type=text].address-input').should('have.attr', 'value', 'Scala Events, Bulevardul Mircea Eliade, Bucharest, Romania');
+                cy.get('input[type=text].address-input').should('have.attr', 'value', 'Scala Events');
                 cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
             });
         });
