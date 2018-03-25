@@ -6,7 +6,7 @@ describe('Site page', () => {
         cy.clearOutData();
     });
 
-    it('Allows changing DNS subdomain', () => {
+    it.skip('Allows changing DNS subdomain', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/site');
 
