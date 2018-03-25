@@ -52,6 +52,7 @@ import { AppFrame } from '../shared/app-frame'
 import * as config from '../shared/config'
 import { ClientConfig, ClientInitialState } from '../shared/client-data'
 import { createStoreFromInitialState, reducers } from '../shared/store'
+import { newHealthCheckRouter } from '@truesparrow/common-server-js/healthcheck-router';
 
 
 async function main() {
@@ -164,6 +165,9 @@ async function main() {
     // Static serving of the client side code assets (index.html, vendor.js etc). No session. Derived
     // from the bundles.
     app.use('/real/client', bundles.getOtherBundlesRouter());
+
+    // Still a service after all and this will allow health checks & metrics etc.
+    app.use('/status', newHealthCheckRouter());
 
     // Setup serving of a bunch of files for interacting with the web at large, such as robots.txt,
     // sitemaps etc. These are derived from the bundles, with some extra data baked in. No session.
