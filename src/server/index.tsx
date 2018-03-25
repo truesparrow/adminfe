@@ -24,6 +24,7 @@ import {
 } from '@truesparrow/common-js'
 import {
     //    newCommonServerMiddleware,
+    newHealthCheckRouter,
     newLocalCommonServerMiddleware,
     newNamespaceMiddleware,
     Request
@@ -52,7 +53,6 @@ import { AppFrame } from '../shared/app-frame'
 import * as config from '../shared/config'
 import { ClientConfig, ClientInitialState } from '../shared/client-data'
 import { createStoreFromInitialState, reducers } from '../shared/store'
-import { newHealthCheckRouter } from '@truesparrow/common-server-js/healthcheck-router';
 
 
 async function main() {
