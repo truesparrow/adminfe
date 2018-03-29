@@ -35,7 +35,7 @@ before_script:
 - psql -c "create database truesparrow;" -U postgres
 - psql -c "create user truesparrow with password 'truesparrow';" -U postgres
 - psql -c "grant all on database truesparrow to truesparrow;" -U postgres
-- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in secrets.tar.enc -out config/secrets.tar -d
+- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in config/secrets.tar.enc -out config/secrets.tar -d
 - cd config && tar xvf secrets.tar
 - mv config/env.identity.test config/env.identity
 - mv config/env.content.test config/env.content
