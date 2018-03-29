@@ -44,6 +44,7 @@ before_script:
 - cat config/gcp-ci-builder-key.json | docker login --username _json_key --password-stdin https://eu.gcr.io;
 - docker-compose pull
 - docker-compose up -d
+- npm run build
 - npm run serve-prod &
 - sleep 60
 - docker-compose logs
