@@ -27,6 +27,9 @@ export class ClientConfig {
     @MarshalWith(r.StringMarshaller)
     contentServiceHost: string;
 
+    @MarshalWith(r.PositiveIntegerMarshaller)
+    contentServicePort: number;
+
     @MarshalWith(r.StringMarshaller)
     auth0ClientId: string;
 

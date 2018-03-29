@@ -12,5 +12,10 @@
 .DS_Store
 
 # Secrets files
-.env
-gcp-*-key.json
+config/gcp-*-key.json
+config/env.identity
+config/env.content
+config/env.adminfe
+config/env.identity.test
+config/env.content.test
+config/env.adminfe.test

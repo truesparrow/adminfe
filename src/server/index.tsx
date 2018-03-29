@@ -66,9 +66,15 @@ async function main() {
 
     const internalWebFetcher: WebFetcher = new InternalWebFetcher();
     const identityClient: IdentityClient = newIdentityClient(
-        config.ENV, config.ORIGIN, config.IDENTITY_SERVICE_HOST, internalWebFetcher);
+        config.ENV,
+        config.ORIGIN,
+        `${config.IDENTITY_SERVICE_HOST}:${config.IDENTITY_SERVICE_PORT}`,
+        internalWebFetcher);
     const contentPrivateClient: ContentPrivateClient = newContentPrivateClient(
-        config.ENV, config.ORIGIN, config.CONTENT_SERVICE_HOST, internalWebFetcher);
+        config.ENV,
+        config.ORIGIN,
+        `${config.CONTENT_SERVICE_HOST}:${config.CONTENT_SERVICE_PORT}`,
+        internalWebFetcher);
 
     const bundles: Bundles = isLocal(config.ENV)
         ? new WebpackDevBundles(theWebpackDevMiddleware(webpack(webpackConfig), {
@@ -92,12 +98,13 @@ async function main() {
             origin: config.ORIGIN,
             siteFeExternalHost: config.SITEFE_EXTERNAL_HOST,
             contentServiceHost: config.CONTENT_SERVICE_HOST,
+            contentServicePort: config.CONTENT_SERVICE_PORT,
             auth0ClientId: config.AUTH0_CLIENT_CONFIG.clientId,
             auth0Domain: config.AUTH0_CLIENT_CONFIG.domain,
             auth0LoginCallbackUri: config.AUTH0_CLIENT_CONFIG.loginCallbackUri,
             logoutRoutePath: config.LOGOUT_ROUTE_PATH,
             fileStackApiKey: config.FILESTACK_API_KEY,
-            rollbarClientToken: config.ROLLBAR_CLIENT_TOKEN,
+            rollbarClientToken: null,
             session: session,
             language: language
         };
@@ -255,8 +262,8 @@ async function main() {
     // Start serving
     // ********************
 
-    app.listen(config.PORT, config.ADDRESS, () => {
-        console.log(`Started ${config.NAME} service on ${config.ADDRESS}:${config.PORT}`);
+    app.listen(config.PORT, '0.0.0.0', () => {
+        console.log(`Started ${config.NAME} service on ${config.PORT}`);
     });
 }
 

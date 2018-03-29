@@ -14,68 +14,17 @@ services:
 
 addons:
   hosts:
-    - postgres.test.truesparrow
-    - identity.test.truesparrow
-    - content.test.truesparrow
-    - adminfe.test.truesparrow
+    - postgres.truesparrow
+    - identity.truesparrow
+    - content.truesparrow
+    - adminfe.truesparrow
 
 env:
   global:
-  #* Application *#
-  #** Common to all services **#
-  - COMMON_ENV=TEST
-  - COMMON_CONTEXT=SERVER
-  - COMMON_IDENTITY_HOST=identity.test.truesparrow
-  - COMMON_IDENTITY_SERVICE_HOST=identity.test.truesparrow:10001
-  - COMMON_CONTENT_SERVICE_HOST=content.test.truesparrow:10002
-  - COMMON_SITEFE_EXTERNAL_HOST=sitefe.test.truesparrow:10004
-  # COMMON_FILESTACK_API_KEY=null
-  - secure: "YnCeDBAuQB7xEWu+5IEISnVHVY7643QKJ94J6hY4Q1dhfszrO3fwN8aKPhAludQ9cXEwxjJs51wdkvREsySrAeW4zGxLIxsacNu9K7w/4t/O8zavewmsXo0eko+kjo6R1XODGL+R1Rronk6kJnEbZzy62TP6/puaeEmbr1YsxF7cHFTxfCBfgnumROAZ9rtBj01kkMilqi9c4eAb+CBNX3s1+NgoUglswkHmve0iwI7SslioUOrZBl/102PKvvrlSbmkIIugV0JXEQyo49UWCKsmblD4aCHRDV5M04MkXnNvQgVV/10N8aeA06SV1o7aABelbAjbwOtNRYgB5qhzHheEvKviziB1qyACKK9gPa2rCPt21Dt1I1v8YrBvci56fgpH5vZKHeyl/VTS9y2W38gAFmOTvg01H4xAgJlT3gUSwKOzCIhFq1C4Td+7yMEDou8zo5db/i4NI6BnRyKmKOU3fsUEYGDcTAdStSvI9hYLrCXmyaPZOplWS6hIyc7ieN/JwtZ7fsclz+Nx9UJNdQirfBj44C9yDNh7btZpK+uxu0qz0Eil3cj9FRQsbJsT0FF103BKZltipDa4HSsGfBDiY7h4eG+b3DaKVD73iZR/1RemZnlTHpHyBt9+kS/1qlPtvpD+QEJ58e9HWMs+Synb+OFQUzFsktxC6w493+Y="
-  # COMMON_GOOGLE_MAPS_API_KEY=null
-  - secure: "nuLiyKtmox0fyGI9PODgpqsF3wZxdUO0nhivCI3ExlznhYkMmdjrmXw4R+v9AIb15BqYgde0/hw1HzDJfygduSjv1FachkNmPrG5Dz4VTyLK5S0mUmGIOQPRUXTFUSwAK6WrmOxOkUZXWWwRs+iw+wqUUZ6WWFMeDWNFq3PxM00xhYnDpkeOkPTaaJpmyor5c2shC83hI+B4MhxD9pbHx4N06nH52BguSyB9ISXrMbWH4z2XsIgXAjhQwS8yjvwAu8NH/U52OsNxsG0L+GeyV60DFaiJ/ewp7iZBVV9UBQa8A6VwUrjKECQjOLfcI59jEYQo3vxbo1v/1mHJl/6VAAWtQanlvAMhsrZB3BRQI9fg1Stzy4KL9X8w4z39zQUrAsYj+Dake9l3je6tarfWAmIAigu0a2yQuITVKRAZ3v4elvAwpWLO15ddqkDftRLFUDYKb0wzlNic5RuBLG0J+a73CGQ4q5USpPW1VzgNCmGb7wYby+78I2lCcz9B5+m8cpRBh7jvQM9JwB3d9uE8K5UWI1z17a4qsMDMHHYCQUfz1YgMk0Vf27Q3HbaGS21FPazc5N3nd3QxXUYpeStQoYJ3DiX4yW4dI2EzijLlGurVe/rKBBM66NubbqFRnre9K10sGMgBFhWL4oIaDZFSpdWZIRLwaIAFTcIs7Umg7X8="
-  - COMMON_LOGGLY_TOKEN=null
-  - COMMON_LOGGLY_SUBDOMAIN=null
-  - COMMON_ROLLBAR_SERVER_TOKEN=null
-  - COMMON_ROLLBAR_CLIENT_TOKEN=null
-  #** Specific to adminfe service **#
-  - ADMINFE_ADDRESS=0.0.0.0
-  - ADMINFE_PORT=10003
-  - ADMINFE_ORIGIN_DOMAIN=adminfe.test.truesparrow
-  - ADMINFE_ORIGIN=http://adminfe.test.truesparrow:10003
-  # ADMINFE_AUTH0_CLIENT_ID=null
-  - secure: "tMrQbmq30zGT6Wo4OLX6pWDddbkRnBus2d/v3p827P6cB4VD5uXxJjIT7ApZ7pFKqcLQ/gkH87lpxrKkKNbi54k1plygc1UJxn52VdDTyCwq4riuTZ8F4Swg+9aag1vvn8VGEsPG2U0FlFEFY1t9D29X80oQHUEcv+vHrF3kMwF9sO2yfkG2NrNp5x2j6pqS1n1XWjtjlNMnF03OygqQqYfhL6kvJ5184Plqti1UQDlkvlUm9h05oV1bjK3jJOKjI5xFBilGDcUborbu4s1UMgLxG9ca7Ixd4xvcIzUztN8xGe4NC2Pj1UkjFkkxVlKkro/CxyStHUIMHsUTujg0cj0yaUvl4S5aSuZCBw/oMpgon5tBzEs3czThq7B+WNlHXZp3PBMgM6XuJrKoY0xKTcHPY6ljV9YhuNSxK3rYrCGcxPcJfwa7ndIs/a5niMcLSYQaUicTpvNBERMz8MxEPUVL0Im1/tcU4RQG5IWRSgB9/mSJ5o3LseBXRSgm911q4Ocdifd775P41Cq8d+fl0+LiDoZEH/6URNEyd0iqCEDqHThqZBnzhGgv1dTlU+P4fJ/aAQNHu47SaTOwGBt9KF1OezdiIpnaPEktE7S/+30Iztx5fvTMALsY+uQ7dJKOmeKsXxoSyS0lRT+gSmMsBQqe+dAB210FIFAIBTYcaxE="
-  # ADMINFE_AUTH0_CLIENT_SECRET=null
-  - secure: "uTowTLrZe3pR82qDhiOWXD2HDFXyBdi8JN15BMrk/kKP9LT/8iBdGO+r3sRcoPTAXCAedDaVVGkLOVq4mPpVdH2qsCsVcYSWyU6mnO0Sej7Q9BlsUemkfYzo9t1UY3rm7GGCCvJA8Pfal25rTABMz3U9TlEf+LPgGvp/a1n5kA3qpT4qv2aahPzxhW3UVUAalCd9Tmd3KyBkSDSjoAL7Wx3+HtCRcga6o4bX8j16de50SCXGUYUcwYAS72s2gdur8vyJ315gHXQ89mlmApUX+v+jp0u1b2grjvP9d5S3mIMiwddKMehczcInjkoIpQDRhHbVAKZaETQ4bgQ4DmznyLc2NcKSpaYn2HazBO7j9HfkgBodUllEQqS+OPi6BcmtwiT4XOVMsP5VmQd9oHeREkr6eLbjkgAHS7bHJM5WZdl72y7Uk5ju6pyts5f+hIJEK2DauPPemNd317f5RCYu6lFJNpAz+3m961DbOQYpNOQ1KsjDW5FzO1mGTvzhQcZ9+HiO5dB1x6Ge1WgvQM60cW+XgFFV0dMMrjVnBJWIIfALmvfrCxn09pR9WONPYqRH3fruk1ROwX8Mim+cJHh4ZM1/pYrU5xNwLuxVoAo89hc9fYQeo01/q3nsWytoNMlVEMGKbkj6dgfnGCLgCU7YbU9R7l6VFGI40Su7Kes9e1o="
-  - ADMINFE_AUTH0_DOMAIN=truesparrow-local.eu.auth0.com
-  - ADMINFE_AUTH0_LOGIN_CALLBACK_URI=http://adminfe.test.truesparrow:10003/real/auth0-auth-flow/login
-  #** Specific to identity service **#
-  - IDENTITY_ADDRESS=0.0.0.0
-  - IDENTITY_PORT=10001
-  - IDENTITY_ORIGIN=http://identity.test.truesparrow:10001
-  - IDENTITY_CLIENTS=http://content.test.truesparrow:10002,http://adminfe.test.truesparrow:10003
-  - IDENTITY_DATABASE_HOST=postgres.test.truesparrow
-  - IDENTITY_DATABASE_URL=postgresql://truesparrow:truesparrow@postgres.test.truesparrow:5432/truesparrow
-  - IDENTITY_DATABASE_MIGRATIONS_DIR=./migrations
-  - IDENTITY_DATABASE_MIGRATIONS_TABLE=migrations_identity
-  # IDENTITY_AUTH0_CLIENT_ID=null
-  - secure: "dshzqiM0jOFt43n2fP6J/Vd94FVTMvKqrRopvyG3p0lhoM20KNWNAYKawAmDSXfLPx8TWgkXjPotyV+I+7LVgrtX+9BzVE7YPLbA5FeT8VHM1MfptdPn8wHeO6Mxzuxb5faxak7S/m79yTDuoyb4eyZbVXdC4Pf5c7nvWMRZNpnnhaEE8HP1Vf5GQn3hf+P2ABXoT4jA7GePs4nAt3xXYX/yuUBkCyO5qnq8u3B7cxmCoy2YgyyaxoZCdpkLafXDclmm2RU48APE2ndiQPkvvH4ND37GS28rX9DYcIuPNg8o3pBLajcap0hHP01PAhAl0+Hy9ot0FgdeWCPiVVEzMkipuEfr0fJyKhzy9GPVTgu7oXvVJGKEB8ZG5QUlp3Kmju3FgHEshpNCZMS/My6mnfbzNocpsOLFkCAmCe6Z9ftkHtfCq2s4/JwcyF6OqUsv/hDetfgSYRXp5U/bSuJb1VsnzTjoriUrhl6F2fM3wOi+qlbkYOjilp7qTtadRqMOckAlc1ICqaiQ5UUTkPIOiSOctU28mVINgfdBuHg7V5TVfAuVzY3S6E2WBfJAFqpyKsbiyHEpADJU+HAN26gaw6jxLlCBYoDyE6FTUdGzsakIyDAXpDCog355sJpkGzQg0UWQ9l5iHb8R/e5Vq9vUrfFU7MstDaBN8gxjSdkBcYA="
-  # IDENTITY_AUTH0_CLIENT_SECRET=null
-  - secure: "YUSbVrFeIYQ6ypJ+NHPeGwlKQqPjtrKFMTqTB/uhuKRUReZ+OBFqaT1p3fPLeqwdsjZBFwBbwazfI/c9iAJX0lUZYtted51QpcloYOyQsQAfh+NG5oU2o64smINTd+55jGKhrJyedfBFkyoEj6fYFYX3r7V/SRAMqInpyn/HRN+76gRbcRjx3rKTpPSMDIrFm8KSR7NSFvZdNFJVxFblvuzsxd0PK9B7owYCgg1Wi2Rd/QfZk4LeJ2KMPdWxBFRcvYPta8kzPN5FZthK//+4pderuInPoVgAjtDBod1ONa4SL9SsiffhojzzTE5W+HDbuVxUHYP2f67rQIFkSOMe8CQUB+l5ETts/3Osb53ZB3QtiD+H676BCQ/XQ9wd5co3noMV86X84DgVeS5//nkYyRSkcO0yuOaefvqY9xXY6QqWu37952Ei/SiQ+E9Agp9cZDNGX1yPhtFrtUzTI1K69egP5j9GLj45KGA1/ZFJyh0QOglCOom5PjEKB6Emeue/q1zive6/g9w+iW6Zn/t2416sfchfzTiAkjo1VgjXa65q32FkFBsotVQqzyjpv6zPkxsMxPustqx2BOHgpY4rEkeuNr3VyPxvLNpa8agGawQwQ805vErdO69+EMH70Y6f+jujl5Qk/J1J2wKuk9g2qOhHoYNGZesGHSgzPHVJjAA="
-  - IDENTITY_AUTH0_DOMAIN=null
-  #** Specific to content service **#
-  - CONTENT_ADDRESS=0.0.0.0
-  - CONTENT_PORT=10002
-  - CONTENT_ORIGIN=http://content.test.truesparrow:10002
-  - CONTENT_CLIENTS=http://adminfe.test.truesparrow:10003
-  - CONTENT_DATABASE_HOST=postgres.test.truesparrow
-  - CONTENT_DATABASE_URL=postgresql://truesparrow:truesparrow@postgres.test.truesparrow:5432/truesparrow
-  - CONTENT_DATABASE_MIGRATIONS_DIR=./migrations
-  - CONTENT_DATABASE_MIGRATIONS_TABLE=migrations_content
-  #* Travis build *#
   - GEMFURY_USER=truesparrow
   # GEMFURY_API_KEY=???
   - secure: "eOJuJAd3pxJxq0TSVdfDZ5dPx7YarxlliHmXnhM1nPS5LpYKxpnjzUIcL9N8OKqzFJFmoSHdV7CQymZ4+poH9vfPWuWiJI916+W5//+LKokVNazxL4ckHhMfhUYtTEhSdLbZ7I3wpWjTUByg6wvWqUoZFSAfvNoRpNY8oPHngsCKPRi7bHpVWH9daWTPPw/51ao3tMGkBjdHak9AOJbefn97L5I1a+wqIABSQ7p6Qb6MbzkGrEyt/WQxjLLoAMKFcs8WWC5aEh3mWHq5mZusVNvamlh1I/U8i6orQeduwAZJGTu/K/CcgWevNar+AD7ttZO2Gaw5WpYMZen5SHYtxr9oqO5pxWaM/1NTJWfsV/AKc28xCudzf3Z6a4LE70HRt2oNmLf/1YN335zDrvKApjDrzPcAg62vUvAp6HaqkyapzBEeUxrVeWtAQ0Gx+cvBk2IzPumMVBucWECkzfOlI2s4EsndV7rkuiqfcVSCUwDbALJAnS3UlVesiGe+tKCHnt/nnkqQh6SWQ1YwFGBBi9JM8Psy0I5sPtoN+cnDSQxrFn+BfqgsHycK95R2hsEZtSQ38XcdJxO0/qDmt8mh4PMQri7ImzetZyOBpMb1F8kP1d1oMkaeW/Rjt7oTVjVzc/eLKAzwYyw88cJHLeOMX5yzJb44zefncoH4ZjvPg00="
-  - CYPRESS_baseUrl=${ADMINFE_ORIGIN}
+  - CYPRESS_baseUrl=http://adminfe.truesparrow:10003
   # CYPRESS_RECORD_KEY
   - secure: "RV2htTIhoj5/OAFLE5z7MRTU62FVNkwjPg7q55xQ/9tCfcH1Aq/K+3bpRW8uGjtCBNX3MN3N1tIxAOpV0akXYowiBjHwQvjqWekP3IPwMIvJOcOmMPP6uDrEg5eiDdKygZ3iPGDdvm32dT5yO0Zxoy3D2eA45pta4Z9SrinyIWwR2Ny/wyTwMMkp6ZZwDANWh1mHZ76m0nEnKvg4hmgr3jyyHjf2LLYdZS2VZqaJW8g01Cby63Zjp+IYtVL/GWv8pVBH+BEXLRqSMZSj7236v0NHoWjCN0zsDVKXtNwpakAo/FeYiDxn7p+5odbq/tQTP3O6gDQCoPsD0mphcHN4wBbHCrr3FrPKNMMjNoWSS71WrmoHU9g0vi0gB3puvkjs1FKJLuFlndBsPdHMcdv5sbWByutFAaXp5xjTPzNknS46IxbcXCVMPrt5iafCTKA3xkCHRAhIPdGrI6xPd3gq+k3HU2PXkJdc37RwhDhAVpPgidQV5x/u3MFNALIHLQIJaZOf3XK3oc3B+TOJLFiOP/pgjIVzXIOvWLY6Y3D7GeyTuXIRTtofIVuDMS5y+96KXK1CO/oqqrFUxzFesoj3FJOSZuwWrP8O7Xv3pc/2uUrjMKeUiMk/6RWV3OaVXK4UUqsYV+TpMY7XP8GMzG/em/HpyK3Bn05E4tzb7Jbl2Oc="
 
@@ -83,11 +32,14 @@ install:
 - npm install --registry=https://npm-proxy.fury.io/${GEMFURY_API_KEY}/${GEMFURY_USER}/ --progress=false
 
 before_script:
-- npm run build
-- psql -c 'create database truesparrow;' -U postgres
-- openssl aes-256-cbc -K $encrypted_e74533fed31a_key -iv $encrypted_e74533fed31a_iv -in gcp-ci-builder-key.json.enc -out gcp-ci-builder-key.json -d
-- cat gcp-ci-builder-key.json | docker login --username _json_key --password-stdin https://eu.gcr.io;
-- env > .env
+- psql -c "create database truesparrow;" -U postgres
+- psql -c "create user truesparrow with password 'truesparrow';" -U postgres
+- psql -c "grant all on database truesparrow to truesparrow;" -U postgres
+- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in config/env.identity.test.enc -out config/env.identity -d
+- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in config/env.content.test.enc -out config/env.content -d
+- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in config/env.adminfe.test.enc -out config/env.adminfe -d
+- openssl aes-256-cbc -K $encrypted_e74533fed31a_key -iv $encrypted_e74533fed31a_iv -in config/gcp-ci-builder-key.json.enc -out config/gcp-ci-builder-key.json -d
+- cat config/gcp-ci-builder-key.json | docker login --username _json_key --password-stdin https://eu.gcr.io;
 - docker-compose pull
 - docker-compose up -d
 - npm run serve-prod &
@@ -110,7 +62,7 @@ deploy:
 - provider: script
   skip_cleanup: true
   script:
-    cat gcp-ci-builder-key.json | docker login --username _json_key --password-stdin https://eu.gcr.io;
+    cat config/gcp-ci-builder-key.json | docker login --username _json_key --password-stdin https://eu.gcr.io;
     docker build --tag eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:$TRAVIS_TAG .;
     docker push eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:$TRAVIS_TAG;
     docker build --tag eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:latest .;

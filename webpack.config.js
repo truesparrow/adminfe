@@ -66,7 +66,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': process.env.COMMON_ENV === 'LOCAL' ? '"development"' : '"production"'
+            'process.env.NODE_ENV': process.env.ENV === 'LOCAL' ? '"development"' : '"production"'
         }),
         // As we add more languages, we'll select more locales here.
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ro/),
@@ -116,7 +116,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'manifest'
         })
-    ].concat(process.env.COMMON_ENV !== 'LOCAL' ? [] /* TODO: fix this prodPlugins.prodPlugins */ : []),
+    ].concat(process.env.ENV !== 'LOCAL' ? [] /* TODO: fix this prodPlugins.prodPlugins */ : []),
     resolve: {
         extensions: ['.js', '.ts', '.tsx', '.css', '.less'],
         modules: [
@@ -125,5 +125,5 @@ module.exports = {
             path.resolve(__dirname, 'node_modules')
         ]
     },
-    devtool: process.env.COMMON_ENV !== 'LOCAL' ? 'source-map' : 'eval-cheap-module-source-map'
+    devtool: process.env.ENV !== 'LOCAL' ? 'source-map' : 'eval-cheap-module-source-map'
 };

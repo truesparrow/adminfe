@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://adminfe.local.truesparrow:10003",
+  "baseUrl": "http://adminfe.truesparrow:10003",
   "integrationFolder": "out/tests",
   "fixturesFolder": "src/tests/fixtures",
   "sourceType": "module",

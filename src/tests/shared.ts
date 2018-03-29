@@ -1,9 +1,12 @@
-export const IDENTITY_SERVICE_HOST = Cypress.env('COMMON_IDENTITY_SERVICE_HOST');
-export const CONTENT_SERVICE_HOST = Cypress.env('COMMON_CONTENT_SERVICE_HOST');
-export const SITEFE_EXTERNAL_HOST = Cypress.env('COMMON_SITEFE_EXTERNAL_HOST');
+export const IDENTITY_SERVICE_HOST = Cypress.env('IDENTITY_SERVICE_HOST');
+export const IDENTITY_SERVICE_PORT = Cypress.env('IDENTITY_SERVICE_PORT');
+export const CONTENT_SERVICE_HOST = Cypress.env('CONTENT_SERVICE_HOST');
+export const CONTENT_SERVICE_PORT = Cypress.env('CONTENT_SERVICE_PORT');
+export const SITEFE_EXTERNAL_HOST = Cypress.env('SITEFE_EXTERNAL_HOST');
 
-export const ORIGIN_DOMAIN = Cypress.env('ADMINFE_ORIGIN_DOMAIN');
-export const ORIGIN = Cypress.env('ADMINFE_ORIGIN');
+export const ORIGIN_DOMAIN = Cypress.env('HOST');
+const port = Cypress.env('PORT');
+export const ORIGIN = `http://${ORIGIN_DOMAIN}:${port}`;
 
 
 export const COMPANY_PAGES_INFO = [
