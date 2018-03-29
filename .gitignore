@@ -19,3 +19,4 @@ config/env.adminfe
 config/env.identity.test
 config/env.content.test
 config/env.adminfe.test
+config/secrets.tar

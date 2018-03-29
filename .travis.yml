@@ -35,10 +35,11 @@ before_script:
 - psql -c "create database truesparrow;" -U postgres
 - psql -c "create user truesparrow with password 'truesparrow';" -U postgres
 - psql -c "grant all on database truesparrow to truesparrow;" -U postgres
-- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in config/env.identity.test.enc -out config/env.identity -d
-- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in config/env.content.test.enc -out config/env.content -d
-- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in config/env.adminfe.test.enc -out config/env.adminfe -d
-- openssl aes-256-cbc -K $encrypted_e74533fed31a_key -iv $encrypted_e74533fed31a_iv -in config/gcp-ci-builder-key.json.enc -out config/gcp-ci-builder-key.json -d
+- openssl aes-256-cbc -K $encrypted_ccbf56b6ca6f_key -iv $encrypted_ccbf56b6ca6f_iv -in secrets.tar.enc -out config/secrets.tar -d
+- cd config && tar xvf secrets.tar
+- mv config/env.identity.test config/env.identity
+- mv config/env.content.test config/env.content
+- mv config/env.adminfe.test config/env.adminfe
 - cat config/gcp-ci-builder-key.json | docker login --username _json_key --password-stdin https://eu.gcr.io;
 - docker-compose pull
 - docker-compose up -d
