@@ -14,7 +14,7 @@ interface Props {
 
 export class CompanyAboutPage extends React.Component<Props, {}> {
     render() {
-        const realLink = `${config.ORIGIN}/company/about`;
+        const realLink = `${config.EXTERNAL_ORIGIN}/company/about`;
         return (
             <div>
                 <Helmet>
@@ -25,7 +25,7 @@ export class CompanyAboutPage extends React.Component<Props, {}> {
                     <meta name="twitter:title" content={text.aboutPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.aboutPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
-                    <meta name="twitter:site" content={config.ORIGIN} />
+                    <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
                     <meta property="og:url" content={realLink} />
                     <meta property="og:type" content="article" />
                     <meta property="og:title" content={text.aboutPageTitle[config.LANG()]} />
@@ -44,7 +44,7 @@ export class CompanyAboutPage extends React.Component<Props, {}> {
 
 export class CompanyTermsPage extends React.Component<Props, {}> {
     render() {
-        const realLink = `${config.ORIGIN}/company/terms`;
+        const realLink = `${config.EXTERNAL_ORIGIN}/company/terms`;
         return (
             <div>
                 <Helmet>
@@ -55,7 +55,7 @@ export class CompanyTermsPage extends React.Component<Props, {}> {
                     <meta name="twitter:title" content={text.termsPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.termsPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
-                    <meta name="twitter:site" content={config.ORIGIN} />
+                    <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
                     <meta property="og:url" content={realLink} />
                     <meta property="og:type" content="article" />
                     <meta property="og:title" content={text.termsPageTitle[config.LANG()]} />
@@ -74,7 +74,7 @@ export class CompanyTermsPage extends React.Component<Props, {}> {
 
 export class CompanyPrivacyPage extends React.Component<Props, {}> {
     render() {
-        const realLink = `${config.ORIGIN}/company/privacy`;
+        const realLink = `${config.EXTERNAL_ORIGIN}/company/privacy`;
         return (
             <div>
                 <Helmet>
@@ -85,7 +85,7 @@ export class CompanyPrivacyPage extends React.Component<Props, {}> {
                     <meta name="twitter:title" content={text.privacyPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.privacyPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
-                    <meta name="twitter:site" content={config.ORIGIN} />
+                    <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
                     <meta property="og:url" content={realLink} />
                     <meta property="og:type" content="article" />
                     <meta property="og:title" content={text.privacyPageTitle[config.LANG()]} />
@@ -104,7 +104,7 @@ export class CompanyPrivacyPage extends React.Component<Props, {}> {
 
 export class CompanyCookiesPage extends React.Component<Props, {}> {
     render() {
-        const realLink = `${config.ORIGIN}/company/cookies`;
+        const realLink = `${config.EXTERNAL_ORIGIN}/company/cookies`;
         return (
             <div>
                 <Helmet>
@@ -115,7 +115,7 @@ export class CompanyCookiesPage extends React.Component<Props, {}> {
                     <meta name="twitter:title" content={text.cookiesPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.cookiesPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
-                    <meta name="twitter:site" content={config.ORIGIN} />
+                    <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
                     <meta property="og:url" content={realLink} />
                     <meta property="og:type" content="article" />
                     <meta property="og:title" content={text.cookiesPageTitle[config.LANG()]} />

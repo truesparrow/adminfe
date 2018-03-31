@@ -19,7 +19,10 @@ export class ClientConfig {
     env: Env;
 
     @MarshalWith(r.WebUriMarshaller)
-    origin: string;
+    internalOrigin: string;
+
+    @MarshalWith(r.WebUriMarshaller)
+    externalOrigin: string;
 
     @MarshalWith(r.StringMarshaller)
     siteFeExternalHost: string;

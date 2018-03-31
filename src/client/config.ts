@@ -15,7 +15,8 @@ delete (window as any).__TRUESPARROW_CLIENT_CONFIG;
 export const ENV: Env = clientConfig.env;
 export const CONTEXT: Context = Context.Client;
 export const NAME: string = 'adminfe';
-export const ORIGIN: string = clientConfig.origin;
+export const INTERNAL_ORIGIN: string = clientConfig.internalOrigin;
+export const EXTERNAL_ORIGIN: string = clientConfig.externalOrigin;
 
 export const CONTENT_SERVICE_HOST: string = clientConfig.contentServiceHost;
 export const CONTENT_SERVICE_PORT: number = clientConfig.contentServicePort;

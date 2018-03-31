@@ -66,13 +66,11 @@ async function main() {
 
     const internalWebFetcher: WebFetcher = new InternalWebFetcher();
     const identityClient: IdentityClient = newIdentityClient(
-        config.ENV,
-        config.ORIGIN,
+        config.INTERNAL_ORIGIN,
         `${config.IDENTITY_SERVICE_HOST}:${config.IDENTITY_SERVICE_PORT}`,
         internalWebFetcher);
     const contentPrivateClient: ContentPrivateClient = newContentPrivateClient(
-        config.ENV,
-        config.ORIGIN,
+        config.INTERNAL_ORIGIN,
         `${config.CONTENT_SERVICE_HOST}:${config.CONTENT_SERVICE_PORT}`,
         internalWebFetcher);
 
@@ -95,7 +93,8 @@ async function main() {
         const clientConfig = {
             allowedPaths: config.ALLOWED_PATHS,
             env: config.ENV,
-            origin: config.ORIGIN,
+            internalOrigin: config.INTERNAL_ORIGIN,
+            externalOrigin: config.EXTERNAL_ORIGIN,
             siteFeExternalHost: config.SITEFE_EXTERNAL_HOST,
             contentServiceHost: config.CONTENT_SERVICE_HOST,
             contentServicePort: config.CONTENT_SERVICE_PORT,
@@ -167,7 +166,7 @@ async function main() {
         config.ENV, config.ALLOWED_PATHS, config.AUTH0_SERVER_CONFIG, internalWebFetcher, identityClient));
 
     // An API gateway for the client side code. Needs session to exist in the request.
-    app.use('/real/api-gateway', newApiGatewayRouter(config.ORIGIN, internalWebFetcher));
+    app.use('/real/api-gateway', newApiGatewayRouter(config.INTERNAL_ORIGIN, internalWebFetcher));
 
     // Static serving of the client side code assets (index.html, vendor.js etc). No session. Derived
     // from the bundles.
@@ -185,7 +184,7 @@ async function main() {
     siteInfoRouter.get('/robots.txt', (_req: Request, res: express.Response) => {
         res.status(HttpStatus.OK);
         res.type('.txt');
-        res.write(Mustache.render(bundles.getRobotsTxt(), { HOME_URI: config.ORIGIN }));
+        res.write(Mustache.render(bundles.getRobotsTxt(), { HOME_URI: config.EXTERNAL_ORIGIN }));
         res.end();
     });
 
@@ -200,7 +199,7 @@ async function main() {
         res.status(HttpStatus.OK);
         res.type('application/xml; charset=utf-8');
         res.write(Mustache.render(bundles.getSitemapXml(), {
-            HOME_URI: config.ORIGIN,
+            HOME_URI: config.EXTERNAL_ORIGIN,
             HOME_LAST_MOD: new Date().toISOString()
         }));
         res.end();

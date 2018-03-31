@@ -19,7 +19,8 @@ export const CONTEXT: Context = parseContext(getFromEnv('CONTEXT'));
 export const NAME: string = 'adminfe';
 export const HOST: string = getFromEnv('HOST');
 export const PORT: number = parseInt(getFromEnv('PORT'), 10);
-export const ORIGIN: string = `http://${HOST}:${PORT}`;
+export const INTERNAL_ORIGIN: string = `http://${HOST}:${PORT}`;
+export const EXTERNAL_ORIGIN: string = getFromEnv('EXTERNAL_ORIGIN');
 
 export const IDENTITY_SERVICE_HOST: string = getFromEnv('IDENTITY_SERVICE_HOST');
 export const IDENTITY_SERVICE_PORT: number = parseInt(getFromEnv('IDENTITY_SERVICE_PORT'), 10);
