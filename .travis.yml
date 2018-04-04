@@ -8,6 +8,7 @@ sudo: required
 cache:
   directories:
     - node_modules
+    - "$HOME/google-cloud-sdk"
 
 services:
   - docker
@@ -21,12 +22,25 @@ addons:
 
 env:
   global:
+  - PATH=$PATH:${HOME}/google-cloud-sdk/bin
   - GEMFURY_USER=truesparrow
   # GEMFURY_API_KEY=???
   - secure: "eOJuJAd3pxJxq0TSVdfDZ5dPx7YarxlliHmXnhM1nPS5LpYKxpnjzUIcL9N8OKqzFJFmoSHdV7CQymZ4+poH9vfPWuWiJI916+W5//+LKokVNazxL4ckHhMfhUYtTEhSdLbZ7I3wpWjTUByg6wvWqUoZFSAfvNoRpNY8oPHngsCKPRi7bHpVWH9daWTPPw/51ao3tMGkBjdHak9AOJbefn97L5I1a+wqIABSQ7p6Qb6MbzkGrEyt/WQxjLLoAMKFcs8WWC5aEh3mWHq5mZusVNvamlh1I/U8i6orQeduwAZJGTu/K/CcgWevNar+AD7ttZO2Gaw5WpYMZen5SHYtxr9oqO5pxWaM/1NTJWfsV/AKc28xCudzf3Z6a4LE70HRt2oNmLf/1YN335zDrvKApjDrzPcAg62vUvAp6HaqkyapzBEeUxrVeWtAQ0Gx+cvBk2IzPumMVBucWECkzfOlI2s4EsndV7rkuiqfcVSCUwDbALJAnS3UlVesiGe+tKCHnt/nnkqQh6SWQ1YwFGBBi9JM8Psy0I5sPtoN+cnDSQxrFn+BfqgsHycK95R2hsEZtSQ38XcdJxO0/qDmt8mh4PMQri7ImzetZyOBpMb1F8kP1d1oMkaeW/Rjt7oTVjVzc/eLKAzwYyw88cJHLeOMX5yzJb44zefncoH4ZjvPg00="
   - CYPRESS_baseUrl=http://adminfe.truesparrow:10003
   # CYPRESS_RECORD_KEY
   - secure: "RV2htTIhoj5/OAFLE5z7MRTU62FVNkwjPg7q55xQ/9tCfcH1Aq/K+3bpRW8uGjtCBNX3MN3N1tIxAOpV0akXYowiBjHwQvjqWekP3IPwMIvJOcOmMPP6uDrEg5eiDdKygZ3iPGDdvm32dT5yO0Zxoy3D2eA45pta4Z9SrinyIWwR2Ny/wyTwMMkp6ZZwDANWh1mHZ76m0nEnKvg4hmgr3jyyHjf2LLYdZS2VZqaJW8g01Cby63Zjp+IYtVL/GWv8pVBH+BEXLRqSMZSj7236v0NHoWjCN0zsDVKXtNwpakAo/FeYiDxn7p+5odbq/tQTP3O6gDQCoPsD0mphcHN4wBbHCrr3FrPKNMMjNoWSS71WrmoHU9g0vi0gB3puvkjs1FKJLuFlndBsPdHMcdv5sbWByutFAaXp5xjTPzNknS46IxbcXCVMPrt5iafCTKA3xkCHRAhIPdGrI6xPd3gq+k3HU2PXkJdc37RwhDhAVpPgidQV5x/u3MFNALIHLQIJaZOf3XK3oc3B+TOJLFiOP/pgjIVzXIOvWLY6Y3D7GeyTuXIRTtofIVuDMS5y+96KXK1CO/oqqrFUxzFesoj3FJOSZuwWrP8O7Xv3pc/2uUrjMKeUiMk/6RWV3OaVXK4UUqsYV+TpMY7XP8GMzG/em/HpyK3Bn05E4tzb7Jbl2Oc="
+  - GCP_STAGING_PROJECT=chmsqrt2-truesparrow-staging
+  - GCP_STAGING_ZONE=europe-west1-b
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - GOOGLE_APPLICATION_CREDENTIALS=config/gcp-ci-builder-key.json
+
+before_install:
+- if [ ! -d ${HOME}/google-cloud-sdk/bin ]; then
+    rm -rf ${HOME}/google-cloud-sdk;
+    curl https://sdk.cloud.google.com | bash /dev/stdin --disable-prompts;
+    ${HOME}/google-cloud-sdk/bin/gcloud -q components update kubectl;
+  fi
+- source ${HOME}/google-cloud-sdk/path.bash.inc
 
 install:
 - npm install --registry=https://npm-proxy.fury.io/${GEMFURY_API_KEY}/${GEMFURY_USER}/ --progress=false
@@ -61,10 +75,21 @@ deploy:
 - provider: script
   skip_cleanup: true
   script:
-    cat config/gcp-ci-builder-key.json | docker login --username _json_key --password-stdin https://eu.gcr.io;
+    cat ${GOOGLE_APPLICATION_CREDENTIALS} | docker login --username _json_key --password-stdin https://eu.gcr.io;
     docker build --tag eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:$TRAVIS_TAG .;
     docker push eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:$TRAVIS_TAG;
     docker build --tag eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:latest .;
     docker push eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:latest
+  on:
+    tags: true
+- provider: script
+  skip_cleanup: true
+  script:
+    ${HOME}/google-cloud-sdk/bin/gcloud config set project $GCP_STAGING_PROJECT;
+    ${HOME}/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS};
+    ${HOME}/google-cloud-sdk/bin/gcloud container clusters get-credentials chmsqrt2-truesparrow-staging-cluster --zone ${GCP_STAGING_ZONE};
+    kubectl apply -f k8s-service.yaml --record;
+    kubectl apply -f k8s-deployment.yaml --record;
+    kubectl set image deployment/adminfe adminfe=eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:$TRAVIS_TAG
   on:
     tags: true

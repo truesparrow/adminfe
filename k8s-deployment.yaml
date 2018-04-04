@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminfe
+  labels:
+    service: adminfe
+    env: staging
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: adminfe
+      env: staging
+      tier: backend
+  minReadySeconds: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        service: adminfe
+        env: staging
+        tier: backend
+    spec:
+      containers:
+      - name: adminfe
+        image: eu.gcr.io/chmsqrt2-truesparrow-common/adminfe:latest
+        ports:
+          - containerPort: 10003
+        livenessProbe:
+          httpGet:
+            path: /status/check
+            port: 10003
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /status/check
+            port: 10003
+        envFrom:
+        - configMapRef:
+            name: adminfe
+        env:
+        - name: AUTH0_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: adminfe-secrets
+              key: AUTH0_CLIENT_SECRET
+        - name: GOOGLE_MAPS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: adminfe-secrets
+              key: GOOGLE_MAPS_API_KEY
+        - name: FILESTACK_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: adminfe-secrets
+              key: FILESTACK_API_KEY

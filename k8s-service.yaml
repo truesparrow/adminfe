@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adminfe
+spec:
+  selector:
+    service: adminfe
+    env: staging
+    tier: backend
+  type: NodePort
+  ports:
+  - protocol: TCP
+    name: http
+    port: 80
+    targetPort: 10003
