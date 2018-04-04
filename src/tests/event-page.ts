@@ -37,8 +37,7 @@ describe('Event page', () => {
                 cy.wait(2000); // Wait for maps selector to pass
                 cy.get('input[type=text].address-input').parent().parent().contains('Address').click();
                 cy.get('div.address-container').should('not.be.visible');
-                cy.get('input[type=text].admin-form-input').clear().type('10/02/2022');
-                cy.get('table td[data-value=2]').first().click();
+                cy.get('input[type=text].admin-form-input').clear().type('10/02/2022 10:14 A');
                 cy.contains('Civil Ceremony').click();
             });
 
@@ -50,7 +49,7 @@ describe('Event page', () => {
             cy.get('main').get('div.admin-section').first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
                 cy.get('input[type=text].address-input').should('have.attr', 'value', 'Bucharest City Hall');
-                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
+                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '10/02/2022 10:14 AM');
             });
         });
     });
@@ -68,8 +67,7 @@ describe('Event page', () => {
                 cy.wait(2000); // Wait for maps selector to pass
                 cy.get('input[type=text].address-input').parent().parent().contains('Address').click();
                 cy.get('div.address-container').should('not.be.visible');
-                cy.get('input[type=text].admin-form-input').clear().type('10/02/2022');
-                cy.get('table td[data-value=2]').first().click();
+                cy.get('input[type=text].admin-form-input').clear().type('10/02/2022 10:14 A');
                 cy.contains('Religious Ceremony').click();
             });
 
@@ -81,7 +79,7 @@ describe('Event page', () => {
             cy.get('main').get('div.admin-section').next().first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
                 cy.get('input[type=text].address-input').should('have.attr', 'value', 'Biserica Icoanei');
-                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
+                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '10/02/2022 10:14 AM');
             });
         });
     });
@@ -99,8 +97,7 @@ describe('Event page', () => {
                 cy.wait(2000); // Wait for maps selector to pass
                 cy.get('input[type=text].address-input').parent().parent().contains('Address').click();
                 cy.get('div.address-container').should('not.be.visible');
-                cy.get('input[type=text].admin-form-input').clear().type('10/02/2022');
-                cy.get('table td[data-value=2]').first().click();
+                cy.get('input[type=text].admin-form-input').clear().type('10/02/2022 10:14 A');
                 cy.contains('Reception').click();
             });
 
@@ -112,7 +109,7 @@ describe('Event page', () => {
             cy.get('main').get('div.admin-section').next().next().first().within(() => {
                 cy.get('input[type=checkbox]').should('have.attr', 'checked', 'checked');
                 cy.get('input[type=text].address-input').should('have.attr', 'value', 'Scala Events');
-                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '03/02/2018 12:00 AM');
+                cy.get('input[type=text].admin-form-input').should('have.attr', 'value', '10/02/2022 10:14 AM');
             });
         });
     });

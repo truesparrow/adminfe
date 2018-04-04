@@ -128,6 +128,7 @@ export class SubEventEditor extends React.Component<Props, State> {
                                 value={this.state.dateAndTime}
                                 onChange={e => this._handleDateAndTime(e)}
                                 locale={config.LANG()}
+                                utc={true}
                                 inputProps={{
                                     className: 'admin-form-input' + (!this.state.dateAndTimeValid ? ' admin-form-input-error' : ''),
                                     disabled: !this.state.haveEvent
