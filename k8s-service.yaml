@@ -5,8 +5,7 @@ metadata:
 spec:
   selector:
     service: adminfe
-    env: staging
-    tier: backend
+    tier: frontend
   type: NodePort
   ports:
   - protocol: TCP

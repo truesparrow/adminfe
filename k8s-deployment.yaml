@@ -4,15 +4,13 @@ metadata:
   name: adminfe
   labels:
     service: adminfe
-    env: staging
-    tier: backend
+    tier: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
       service: adminfe
-      env: staging
-      tier: backend
+      tier: frontend
   minReadySeconds: 30
   strategy:
     type: RollingUpdate
@@ -23,8 +21,7 @@ spec:
     metadata:
       labels:
         service: adminfe
-        env: staging
-        tier: backend
+        tier: frontend
     spec:
       containers:
       - name: adminfe
