@@ -112,6 +112,8 @@ async function main() {
         namespace.set('SESSION', session);
         namespace.set('LANG', language);
 
+        console.log('Step 2.1');
+
         const staticContext: any = {};
         const appHtml = ReactDOMServer.renderToString(
             <Provider store={store}>
@@ -121,9 +123,13 @@ async function main() {
             </Provider>
         );
 
+        console.log('Step 2.2');
+
         const specialStatus = staticContext.status == HttpStatus.NOT_FOUND ? HttpStatus.NOT_FOUND : null;
 
         const helmetData = Helmet.renderStatic();
+
+        console.log('Step 2.3');
 
         return [Mustache.render(bundles.getHtmlIndexTemplate(), {
             GOOGLE_MAPS_API_KEY: config.GOOGLE_MAPS_API_KEY,
@@ -219,6 +225,8 @@ async function main() {
 
     appRouter.use(newSessionMiddleware(SessionLevel.None, SessionInfoSource.Cookie, config.ENV, identityClient));
     appRouter.get('*', wrap(async (req: RequestWithIdentity, res: express.Response) => {
+        console.log('Step 1');
+
         let event: Event | null = null;
 
         if (req.session.hasUser()) {
@@ -241,6 +249,8 @@ async function main() {
             }
         }
 
+        console.log('Step 2');
+
         const initialState: ClientInitialState = {
             event: event
         };
@@ -250,6 +260,8 @@ async function main() {
             req.session,
             initialState
         );
+
+        console.log('Step 3');
 
         res.status(specialStatus != null ? specialStatus : HttpStatus.OK);
         res.type('html');
