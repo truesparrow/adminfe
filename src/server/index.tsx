@@ -95,6 +95,7 @@ async function main() {
             env: config.ENV,
             internalOrigin: config.INTERNAL_ORIGIN,
             externalOrigin: config.EXTERNAL_ORIGIN,
+            contactEmail: config.CONTACT_EMAIL,
             siteFeExternalHost: config.SITEFE_EXTERNAL_HOST,
             contentServiceHost: config.CONTENT_SERVICE_HOST,
             contentServicePort: config.CONTENT_SERVICE_PORT,

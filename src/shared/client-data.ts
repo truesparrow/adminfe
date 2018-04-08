@@ -24,6 +24,9 @@ export class ClientConfig {
     @MarshalWith(r.WebUriMarshaller)
     externalOrigin: string;
 
+    @MarshalWith(r.StringMarshaller) // TODO: should be email marshaller
+    contactEmail: string;
+
     @MarshalWith(r.StringMarshaller)
     siteFeExternalHost: string;
 

@@ -1,5 +1,7 @@
 import { MessageWith0Arg } from '@truesparrow/common-js'
 
+import * as config from './config'
+
 
 export const aboutPageTitle: MessageWith0Arg = {
     en: "About company",
@@ -76,4 +78,19 @@ This is the _cookies_ page
     ro: `
 Aceasta este pagina despre _module cookies_
     `
+};
+
+export const contactPageTitle: MessageWith0Arg = {
+    en: "Contact",
+    ro: "Contact"
+};
+
+export const contactPageDescription: MessageWith0Arg = {
+    en: "Contact",
+    ro: "Contact"
+};
+
+export const contactUs: MessageWith0Arg = {
+    en: `We'd love to hear from you. Drop us a line at **${config.CONTACT_EMAIL}**`,
+    ro: `Ne-ar plăcea să auzim de la voi. Trimiteți-ne un email la **${config.CONTACT_EMAIL}**`
 };

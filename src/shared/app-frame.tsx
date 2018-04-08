@@ -7,7 +7,8 @@ import {
     CompanyAboutPage,
     CompanyTermsPage,
     CompanyPrivacyPage,
-    CompanyCookiesPage
+    CompanyCookiesPage,
+    CompanyContactPage
 } from './company-views'
 import * as config from './config'
 import { Footer } from './footer'
@@ -41,6 +42,7 @@ export class AppFrame extends React.Component<Props, State> {
                         <Route path="/company/tos" component={CompanyTermsPage} />
                         <Route path="/company/privacy" component={CompanyPrivacyPage} />
                         <Route path="/company/cookies" component={CompanyCookiesPage} />
+                        <Route path="/company/contact" component={CompanyContactPage} />
                         <Route path="*" component={NotFoundPage} />
                     </Switch>
                 </main>

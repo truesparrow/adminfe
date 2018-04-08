@@ -21,6 +21,11 @@ export const cookies: Message = {
     ro: 'Module cookie'
 };
 
+export const contact: Message = {
+    en: 'Contact',
+    ro: 'Contact'
+};
+
 export const copyright: Message = {
     en: 'Copyright © 2018',
     ro: 'Copyright © 2018'

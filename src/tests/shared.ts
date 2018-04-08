@@ -29,6 +29,11 @@ export const COMPANY_PAGES_INFO = [
         title: 'Cookies',
         path: '/company/cookies',
         content: 'This is the cookies page'
+    },
+    {
+        title: 'Contact',
+        path: '/company/contact',
+        content: 'We\'d love to hear from you. Drop us a line at'
     }
 ];
 

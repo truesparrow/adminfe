@@ -13,6 +13,7 @@ export function Footer() {
                 <Link to="/company/tos">{text.terms[config.LANG()]}</Link>
                 <Link to="/company/privacy">{text.privacy[config.LANG()]}</Link>
                 <Link to="/company/cookies">{text.cookies[config.LANG()]}</Link>
+                <Link to="/company/contact">{text.contact[config.LANG()]}</Link>
             </p>
             <p className="copyright">
                 <span>{text.copyright[config.LANG()]}</span>

@@ -38,4 +38,11 @@
     <changefreq>always</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <url>
+    <loc>{{{ HOME_URI }}}/company/contact</loc>
+    <lastmod>{{ HOME_LAST_MOD }}</lastmod>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>

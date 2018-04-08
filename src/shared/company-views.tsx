@@ -130,3 +130,32 @@ export class CompanyCookiesPage extends React.Component<Props, {}> {
         );
     }
 }
+
+export class CompanyContactPage extends React.Component<Props, {}> {
+    render() {
+        const realLink = `${config.EXTERNAL_ORIGIN}/company/contact`;
+        return (
+            <div>
+                <Helmet>
+                    <title>{text.contactPageTitle[config.LANG()]}</title>
+                    <meta name="description" content={text.contactPageDescription[config.LANG()]} />
+                    <meta name="robots" content="index,follow" />
+                    <meta name="twitter:card" content="summary" />
+                    <meta name="twitter:title" content={text.contactPageTitle[config.LANG()]} />
+                    <meta name="twitter:description" content={text.contactPageDescription[config.LANG()]} />
+                    <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
+                    <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
+                    <meta property="og:url" content={realLink} />
+                    <meta property="og:type" content="article" />
+                    <meta property="og:title" content={text.contactPageTitle[config.LANG()]} />
+                    <meta property="og:description" content={text.contactPageDescription[config.LANG()]} />
+                    <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
+                    <link rel="canonical" href={realLink} />
+                </Helmet>
+                <ReactMarkdown
+                    escapeHtml={true}
+                    source={text.contactUs[config.LANG()]} />
+            </div>
+        );
+    }
+}
