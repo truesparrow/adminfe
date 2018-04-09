@@ -121,7 +121,7 @@ class _Header extends React.Component<HeaderProps, HeaderState> {
         return (
             <header className="header">
                 <h1 className="logo-name">
-                    {commonText.siteName[config.LANG()]}
+                    <img src="/real/client/logo-big.jpg" alt={commonText.siteName[config.LANG()]} />
                 </h1>
                 {
                     this.props.event != null &&

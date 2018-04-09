@@ -83,6 +83,7 @@ module.exports = {
             {from: './src/shared/static/placeholders/couple.jpg'},
             {from: './src/shared/static/placeholders/sparrow.jpg'},
             {from: './src/shared/static/index.html'},
+            {from: './src/shared/static/logo-big.jpg'},
             {from: './src/shared/static/favicon.ico'},
             {from: './src/shared/static/humans.txt'},
             {from: './src/shared/static/robots.txt'},
