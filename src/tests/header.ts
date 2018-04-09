@@ -2,7 +2,7 @@ import 'mocha'
 
 import { Env } from '@truesparrow/common-js'
 
-import { SITEFE_EXTERNAL_HOST } from './shared'
+import { SITEFE_EXTERNAL_HOST, STYLE_APPLICATION_NAME } from './shared'
 
 
 describe('Header', () => {
@@ -30,12 +30,16 @@ describe('Header', () => {
         cy.clearOutData();
     });
 
+    console.log(STYLE_APPLICATION_NAME);
+
     describe('Anonymous user', () => {
         it('Should show logo and login button when user is not logged in', () => {
             cy.visit('/');
             cy.get('header').within(() => {
                 // Logo
-                cy.contains('TrueSparrow');
+                cy.get('img')
+                    .should('have.attr', 'src', '/real/client/logo-big.jpg')
+                    .should('have.attr', 'alt', STYLE_APPLICATION_NAME);
                 // Sign up button
                 cy.contains('Sign Up');
             });
@@ -59,7 +63,10 @@ describe('Header', () => {
             cy.loginAsUser('user1.json').then(([_sessionToken, _session, userData]) => {
                 cy.visit('/');
                 cy.get('header').within(() => {
-                    cy.contains('TrueSparrow');
+                    // Logo
+                    cy.get('img').first()
+                        .should('have.attr', 'src', '/real/client/logo-big.jpg')
+                        .should('have.attr', 'alt', STYLE_APPLICATION_NAME);
                     cy.get('div.preview').should('not.exist');
                     cy.get('img.avatar').should('have.attr', 'src', userData.picture);
                     cy.get('div.logged-in-menu').should('exist');
@@ -71,7 +78,7 @@ describe('Header', () => {
             cy.loginAsUser('user1.json').then(([sessionToken, _session, userData]) => {
                 cy.addEvent(sessionToken, 'event1.json').then(event => {
                     cy.visit('/');
-                    cy.contains('TrueSparrow');
+                    cy.contains(STYLE_APPLICATION_NAME);
                     cy.get('div.preview').should('exist');
                     cy.get('div.preview').find('a').should('have.attr', 'href', event.homeUri(Env.Local, SITEFE_EXTERNAL_HOST))
                     cy.get('img.avatar').should('have.attr', 'src', userData.picture);

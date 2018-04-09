@@ -3,6 +3,7 @@ export const IDENTITY_SERVICE_PORT = Cypress.env('IDENTITY_SERVICE_PORT');
 export const CONTENT_SERVICE_HOST = Cypress.env('CONTENT_SERVICE_HOST');
 export const CONTENT_SERVICE_PORT = Cypress.env('CONTENT_SERVICE_PORT');
 export const SITEFE_EXTERNAL_HOST = Cypress.env('SITEFE_EXTERNAL_HOST');
+export const STYLE_APPLICATION_NAME = Cypress.env('STYLE_APPLICATION_NAME');
 
 export const ORIGIN_DOMAIN = Cypress.env('HOST');
 const port = Cypress.env('PORT');

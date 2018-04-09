@@ -1,7 +1,9 @@
 import { Message } from '@truesparrow/common-js'
 
+import * as config from './config'
+
 
 export const pageTitle: Message = {
-    en: 'Truesparrow',
-    ro: 'Truesparrow'
+    en: config.STYLE_APPLICATION_NAME,
+    ro: config.STYLE_APPLICATION_NAME
 };

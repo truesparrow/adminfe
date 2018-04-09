@@ -33,4 +33,16 @@ describe('Large scale SEO & Web integration', () => {
             cy.request('/sitemap.xml');
         });
     });
+
+    describe('browserconfig.xml', () => {
+        it('Should exist', () => {
+            cy.request('/browserconfig.xml');
+        });
+    });
+
+    describe('site.webmanifest', () => {
+        it('Should exist', () => {
+            cy.request('/site.webmanifest');
+        });
+    });
 });

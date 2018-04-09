@@ -28,6 +28,9 @@ export class ClientConfig {
     contactEmail: string;
 
     @MarshalWith(r.StringMarshaller)
+    styleApplicationName: string;
+
+    @MarshalWith(r.StringMarshaller)
     siteFeExternalHost: string;
 
     @MarshalWith(r.StringMarshaller)

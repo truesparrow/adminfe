@@ -97,6 +97,7 @@ async function main() {
             internalOrigin: config.INTERNAL_ORIGIN,
             externalOrigin: config.EXTERNAL_ORIGIN,
             contactEmail: config.CONTACT_EMAIL,
+            styleApplicationName: config.STYLE_APPLICATION_NAME,
             siteFeExternalHost: config.SITEFE_EXTERNAL_HOST,
             contentServiceHost: config.CONTENT_SERVICE_HOST,
             contentServicePort: config.CONTENT_SERVICE_PORT,
@@ -131,6 +132,8 @@ async function main() {
             PAGE_TITLE_HTML: helmetData.title,
             PAGE_META_HTML: helmetData.meta,
             PAGE_LINK_HTML: helmetData.link,
+            STYLE_PRIMARY_COLOR: config.STYLE_PRIMARY_COLOR,
+            STYLE_GRAY_COLOR: config.STYLE_GRAY_COLOR,
             APP_HTML: appHtml,
             CLIENT_CONFIG: serializeJavascript(clientConfigMarshaller.pack(clientConfig), { isJSON: true }),
             CLIENT_INITIAL_STATE: serializeJavascript(clientInitialStateMarshaller.pack(clientInitialState), { isJSON: true }),
@@ -204,6 +207,26 @@ async function main() {
         res.write(Mustache.render(bundles.getSitemapXml(), {
             HOME_URI: config.EXTERNAL_ORIGIN,
             HOME_LAST_MOD: new Date().toISOString()
+        }));
+        res.end();
+    });
+
+    siteInfoRouter.get('/browserconfig.xml', (_req: Request, res: express.Response) => {
+        res.status(HttpStatus.OK);
+        res.type('application/xml; charset=utf-8');
+        res.write(Mustache.render(bundles.getBrowserConfigXml(), {
+            STYLE_PRIMARY_COLOR: config.STYLE_PRIMARY_COLOR
+        }));
+        res.end();
+    });
+
+    siteInfoRouter.get('/site.webmanifest', (_req: Request, res: express.Response) => {
+        res.status(HttpStatus.OK);
+        res.type('.txt');
+        res.write(Mustache.render(bundles.getSiteWebManifest(), {
+            EXTERNAL_ORIGIN: config.EXTERNAL_ORIGIN,
+            STYLE_APPLICATION_NAME: config.STYLE_APPLICATION_NAME,
+            STYLE_PRIMARY_COLOR: config.STYLE_PRIMARY_COLOR
         }));
         res.end();
     });

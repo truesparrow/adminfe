@@ -22,6 +22,9 @@ export const PORT: number = parseInt(getFromEnv('PORT'), 10);
 export const INTERNAL_ORIGIN: string = `http://${HOST}:${PORT}`;
 export const EXTERNAL_ORIGIN: string = getFromEnv('EXTERNAL_ORIGIN');
 export const CONTACT_EMAIL = getFromEnv('CONTACT_EMAIL');
+export const STYLE_APPLICATION_NAME = getFromEnv('STYLE_APPLICATION_NAME');
+export const STYLE_PRIMARY_COLOR = getFromEnv('STYLE_PRIMARY_COLOR');
+export const STYLE_GRAY_COLOR = getFromEnv('STYLE_GRAY_COLOR');
 
 export const IDENTITY_SERVICE_HOST: string = getFromEnv('IDENTITY_SERVICE_HOST');
 export const IDENTITY_SERVICE_PORT: number = parseInt(getFromEnv('IDENTITY_SERVICE_PORT'), 10);
