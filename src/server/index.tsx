@@ -20,6 +20,7 @@ import {
     InternalWebFetcher,
     isLocal,
     isNotOnServer,
+    isOnServer,
     WebFetcher
 } from '@truesparrow/common-js'
 import {
@@ -149,7 +150,6 @@ async function main() {
     app.use(newNamespaceMiddleware(namespace))
     if (true || isNotOnServer(config.ENV)) {
         app.use(newLocalCommonServerMiddleware(config.NAME, config.ENV, false));
-        app.use(newCommonFrontendServerMiddleware(['/status/check']));
     } else {
         // app.use(newCommonServerMiddleware(
         //     config.NAME,
@@ -159,6 +159,10 @@ async function main() {
         //     config.ROLLBAR_SERVER_TOKEN as string));
     }
     app.use(compression({ threshold: 0 }));
+
+    if (isOnServer(config.ENV)) {
+        app.use(newCommonFrontendServerMiddleware(['/status/check']));
+    }
 
     // Setup the /real portion of the path-space. Here are things which don't belong to the client-side
     // interaction, but rather to the server-side one, callbacks from other services etc.
