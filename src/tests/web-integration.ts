@@ -6,14 +6,18 @@ describe('Large scale SEO & Web integration', () => {
         cy.clearOutData();
     });
 
-    // TODO: other favicons
-
-    describe('favicon.ico', () => {
+    describe('favicons', () => {
         it('Should be referenced by pages', () => {
             // TODO
         });
 
         it('Should exist', () => {
+            cy.request('/real/client/android-chrome-192x192.png');
+            cy.request('/real/client/android-chrome-512x512.png');
+            cy.request('/real/client/apple-touch-icon.png');
+            cy.request('/real/client/favicon-32x32.png');
+            cy.request('/real/client/favicon-16x16.png');
+            cy.request('/real/client/safari-pinned-tab.svg');
             cy.request('/real/client/favicon.ico');
         });
     });
