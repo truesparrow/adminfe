@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#{{{ STYLE_PRIMARY_COLOR }}}",
+    "theme_color": "{{{ STYLE_PRIMARY_COLOR }}}",
     "background_color": "#ffffff",
     "start_url": "{{{ EXTERNAL_ORIGIN }}}",
     "display": "standalone"
