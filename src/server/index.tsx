@@ -24,6 +24,7 @@ import {
 } from '@truesparrow/common-js'
 import {
     //    newCommonServerMiddleware,
+    newCommonFrontendServerMiddleware,
     newHealthCheckRouter,
     newLocalCommonServerMiddleware,
     newNamespaceMiddleware,
@@ -148,6 +149,7 @@ async function main() {
     app.use(newNamespaceMiddleware(namespace))
     if (true || isNotOnServer(config.ENV)) {
         app.use(newLocalCommonServerMiddleware(config.NAME, config.ENV, false));
+        app.use(newCommonFrontendServerMiddleware(['/status/check']));
     } else {
         // app.use(newCommonServerMiddleware(
         //     config.NAME,
