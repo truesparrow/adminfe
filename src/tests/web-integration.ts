@@ -6,6 +6,8 @@ describe('Large scale SEO & Web integration', () => {
         cy.clearOutData();
     });
 
+    // TODO: other favicons
+
     describe('favicon.ico', () => {
         it('Should be referenced by pages', () => {
             // TODO

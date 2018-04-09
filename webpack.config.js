@@ -85,6 +85,8 @@ module.exports = {
             {from: './src/shared/static/index.html'},
             {from: './src/shared/static/logo-big.jpg'},
             {from: './src/shared/static/logo-auth0.jpg'},
+            {from: './src/shared/static/android-chrome-192x192.png'},
+            {from: './src/shared/static/android-chrome-512x512.png'},
             {from: './src/shared/static/apple-touch-icon.png'},
             {from: './src/shared/static/favicon-32x32.png'},
             {from: './src/shared/static/favicon-16x16.png'},
