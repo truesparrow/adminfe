@@ -33,6 +33,7 @@ interface State {
     dateAndTimeValid: boolean;
     dateAndTime: moment.Moment | string;
     display: SubEventDisplayInfo;
+    shouldBlockDateTimePointerEvents: boolean;
 }
 
 export class SubEventEditor extends React.Component<Props, State> {
@@ -49,7 +50,7 @@ export class SubEventEditor extends React.Component<Props, State> {
             return;
         }
 
-        this.setState(this._stateFromProps(newProps));
+        this.setState(this._stateFromProps(newProps, this.state));
     }
 
     render() {
@@ -116,7 +117,7 @@ export class SubEventEditor extends React.Component<Props, State> {
                                     autocompleteItemActive: 'address-item-active'
                                 }} />
                         </label>
-                        <label className="admin-form-group">
+                        <label className={"admin-form-group" + (this.state.shouldBlockDateTimePointerEvents ? " block-pointer-events" : "")}>
                             <span className="admin-form-label">
                                 {text.timeAndDate[config.LANG()]}
                                 <span
@@ -127,6 +128,8 @@ export class SubEventEditor extends React.Component<Props, State> {
                             <Datetime
                                 value={this.state.dateAndTime}
                                 onChange={e => this._handleDateAndTime(e)}
+                                onFocus={_ => this._handleDateAndTimeFocus()}
+                                onBlur={_ => this._handleDateAndTimeBlur()}
                                 locale={config.LANG()}
                                 utc={true}
                                 className="maximize-on-small-screen"
@@ -177,6 +180,18 @@ export class SubEventEditor extends React.Component<Props, State> {
         }, this._updateOwner);
     }
 
+    private _handleDateAndTimeFocus(): void {
+        this.setState({ shouldBlockDateTimePointerEvents: true });
+    }
+
+    private _handleDateAndTimeBlur(): void {
+        // Explanation: the blur happens before the thing is closed, triggering another click
+        // of some sort on the datetime in it's just on the input body. To counteract that,
+        // we block input events while the date picker is visible and only disable it a cool
+        // 0.5s after they've closed. Fast enough that hu-mans won't be bothered by it.
+        setTimeout(() => this.setState({ shouldBlockDateTimePointerEvents: false }), 500);
+    }
+
     private _updateOwner() {
         if (this.state.addressError != AddressErrorReason.OK) {
             this.props.onDetailsWithErrors();
@@ -212,7 +227,7 @@ export class SubEventEditor extends React.Component<Props, State> {
         return true;
     }
 
-    private _stateFromProps(props: Props): State {
+    private _stateFromProps(props: Props, currentState?: State): State {
         const { details } = props;
 
         return {
@@ -224,7 +239,8 @@ export class SubEventEditor extends React.Component<Props, State> {
             coordinates: details.coordinates,
             dateAndTimeValid: true,
             dateAndTime: moment(details.dateAndTime),
-            display: details.display
+            display: details.display,
+            shouldBlockDateTimePointerEvents: currentState != undefined ? currentState.shouldBlockDateTimePointerEvents : false
         };
     }
 }

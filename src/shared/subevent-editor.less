@@ -72,6 +72,10 @@
         margin-bottom: 0.5rem;
     }
 
+    .block-pointer-events {
+        pointer-events: none;
+    }
+
     .maximize-on-small-screen.rdtOpen {
         @media all and (max-width: 800px) {
             width: 100%;
@@ -87,6 +91,7 @@
             }
 
             .rdtPicker {
+                pointer-events: auto; // always force this
                 width: 100%;
                 height: 100vh;
             }
