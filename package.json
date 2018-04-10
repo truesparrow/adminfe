@@ -1,6 +1,6 @@
 {
     "name": "@truesparrow/adminfe",
-    "version": "0.10.3",
+    "version": "0.10.4",
     "description": "The frontend to the truesparrow application - editor, landing pages, about etc",
     "author": "CHM SQRT2 Team",
     "scripts": {

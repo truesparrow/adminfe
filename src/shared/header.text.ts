@@ -12,8 +12,8 @@ export const avatar: MessageWith0Arg = {
 };
 
 export const preview: Message = {
-    en: 'Preview',
-    ro: 'Previzualizare'
+    en: 'Site',
+    ro: 'Site'
 };
 
 export const aboutUs: Message = {

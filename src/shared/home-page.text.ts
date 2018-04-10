@@ -67,8 +67,8 @@ export const pricing: Message = {
 };
 
 export const pricingSubtitle: Message = {
-    en: 'Choose what\'s most convenient to you',
-    ro: 'Alegeți varianta cea mai convenabilă'
+    en: 'Choose a plan that suits you',
+    ro: 'Alegeți un plan'
 };
 
 export const quickStarter: Message = {

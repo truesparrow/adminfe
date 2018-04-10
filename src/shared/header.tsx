@@ -121,8 +121,11 @@ class _Header extends React.Component<HeaderProps, HeaderState> {
         return (
             <header className="header">
                 <h1 className="logo-name">
-                    <img src="/real/client/logo-big.jpg" alt={commonText.siteName[config.LANG()]} />
+                    <Link className="logo-name-link" to="/" role="button">
+                        <img src="/real/client/logo-big.jpg" alt={commonText.siteName[config.LANG()]} />
+                    </Link>
                 </h1>
+
                 {
                     this.props.event != null &&
                     this.props.event.state == EntityEventState.Active &&
@@ -137,10 +140,11 @@ class _Header extends React.Component<HeaderProps, HeaderState> {
                         </a>
                     </div>
                 }
+
                 {
                     config.SESSION().hasUser()
                         ? <LoggedInMenu />
-                        : <Link className="sign-up" to="/admin" role="button">
+                        : <Link className="sign-up anonymous" to="/admin" role="button">
                             {commonText.signUp[config.LANG()]}
                         </Link>
                 }
