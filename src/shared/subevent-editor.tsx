@@ -129,6 +129,7 @@ export class SubEventEditor extends React.Component<Props, State> {
                                 onChange={e => this._handleDateAndTime(e)}
                                 locale={config.LANG()}
                                 utc={true}
+                                className="maximize-on-small-screen"
                                 inputProps={{
                                     className: 'admin-form-input' + (!this.state.dateAndTimeValid ? ' admin-form-input-error' : ''),
                                     disabled: !this.state.haveEvent

@@ -71,4 +71,25 @@
 
         margin-bottom: 0.5rem;
     }
+
+    .maximize-on-small-screen.rdtOpen {
+        @media all and (max-width: 800px) {
+            width: 100%;
+            height: 100vh;
+            left: 0rem;
+            top: 0rem;
+            position: fixed;
+            z-index: 10000;
+            background-color: #ffffff;
+
+            .admin-form-input {
+                width: 100%;
+            }
+
+            .rdtPicker {
+                width: 100%;
+                height: 100vh;
+            }
+        }
+    }
 }
