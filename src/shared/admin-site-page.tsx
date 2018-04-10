@@ -81,9 +81,10 @@ class _AdminSitePage extends React.Component<Props, State> {
                                     onBlur={e => this._handleLeaveSubDomainEdit(e)}
                                     placeholder={text.subDomainPlaceholder[config.LANG()]}
                                     required={true}
-                                    autoComplete={false}
-                                    autoCorrect={false}
-                                    autoCapitalize={false}
+                                    autoComplete="off"
+                                    autoCorrect="off"
+                                    spellCheck={false}
+                                    autoCapitalize="off"
                                     minLength={SubDomainMarshaller.SUBDOMAIN_MIN_SIZE}
                                     maxLength={SubDomainMarshaller.SUBDOMAIN_MAX_SIZE} />
                                 <span className="sitefe-reference">
