@@ -99,6 +99,7 @@ module.exports = {
             {from: './src/shared/static/humans.txt'},
             {from: './src/shared/static/robots.txt'},
             {from: './src/shared/static/sitemap.xml'},
+            {from: './src/shared/static/home-page-hero.jpg'},
             {from: './src/shared/static/menu-icon.svg'},
             {from: './src/shared/static/menu-icon-close.svg'},
             {from: './src/shared/static/menu-icon-close-white.svg'},

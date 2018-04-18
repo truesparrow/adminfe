@@ -21,6 +21,16 @@ export const hero: MessageWith0Arg = {
     ro: 'Imagine erou'
 };
 
+export const heroAuthorLink: MessageWith0Arg = {
+    en: 'Download free do whatever you want high-resolution photos from Bridget Flohe',
+    ro: 'Descărcați gratis și folosiți cum vreti imagini de rezoluție mare de la Bridget Flohe'
+};
+
+export const heroAuthorName: MessageWith0Arg = {
+    en: 'Bridget Flohe',
+    ro: 'Bridget Flohe'
+};
+
 export const features: Message = {
     en: 'Features',
     ro: 'Beneficii'

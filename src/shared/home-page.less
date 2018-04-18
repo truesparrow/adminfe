@@ -60,12 +60,36 @@
 
     .hero-image {
         width: 50%;
+        position: relative;
+
         @media all and (max-width: 800px) {
             width: 100%;
         }
 
         img {
             width: 100%;
+        }
+
+        .hero-image-author {
+            position: absolute;
+            right: 0.5rem;
+            bottom: 2rem;
+
+            @media all and (max-width: 800px) {
+                bottom: 1rem;
+            }
+
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            padding: 4px 6px;
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco" "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, "Segoe UI", Arial, sans-serif;
+            font-size: 0.4rem;
+            font-weight: bold;
+            line-height: 1.2;
+            display: inline-block;
+            border-radius: 3px;
+
         }
     }
 }
