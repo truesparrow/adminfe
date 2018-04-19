@@ -27,7 +27,10 @@ export const SITEFE_EXTERNAL_HOST: string = clientConfig.siteFeExternalHost;
 export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = {
     clientId: clientConfig.auth0ClientId,
     domain: clientConfig.auth0Domain,
-    loginCallbackUri: clientConfig.auth0LoginCallbackUri
+    loginCallbackUri: clientConfig.auth0LoginCallbackUri,
+    styleApplicationName: clientConfig.styleApplicationName,
+    styleLogoUri: clientConfig.styleLogoUri,
+    stylePrimaryColor: clientConfig.stylePrimaryColor
 };
 
 export const FILESTACK_API_KEY: string = clientConfig.fileStackApiKey;

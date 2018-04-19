@@ -23,6 +23,7 @@ export const INTERNAL_ORIGIN: string = `http://${HOST}:${PORT}`;
 export const EXTERNAL_ORIGIN: string = getFromEnv('EXTERNAL_ORIGIN');
 export const CONTACT_EMAIL = getFromEnv('CONTACT_EMAIL');
 export const STYLE_APPLICATION_NAME = 'TruSpar';
+export const STYLE_LOGO_URI = '/real/client/android-chrome-192x192.png';
 export const STYLE_PRIMARY_COLOR = '#1498d5';
 export const STYLE_GRAY_COLOR = '#5bbad5';
 
@@ -36,7 +37,10 @@ export const AUTH0_SERVER_CONFIG: Auth0ServerConfig = {
     clientId: getFromEnv('AUTH0_CLIENT_ID'),
     clientSecret: getFromEnv('AUTH0_CLIENT_SECRET'),
     domain: getFromEnv('AUTH0_DOMAIN'),
-    loginCallbackUri: getFromEnv('AUTH0_LOGIN_CALLBACK_URI')
+    loginCallbackUri: getFromEnv('AUTH0_LOGIN_CALLBACK_URI'),
+    styleApplicationName: STYLE_APPLICATION_NAME,
+    styleLogoUri: STYLE_LOGO_URI,
+    stylePrimaryColor: STYLE_PRIMARY_COLOR
 };
 export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = serverToClient(AUTH0_SERVER_CONFIG);
 

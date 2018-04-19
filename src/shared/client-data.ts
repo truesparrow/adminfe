@@ -30,6 +30,13 @@ export class ClientConfig {
     @MarshalWith(r.StringMarshaller)
     styleApplicationName: string;
 
+    // TODO: this should be an absolute path marshaller. But those don't allow "-" for some reason?
+    @MarshalWith(r.StringMarshaller)
+    styleLogoUri: string;
+
+    @MarshalWith(r.StringMarshaller)
+    stylePrimaryColor: string;
+
     @MarshalWith(r.StringMarshaller)
     siteFeExternalHost: string;
 

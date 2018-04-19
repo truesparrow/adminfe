@@ -98,6 +98,8 @@ async function main() {
             externalOrigin: config.EXTERNAL_ORIGIN,
             contactEmail: config.CONTACT_EMAIL,
             styleApplicationName: config.STYLE_APPLICATION_NAME,
+            styleLogoUri: config.STYLE_LOGO_URI,
+            stylePrimaryColor: config.STYLE_PRIMARY_COLOR,
             siteFeExternalHost: config.SITEFE_EXTERNAL_HOST,
             contentServiceHost: config.CONTENT_SERVICE_HOST,
             contentServicePort: config.CONTENT_SERVICE_PORT,
