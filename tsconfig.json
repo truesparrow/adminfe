@@ -12,6 +12,7 @@
         "sourceMap": true,
         "experimentalDecorators": true,
         "jsx": "react",
+        "baseUrl": "./",
         "outDir": "./out"
     },
     "include": [
