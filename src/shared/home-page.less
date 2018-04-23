@@ -47,13 +47,19 @@
             }
         }
 
-        .sign-up {
-            height: 3rem;
-            line-height: 3rem;
-            width: 10rem;
-            font-size: 1.5rem;
-            @media all and (max-width: 800px) {
-                align-self: center;
+        .cta-buttons {
+            display: flex;
+            justify-content: space-evenly;
+
+            .sign-up {
+                height: 3rem;
+                line-height: 3rem;
+                margin: 0rem;
+                width: 8rem;
+                font-size: 1.5rem;
+                @media all and (max-width: 800px) {
+                    align-self: center;
+                }
             }
         }
     }
@@ -73,7 +79,7 @@
         .hero-image-author {
             position: absolute;
             right: 0.5rem;
-            bottom: 2rem;
+            bottom: 1rem;
 
             @media all and (max-width: 800px) {
                 bottom: 1rem;

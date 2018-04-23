@@ -26,9 +26,15 @@ export class Hero extends React.Component<HeroProps, {}> {
 
                     <p className="subtitle">{text.subTitle[config.LANG()]}</p>
 
-                    <Link className="sign-up" to="/admin" role="button">
-                        {event == null ? commonText.signUp[config.LANG()] : text.goToAdmin[config.LANG()]}
-                    </Link>
+                    <div className="cta-buttons">
+                        <Link className="sign-up" to="/admin" role="button">
+                            {event == null ? commonText.signUp[config.LANG()] : text.goToAdmin[config.LANG()]}
+                        </Link>
+
+                        <a className="sign-up" href={config.DEMO_SITE_URI} target="_blank" role="button">
+                            {text.demo[config.LANG()]}
+                        </a>
+                    </div>
                 </div>
 
                 <div className="hero-image">

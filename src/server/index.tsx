@@ -97,6 +97,7 @@ async function main() {
             internalOrigin: config.INTERNAL_ORIGIN,
             externalOrigin: config.EXTERNAL_ORIGIN,
             contactEmail: config.CONTACT_EMAIL,
+            demoSiteUri: config.DEMO_SITE_URI,
             styleApplicationName: config.STYLE_APPLICATION_NAME,
             styleLogoUri: config.STYLE_LOGO_URI,
             stylePrimaryColor: config.STYLE_PRIMARY_COLOR,

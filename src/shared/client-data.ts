@@ -27,6 +27,9 @@ export class ClientConfig {
     @MarshalWith(r.StringMarshaller) // TODO: should be email marshaller
     contactEmail: string;
 
+    @MarshalWith(r.SecureWebUriMarshaller)
+    demoSiteUri: string;
+
     @MarshalWith(r.StringMarshaller)
     styleApplicationName: string;
 

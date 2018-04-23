@@ -16,6 +16,11 @@ export const goToAdmin: Message = {
     ro: 'Evenimentul'
 };
 
+export const demo: Message = {
+    en: 'Demo',
+    ro: 'Demo'
+};
+
 export const hero: MessageWith0Arg = {
     en: 'Hero image',
     ro: 'Imagine erou'
