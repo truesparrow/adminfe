@@ -111,6 +111,7 @@ module.exports = {
             {from: './src/shared/static/account-icon.svg'},
             {from: './src/shared/static/open-in-new-tab-icon.svg'},
             {from: './src/shared/static/powered-by-google.png'},
+            {from: './src/shared/static/BingSiteAuth.xml'},
             {from: './out/client/vendor.bundle.js'}
         ]),
         new ExtractTextPlugin('client.css'),
