@@ -3,6 +3,7 @@
         "target": "es2016",
         "module": "esnext",
         "moduleResolution": "node",
+        "allowJs": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,

@@ -1,6 +1,6 @@
 {
     "name": "@truesparrow/adminfe",
-    "version": "0.13.3",
+    "version": "0.14.0",
     "description": "The frontend to the truesparrow application - editor, landing pages, about etc",
     "author": "CHM SQRT2 Team",
     "scripts": {
@@ -38,6 +38,7 @@
         "@truesparrow/identity-sdk-js": "latest",
         "async-middleware": "=1.2.1",
         "auth0-lock": "=11.1.2",
+        "autotrack": "=2.4.1",
         "compression": "=1.7.1",
         "cookie-parser": "=1.4.3",
         "dotenv": "=5.0.1",
@@ -77,6 +78,7 @@
         "@types/enzyme": "=3.1.6",
         "@types/enzyme-adapter-react-16": "=1.0.1",
         "@types/express": "=4.0.39",
+        "@types/google.analytics": "=0.0.39",
         "@types/http-status-codes": "=1.0.29",
         "@types/knex": "=0.0.67",
         "@types/mocha": "=2.2.44",

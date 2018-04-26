@@ -62,6 +62,9 @@ export class ClientConfig {
     logoutRoutePath: string;
 
     @MarshalWith(r.StringMarshaller)
+    googleAnalyticsAccountId: string;
+
+    @MarshalWith(r.StringMarshaller)
     fileStackApiKey: string;
 
     @MarshalWith(OptionalOf(r.StringMarshaller))

@@ -274,12 +274,10 @@ class _AdminMainPage extends React.Component<Props, State> {
     private _handleMovePictureViaDragula(_el: HTMLDivElement, target: HTMLDivElement, _sibling: HTMLDivElement, _source: HTMLDivElement): void {
         // Need to correct the positions of elements.
         const newPictures: Picture[] = [];
-        let position = 1;
-        for (let ch of target.childNodes) {
-            const originalPosition = Number.parseInt((ch as HTMLDivElement).getAttribute('data-position') as string);
+        for (let position = 1; position <= target.childNodes.entries.length; position++) {
+            const originalPosition = Number.parseInt((target.childNodes.item(position - 1) as HTMLDivElement).getAttribute('data-position') as string);
             const picture = this.state.pictures.get(originalPosition - 1);
             newPictures.push(Object.assign({}, picture, { position }));
-            position++;
         }
 
         // It is _super_ important to do this in a separate tick. Otherwise the setState is likely

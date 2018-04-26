@@ -8,9 +8,10 @@ import './index.less'
 import { AppFrame } from '../shared/app-frame'
 import { ClientInitialState } from '../shared/client-data'
 import { createStoreFromInitialState, reducers } from '../shared/store'
+import { setupGoogleAnalytics } from './google-analytics'
+import * as config from './config'
 
 const clientInitialStateMarshaller = new (MarshalFrom(ClientInitialState))();
-
 const clientInitialState = clientInitialStateMarshaller.extract((window as any).__TRUESPARROW_CLIENT_INITIAL_STATE);
 delete (window as any).__TRUESPARROW_INITIAL_STATE;
 
@@ -24,3 +25,9 @@ ReactDOM.hydrate(
     </Provider>,
     document.getElementById('app')
 );
+
+// Google Analytics setup
+
+if (config.GOOGLE_ANALYTICS_ACCOUNT_ID != 'UA-NOTRACK') {
+    setupGoogleAnalytics();
+}
