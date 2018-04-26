@@ -47,13 +47,18 @@ spec:
             secretKeyRef:
               name: adminfe-secrets
               key: AUTH0_CLIENT_SECRET
-        - name: GOOGLE_MAPS_API_KEY
+        - name: GOOGLE_ANALYTICS_ACCOUNT_ID
           valueFrom:
             secretKeyRef:
               name: adminfe-secrets
-              key: GOOGLE_MAPS_API_KEY
+              key: GOOGLE_ANALYTICS_ACCOUNT_ID
         - name: FILESTACK_API_KEY
           valueFrom:
             secretKeyRef:
               name: adminfe-secrets
               key: FILESTACK_API_KEY
+        - name: GOOGLE_MAPS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: adminfe-secrets
+              key: GOOGLE_MAPS_API_KEY
