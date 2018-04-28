@@ -41,7 +41,7 @@ Disallow: /admin
         });
     });
 
-    describe.only('humans.txt', () => {
+    describe('humans.txt', () => {
         it('Should exist', () => {
             cy.request('/humans.txt').then(resp => {
                 expect(resp.status).to.eq(HttpStatus.OK);
@@ -54,9 +54,24 @@ Contact: ${CONTACT_EMAIL}
         });
     });
 
-    describe('sitemap.xml', () => {
+    describe.only('sitemap.xml', () => {
         it('Should exist', () => {
-            cy.request('/sitemap.xml');
+            cy.request('/sitemap.xml').then(resp => {
+                expect(resp.status).to.eq(HttpStatus.OK);
+                expect(resp.headers['content-type']).to.eq('application/xml; charset=utf-8');
+                expect(resp.body).to.contain(`<?xml version="1.0" encoding="utf-8"?>
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+`);
+                expect(resp.body).to.contain(`<loc>${ORIGIN}</loc>`);
+                expect(resp.body).to.contain(`<loc>${ORIGIN}/company/about</loc>`);
+                expect(resp.body).to.contain(`<loc>${ORIGIN}/company/tos</loc>`);
+                expect(resp.body).to.contain(`<loc>${ORIGIN}/company/privacy</loc>`);
+                expect(resp.body).to.contain(`<loc>${ORIGIN}/company/cookies</loc>`);
+                expect(resp.body).to.contain(`<loc>${ORIGIN}/company/contact</loc>`);
+            });
         });
     });
 

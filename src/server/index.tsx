@@ -194,7 +194,9 @@ async function main() {
     siteInfoRouter.get('/robots.txt', (_req: Request, res: express.Response) => {
         res.status(HttpStatus.OK);
         res.type('.txt');
-        res.write(Mustache.render(bundles.getRobotsTxt(), { HOME_URI: config.EXTERNAL_ORIGIN }));
+        res.write(Mustache.render(bundles.getRobotsTxt(), {
+            EXTERNAL_ORIGIN: config.EXTERNAL_ORIGIN
+        }));
         res.end();
     });
 
@@ -212,8 +214,8 @@ async function main() {
         res.status(HttpStatus.OK);
         res.type('application/xml; charset=utf-8');
         res.write(Mustache.render(bundles.getSitemapXml(), {
-            HOME_URI: config.EXTERNAL_ORIGIN,
-            HOME_LAST_MOD: new Date().toISOString()
+            EXTERNAL_ORIGIN: config.EXTERNAL_ORIGIN,
+            LAST_MOD: new Date().toISOString()
         }));
         res.end();
     });
