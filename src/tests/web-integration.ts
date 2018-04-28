@@ -1,4 +1,8 @@
+import { expect } from 'chai'
+import * as HttpStatus from 'http-status-codes'
 import 'mocha'
+
+import { ORIGIN } from './shared'
 
 
 describe('Large scale SEO & Web integration', () => {
@@ -24,9 +28,16 @@ describe('Large scale SEO & Web integration', () => {
         });
     });
 
-    describe('robots.txt', () => {
+    describe.only('robots.txt', () => {
         it('Should exist', () => {
-            cy.request('/robots.txt');
+            cy.request('/robots.txt').then(resp => {
+                expect(resp.status).to.eq(HttpStatus.OK);
+                expect(resp.headers['content-type']).to.eq('text/plain; charset=utf-8');
+                expect(resp.body).to.eql(`Sitemap: ${ORIGIN}/sitemap.xml
+User-agent: *
+Disallow: /admin
+`);
+            });
         });
     });
 
