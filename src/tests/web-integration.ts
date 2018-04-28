@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import * as HttpStatus from 'http-status-codes'
 import 'mocha'
 
-import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN } from './shared'
+import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN, STYLE_PRIMARY_COLOR } from './shared'
 
 
 describe('Large scale SEO & Web integration', () => {
@@ -54,7 +54,7 @@ Contact: ${CONTACT_EMAIL}
         });
     });
 
-    describe.only('sitemap.xml', () => {
+    describe('sitemap.xml', () => {
         it('Should exist', () => {
             cy.request('/sitemap.xml').then(resp => {
                 expect(resp.status).to.eq(HttpStatus.OK);
@@ -75,9 +75,23 @@ Contact: ${CONTACT_EMAIL}
         });
     });
 
-    describe('browserconfig.xml', () => {
+    describe.only('browserconfig.xml', () => {
         it('Should exist', () => {
-            cy.request('/browserconfig.xml');
+            cy.request('/browserconfig.xml').then(resp => {
+                expect(resp.status).to.eq(HttpStatus.OK);
+                expect(resp.headers['content-type']).to.eq('application/xml; charset=utf-8');
+                expect(resp.body).to.contain(`<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square150x150logo src="/real/client/mstile-150x150.png"/>
+            <square310x310logo src="/real/client/mstile-310x310.png"/>
+            <TileColor>${STYLE_PRIMARY_COLOR}</TileColor>
+        </tile>
+    </msapplication>
+</browserconfig>
+`);
+            });
         });
     });
 

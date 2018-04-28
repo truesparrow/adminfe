@@ -5,6 +5,7 @@ export const CONTENT_SERVICE_PORT = Cypress.env('CONTENT_SERVICE_PORT');
 export const SITEFE_EXTERNAL_HOST = Cypress.env('SITEFE_EXTERNAL_HOST');
 export const CONTACT_AUTHORS = 'The TruSpar Team';
 export const CONTACT_EMAIL = Cypress.env('CONTACT_EMAIL');
+export const STYLE_PRIMARY_COLOR = '#1498d5';
 
 export const ORIGIN_DOMAIN = Cypress.env('HOST');
 const port = Cypress.env('PORT');
