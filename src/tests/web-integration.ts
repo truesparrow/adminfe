@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import * as HttpStatus from 'http-status-codes'
 import 'mocha'
 
-import { ORIGIN } from './shared'
+import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN } from './shared'
 
 
 describe('Large scale SEO & Web integration', () => {
@@ -28,7 +28,7 @@ describe('Large scale SEO & Web integration', () => {
         });
     });
 
-    describe.only('robots.txt', () => {
+    describe('robots.txt', () => {
         it('Should exist', () => {
             cy.request('/robots.txt').then(resp => {
                 expect(resp.status).to.eq(HttpStatus.OK);
@@ -41,9 +41,16 @@ Disallow: /admin
         });
     });
 
-    describe('humans.txt', () => {
+    describe.only('humans.txt', () => {
         it('Should exist', () => {
-            cy.request('/humans.txt');
+            cy.request('/humans.txt').then(resp => {
+                expect(resp.status).to.eq(HttpStatus.OK);
+                expect(resp.headers['content-type']).to.eq('text/plain; charset=utf-8');
+                expect(resp.body).to.eql(`/* Team */
+Programmer: ${CONTACT_AUTHORS}
+Contact: ${CONTACT_EMAIL}
+`);
+            });
         });
     });
 

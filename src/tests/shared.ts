@@ -3,6 +3,8 @@ export const IDENTITY_SERVICE_PORT = Cypress.env('IDENTITY_SERVICE_PORT');
 export const CONTENT_SERVICE_HOST = Cypress.env('CONTENT_SERVICE_HOST');
 export const CONTENT_SERVICE_PORT = Cypress.env('CONTENT_SERVICE_PORT');
 export const SITEFE_EXTERNAL_HOST = Cypress.env('SITEFE_EXTERNAL_HOST');
+export const CONTACT_AUTHORS = 'The TruSpar Team';
+export const CONTACT_EMAIL = Cypress.env('CONTACT_EMAIL');
 
 export const ORIGIN_DOMAIN = Cypress.env('HOST');
 const port = Cypress.env('PORT');

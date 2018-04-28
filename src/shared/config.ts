@@ -21,6 +21,7 @@ export const HOST: string = getFromEnv('HOST');
 export const PORT: number = parseInt(getFromEnv('PORT'), 10);
 export const INTERNAL_ORIGIN: string = `http://${HOST}:${PORT}`;
 export const EXTERNAL_ORIGIN: string = getFromEnv('EXTERNAL_ORIGIN');
+export const CONTACT_AUTHORS = 'The TruSpar Team';
 export const CONTACT_EMAIL = getFromEnv('CONTACT_EMAIL');
 export const DEMO_SITE_URI = 'https://jane-and-johns-wedding.truspar.net/';
 export const STYLE_APPLICATION_NAME = 'TruSpar';
