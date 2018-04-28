@@ -231,7 +231,7 @@ async function main() {
 
     siteInfoRouter.get('/site.webmanifest', (_req: Request, res: express.Response) => {
         res.status(HttpStatus.OK);
-        res.type('.txt');
+        res.type('application/manifest+json; charset=utf-8');
         res.write(Mustache.render(bundles.getSiteWebManifest(), {
             EXTERNAL_ORIGIN: config.EXTERNAL_ORIGIN,
             STYLE_APPLICATION_NAME: config.STYLE_APPLICATION_NAME,

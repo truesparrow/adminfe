@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import * as HttpStatus from 'http-status-codes'
 import 'mocha'
 
-import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN, STYLE_PRIMARY_COLOR } from './shared'
+import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN, STYLE_APPLICATION_NAME, STYLE_PRIMARY_COLOR } from './shared'
 
 
 describe('Large scale SEO & Web integration', () => {
@@ -75,7 +75,7 @@ Contact: ${CONTACT_EMAIL}
         });
     });
 
-    describe.only('browserconfig.xml', () => {
+    describe('browserconfig.xml', () => {
         it('Should exist', () => {
             cy.request('/browserconfig.xml').then(resp => {
                 expect(resp.status).to.eq(HttpStatus.OK);
@@ -97,7 +97,31 @@ Contact: ${CONTACT_EMAIL}
 
     describe('site.webmanifest', () => {
         it('Should exist', () => {
-            cy.request('/site.webmanifest');
+            cy.request('/site.webmanifest').then(resp => {
+                expect(resp.status).to.eq(HttpStatus.OK);
+                expect(resp.headers['content-type']).to.eq('application/manifest+json; charset=utf-8');
+                expect(resp.body).to.eql(`{
+    "name": "${STYLE_APPLICATION_NAME}",
+    "short_name": "${STYLE_APPLICATION_NAME}",
+    "icons": [
+        {
+            "src": "/real/client/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/real/client/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "${STYLE_PRIMARY_COLOR}",
+    "background_color": "#ffffff",
+    "start_url": "${ORIGIN}",
+    "display": "standalone"
+}
+`);
+            });
         });
     });
 });
