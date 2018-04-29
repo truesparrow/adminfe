@@ -133,4 +133,12 @@ describe('About us page', () => {
             cy.get('main').find('img.thumbnail').eq(1).should('not.exist');
         });
     });
+
+    it.only('Web integration', () => {
+        cy.loginAsUser('user1.json').then(_ => {
+            cy.visit('/admin/main');
+            cy.title().should('equal', 'TruSpar - About Us');
+            cy.get('head > meta[name=description]').should('have.attr', 'content', 'Pictures and details about you');
+        });
+    });
 });

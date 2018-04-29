@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
 
@@ -170,6 +171,10 @@ class _AdminMainPage extends React.Component<Props, State> {
 
         return (
             <div className="admin-main-page">
+                <Helmet>
+                    <title>{text.pageTitle[config.LANG()]}</title>
+                    <meta name="description" content={text.pageDescription[config.LANG()]} />
+                </Helmet>
                 {this.state.hasSelectPictureError && <div>{text.errorUploadingImage[config.LANG()]} </div>}
                 <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}

@@ -1,5 +1,17 @@
-import { Message } from '@truesparrow/common-js'
+import { Message, MessageWith0Arg } from '@truesparrow/common-js'
 
+import * as config from './config'
+
+
+export const pageTitle: Message = {
+    en: `${config.STYLE_APPLICATION_NAME} - About Us`,
+    ro: `${config.STYLE_APPLICATION_NAME} - Despre Noi`
+};
+
+export const pageDescription: MessageWith0Arg = {
+    en: 'Pictures and details about you',
+    ro: 'Poze și detalii despre tine'
+};
 
 export const fillOut: Message = {
     en: 'Add pictures about your event here. You can reorder them by drag-and-drop',
