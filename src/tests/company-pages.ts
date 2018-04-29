@@ -13,11 +13,5 @@ describe('Company pages', () => {
             cy.visit(path);
             cy.contains(content);
         });
-
-        it(`${title} web integration`, () => {
-            cy.visit(path);
-            cy.title().should('equal', title);
-            cy.get('head > meta[name=description]').should('have.attr', 'content', description);
-        });
     }
 });

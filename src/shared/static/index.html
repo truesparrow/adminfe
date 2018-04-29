@@ -2,14 +2,19 @@
 <html>
     <head>
         <meta charset="utf-8">
+
+        <!-- Page specific SEO configuration -->
         {{{ PAGE_TITLE_HTML }}}
-
-        <meta name="keywords" content="wedding, event, website, microsite, hosted">
-        <meta name="author" content="{{{ CONTACT_AUTHORS }}}">
-
         {{{ PAGE_META_HTML }}}
-
         {{{ PAGE_LINK_HTML }}}
+
+        <!-- Common SEO configuration -->
+
+        <meta name="keywords" content={{{ SEO_KEYWORDS }}} />
+        <meta name="author" content={{{ CONTACT_AUTHORS }}} />
+        <link rel="author" href="/humans.txt" />
+
+        <!-- Common configuration -->
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -23,15 +28,15 @@
         <meta name="msapplication-config" content="/browserconfig.xml">
         <meta name="theme-color" content="{{{ STYLE_PRIMARY_COLOR }}}">
 
+        <!-- Essential resource loading -->
         <link rel="stylesheet" href="/real/client/client.css" media="screen">
-        <link rel="author" href="/humans.txt" />
     </head>
 
     <body>
+        <!-- Application mount point -->
         <div id="app">{{{ APP_HTML }}}</div>
 
-        <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{{ GOOGLE_MAPS_API_KEY }}}&libraries=places"></script>
-        <script async src="https://www.google-analytics.com/analytics.js"></script>
+        <!-- Important resource loading -->
 
         <script>
          window.__TRUESPARROW_CLIENT_CONFIG = {{{ CLIENT_CONFIG }}};
@@ -40,5 +45,10 @@
         <script>{{{ WEBPACK_MANIFEST_JS }}}</script>
         <script src="/real/client/vendor.bundle.js"></script>
         <script src="/real/client/client.js"></script>
+
+        <!-- Secondary resouce loading -->
+
+        <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{{ GOOGLE_MAPS_API_KEY }}}&libraries=places"></script>
+        <script async src="https://www.google-analytics.com/analytics.js"></script>
     </body>
 </html>

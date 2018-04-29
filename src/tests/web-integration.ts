@@ -2,10 +2,10 @@ import { expect } from 'chai'
 import * as HttpStatus from 'http-status-codes'
 import 'mocha'
 
-import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN, STYLE_APPLICATION_NAME, STYLE_PRIMARY_COLOR } from './shared'
+import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN, STYLE_APPLICATION_NAME, STYLE_PRIMARY_COLOR, ALL_PAGES } from './shared'
 
 
-describe('Large scale SEO & Web integration', () => {
+describe.only('Large scale SEO & Web integration', () => {
     before(() => {
         cy.clearOutData();
     });
@@ -123,5 +123,17 @@ Contact: ${CONTACT_EMAIL}
 `);
             });
         });
+    });
+
+    describe('Title and description', () => {
+        for (const { path, title, description, failOnStatusCode } of ALL_PAGES) {
+            it(`${path} has proper title and description`, () => {
+                cy.loginAsUser('user1.json').then(_ => {
+                    cy.visit(path, { failOnStatusCode: failOnStatusCode == undefined ? true : failOnStatusCode });
+                    cy.title().should('equal', title);
+                    cy.get('head > meta[name=description]').should('have.attr', 'content', description);
+                });
+            });
+        }
     });
 });

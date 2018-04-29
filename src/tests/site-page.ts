@@ -22,12 +22,4 @@ describe('Site page', () => {
             cy.get('main').get('span.subdomain-part-input').get('input').should('have.attr', 'value', 'special');
         });
     });
-
-    it('Web integration', () => {
-        cy.loginAsUser('user1.json').then(_ => {
-            cy.visit('/admin/site');
-            cy.title().should('equal', 'TruSpar - Site');
-            cy.get('head > meta[name=description]').should('have.attr', 'content', 'Site settings');
-        });
-    });
 });
