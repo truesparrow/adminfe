@@ -108,6 +108,7 @@ async function main() {
             auth0Domain: config.AUTH0_CLIENT_CONFIG.domain,
             auth0LoginCallbackUri: config.AUTH0_CLIENT_CONFIG.loginCallbackUri,
             logoutRoutePath: config.LOGOUT_ROUTE_PATH,
+            facebookAppId: config.FACEBOOK_APP_ID,
             googleAnalyticsAccountId: config.GOOGLE_ANALYTICS_ACCOUNT_ID,
             fileStackApiKey: config.FILESTACK_API_KEY,
             rollbarClientToken: null,

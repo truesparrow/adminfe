@@ -62,6 +62,9 @@ export class ClientConfig {
     logoutRoutePath: string;
 
     @MarshalWith(r.StringMarshaller)
+    facebookAppId: string;
+
+    @MarshalWith(r.StringMarshaller)
     googleAnalyticsAccountId: string;
 
     @MarshalWith(r.StringMarshaller)

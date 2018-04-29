@@ -15,6 +15,7 @@ import * as commonText from './common.text'
 import * as config from './config'
 import * as services from './services'
 import { EventState, OpState, StatePart } from './store'
+import { FacebookOpenGraph } from './web-metadata'
 
 import * as text from './admin-main-page.text'
 
@@ -145,6 +146,8 @@ class _AdminMainPage extends React.Component<Props, State> {
     }
 
     render() {
+        const realLink = `${config.EXTERNAL_ORIGIN}/admin/main`;
+
         const pictureRegion = this.state.pictures.map((pic: Picture) => {
             return (
                 <div
@@ -174,8 +177,12 @@ class _AdminMainPage extends React.Component<Props, State> {
                 <Helmet>
                     <title>{text.pageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.pageDescription[config.LANG()]} />
-                    <link rel="canonical" href={`${config.EXTERNAL_ORIGIN}/admin/main`} />
+                    <link rel="canonical" href={realLink} />
                 </Helmet>
+                <FacebookOpenGraph
+                    realLink={realLink}
+                    title={text.pageTitle[config.LANG()]}
+                    description={text.pageDescription[config.LANG()]} />
                 {this.state.hasSelectPictureError && <div>{text.errorUploadingImage[config.LANG()]} </div>}
                 <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}

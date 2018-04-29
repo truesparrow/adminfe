@@ -7,6 +7,7 @@ import { Event } from '@truesparrow/content-sdk-js'
 
 import * as config from './config'
 import { EventState, OpState } from './store'
+import { FacebookOpenGraph } from './web-metadata'
 
 import * as commonText from './common.text'
 import * as text from './home-page.text'
@@ -159,14 +160,21 @@ interface HomePageState {
 
 class _HomePage extends React.Component<HomePageProps, HomePageState> {
     render() {
+        const realLink = `${config.EXTERNAL_ORIGIN}/`;
+
         return (
             <div>
                 <Helmet>
                     <title>{text.homePageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.homePageDescription[config.LANG()]} />
-                    <link rel="canonical" href={`${config.EXTERNAL_ORIGIN}/`} />
+                    <link rel="canonical" href={realLink} />
                     <meta name="robots" content="index,follow" />
+
                 </Helmet>
+                <FacebookOpenGraph
+                    realLink={realLink}
+                    title={text.homePageTitle[config.LANG()]}
+                    description={text.homePageDescription[config.LANG()]} />
                 <Hero event={this.props.event} />
                 <Features />
                 <Pricing />

@@ -3,7 +3,7 @@ import { Message, MessageWith0Arg } from '@truesparrow/common-js'
 import * as config from './config'
 
 
-export const homePageTitle: Message = {
+export const homePageTitle: MessageWith0Arg = {
     en: config.STYLE_APPLICATION_NAME,
     ro: config.STYLE_APPLICATION_NAME
 };

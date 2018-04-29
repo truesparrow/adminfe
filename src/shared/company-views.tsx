@@ -3,6 +3,7 @@ import * as ReactMarkdown from 'react-markdown'
 import { Helmet } from 'react-helmet'
 
 import * as config from './config'
+import { FacebookOpenGraph } from './web-metadata'
 
 import * as commonText from './common.text'
 import * as text from './company-views.text'
@@ -21,18 +22,17 @@ export class CompanyAboutPage extends React.Component<Props, {}> {
                     <title>{text.aboutPageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.aboutPageDescription[config.LANG()]} />
                     <link rel="canonical" href={realLink} />
-                    <meta name="robots" content="index,follow" />
                     <meta name="twitter:card" content="summary" />
                     <meta name="twitter:title" content={text.aboutPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.aboutPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
                     <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
-                    <meta property="og:url" content={realLink} />
-                    <meta property="og:type" content="article" />
-                    <meta property="og:title" content={text.aboutPageTitle[config.LANG()]} />
-                    <meta property="og:description" content={text.aboutPageDescription[config.LANG()]} />
-                    <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
+                    <meta name="robots" content="index,follow" />
                 </Helmet>
+                <FacebookOpenGraph
+                    realLink={realLink}
+                    title={text.aboutPageTitle[config.LANG()]}
+                    description={text.aboutPageDescription[config.LANG()]} />
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.about[config.LANG()]} />
@@ -56,13 +56,12 @@ export class CompanyTermsPage extends React.Component<Props, {}> {
                     <meta name="twitter:description" content={text.termsPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
                     <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
-                    <meta property="og:url" content={realLink} />
-                    <meta property="og:type" content="article" />
-                    <meta property="og:title" content={text.termsPageTitle[config.LANG()]} />
-                    <meta property="og:description" content={text.termsPageDescription[config.LANG()]} />
-                    <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
                     <meta name="robots" content="index,follow" />
                 </Helmet>
+                <FacebookOpenGraph
+                    realLink={realLink}
+                    title={text.termsPageTitle[config.LANG()]}
+                    description={text.termsPageDescription[config.LANG()]} />
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.terms[config.LANG()]} />
@@ -86,13 +85,12 @@ export class CompanyPrivacyPage extends React.Component<Props, {}> {
                     <meta name="twitter:description" content={text.privacyPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
                     <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
-                    <meta property="og:url" content={realLink} />
-                    <meta property="og:type" content="article" />
-                    <meta property="og:title" content={text.privacyPageTitle[config.LANG()]} />
-                    <meta property="og:description" content={text.privacyPageDescription[config.LANG()]} />
-                    <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
                     <meta name="robots" content="index,follow" />
                 </Helmet>
+                <FacebookOpenGraph
+                    realLink={realLink}
+                    title={text.privacyPageTitle[config.LANG()]}
+                    description={text.privacyPageDescription[config.LANG()]} />
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.privacy[config.LANG()]} />
@@ -116,13 +114,12 @@ export class CompanyCookiesPage extends React.Component<Props, {}> {
                     <meta name="twitter:description" content={text.cookiesPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
                     <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
-                    <meta property="og:url" content={realLink} />
-                    <meta property="og:type" content="article" />
-                    <meta property="og:title" content={text.cookiesPageTitle[config.LANG()]} />
-                    <meta property="og:description" content={text.cookiesPageDescription[config.LANG()]} />
-                    <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
                     <meta name="robots" content="index,follow" />
                 </Helmet>
+                <FacebookOpenGraph
+                    realLink={realLink}
+                    title={text.cookiesPageTitle[config.LANG()]}
+                    description={text.cookiesPageDescription[config.LANG()]} />
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.cookies[config.LANG()]} />
@@ -145,13 +142,12 @@ export class CompanyContactPage extends React.Component<Props, {}> {
                     <meta name="twitter:description" content={text.contactPageDescription[config.LANG()]} />
                     <meta name="twitter:creator" content={commonText.siteName[config.LANG()]} />
                     <meta name="twitter:site" content={config.EXTERNAL_ORIGIN} />
-                    <meta property="og:url" content={realLink} />
-                    <meta property="og:type" content="article" />
-                    <meta property="og:title" content={text.contactPageTitle[config.LANG()]} />
-                    <meta property="og:description" content={text.contactPageDescription[config.LANG()]} />
-                    <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
                     <meta name="robots" content="index,follow" />
                 </Helmet>
+                <FacebookOpenGraph
+                    realLink={realLink}
+                    title={text.contactPageTitle[config.LANG()]}
+                    description={text.contactPageDescription[config.LANG()]} />
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.contactUs[config.LANG()]} />

@@ -47,6 +47,7 @@ export const AUTH0_SERVER_CONFIG: Auth0ServerConfig = {
 };
 export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = serverToClient(AUTH0_SERVER_CONFIG);
 
+export const FACEBOOK_APP_ID = getFromEnv('FACEBOOK_APP_ID');
 export const GOOGLE_ANALYTICS_ACCOUNT_ID = getFromEnv('GOOGLE_ANALYTICS_ACCOUNT_ID');
 export const FILESTACK_API_KEY = getFromEnv('FILESTACK_API_KEY');
 export const GOOGLE_MAPS_API_KEY = getFromEnv('GOOGLE_MAPS_API_KEY');

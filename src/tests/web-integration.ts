@@ -2,7 +2,15 @@ import { expect } from 'chai'
 import * as HttpStatus from 'http-status-codes'
 import 'mocha'
 
-import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN, STYLE_APPLICATION_NAME, STYLE_PRIMARY_COLOR, ALL_PAGES } from './shared'
+import {
+    CONTACT_AUTHORS,
+    CONTACT_EMAIL,
+    FACEBOOK_APP_ID,
+    ORIGIN,
+    STYLE_APPLICATION_NAME,
+    STYLE_PRIMARY_COLOR,
+    ALL_PAGES
+} from './shared'
 
 
 describe('Large scale SEO & Web integration', () => {
@@ -174,6 +182,19 @@ Contact: ${CONTACT_EMAIL}
 
                     // Robots configuration
                     cy.get('head > meta[name=robots]').should('have.attr', 'content', robotsMeta);
+
+                    // Facebook OpenGraph
+
+                    if (!skipCanonical) {
+                        cy.get('head > meta[property=\'og:url\']').should('have.attr', 'content', `${ORIGIN}${path}`);
+                        cy.get('head > meta[property=\'og:title\']').should('have.attr', 'content', title);
+                        cy.get('head > meta[property=\'og:description\']').should('have.attr', 'content', description);
+                        cy.get('head > meta[property=\'og:site_name\']').should('have.attr', 'content', 'TruSpar');
+                        cy.get('head > meta[property=\'og:image\']').should('have.attr', 'content', `${ORIGIN}/real/client/home-page-hero.jpg`);
+                        cy.log(typeof FACEBOOK_APP_ID);
+                        cy.get('head > meta[property=\'og:locale\']').should('have.attr', 'content', 'en');
+                        cy.get('head > meta[property=\'fb:app_id\']').should('have.attr', 'content', FACEBOOK_APP_ID);
+                    }
                 });
             });
         }

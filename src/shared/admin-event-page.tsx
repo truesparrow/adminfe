@@ -15,6 +15,7 @@ import * as config from './config'
 import { SubEventEditor } from './subevent-editor'
 import { EventState, OpState, StatePart } from './store'
 import * as services from './services'
+import { FacebookOpenGraph } from './web-metadata'
 
 import * as text from './admin-event-page.text'
 
@@ -53,13 +54,18 @@ class _AdminEventPage extends React.Component<Props, State> {
     }
 
     render() {
+        const realLink = `${config.EXTERNAL_ORIGIN}/admin/event`;
         return (
             <div className="admin-event-page">
                 <Helmet>
                     <title>{text.pageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.pageDescription[config.LANG()]} />
-                    <link rel="canonical" href={`${config.EXTERNAL_ORIGIN}/admin/event`} />
+                    <link rel="canonical" href={realLink} />
                 </Helmet>
+                <FacebookOpenGraph
+                    realLink={realLink}
+                    title={text.pageTitle[config.LANG()]}
+                    description={text.pageDescription[config.LANG()]} />
                 <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}
                 </p>

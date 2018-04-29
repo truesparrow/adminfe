@@ -34,6 +34,7 @@ export const AUTH0_CLIENT_CONFIG: Auth0ClientConfig = {
     stylePrimaryColor: clientConfig.stylePrimaryColor
 };
 
+export const FACEBOOK_APP_ID: string = clientConfig.facebookAppId;
 export const GOOGLE_ANALYTICS_ACCOUNT_ID: string = clientConfig.googleAnalyticsAccountId;
 export const FILESTACK_API_KEY: string = clientConfig.fileStackApiKey;
 export const ROLLBAR_CLIENT_TOKEN: string | null = clientConfig.rollbarClientToken;

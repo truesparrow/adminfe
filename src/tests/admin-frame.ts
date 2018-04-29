@@ -42,7 +42,7 @@ describe('Admin frame', () => {
                     cy.visit('/admin');
                     cy.get('div.side-menu').contains(shortTitle).click();
                     cy.url().should('include', path);
-                    cy.contains(content);
+                    cy.contains(content as string);
                 });
             });
         }

@@ -12,6 +12,8 @@ export const ORIGIN_DOMAIN = Cypress.env('HOST');
 const port = Cypress.env('PORT');
 export const ORIGIN = `http://${ORIGIN_DOMAIN}:${port}`;
 
+export const FACEBOOK_APP_ID = String(Cypress.env('FACEBOOK_APP_ID'));
+
 
 interface PageInfo {
     path: string;

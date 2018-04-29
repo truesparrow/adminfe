@@ -4,7 +4,7 @@ import { TitleMarshaller } from '@truesparrow/content-sdk-js'
 import * as config from './config'
 
 
-export const pageTitle: Message = {
+export const pageTitle: MessageWith0Arg = {
     en: `${config.STYLE_APPLICATION_NAME} - Event`,
     ro: `${config.STYLE_APPLICATION_NAME} - Eveniment`
 };
