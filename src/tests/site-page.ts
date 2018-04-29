@@ -23,7 +23,7 @@ describe('Site page', () => {
         });
     });
 
-    it.only('Web integration', () => {
+    it('Web integration', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/site');
             cy.title().should('equal', 'TruSpar - Site');

@@ -113,4 +113,12 @@ describe('Event page', () => {
             });
         });
     });
+
+    it.only('Web integration', () => {
+        cy.loginAsUser('user1.json').then(_ => {
+            cy.visit('/admin/event');
+            cy.title().should('equal', 'TruSpar - Event');
+            cy.get('head > meta[name=description]').should('have.attr', 'content', 'Event settings');
+        });
+    });
 });
