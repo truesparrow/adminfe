@@ -4,13 +4,13 @@ import * as config from './config'
 
 
 export const aboutPageTitle: MessageWith0Arg = {
-    en: "About company",
-    ro: "Despre companie"
+    en: `${config.STYLE_APPLICATION_NAME} - About The Company`,
+    ro: `${config.STYLE_APPLICATION_NAME} - Despre Companie`
 };
 
 export const aboutPageDescription: MessageWith0Arg = {
-    en: "About company",
-    ro: "Despre companie"
+    en: 'About the company',
+    ro: 'Despre companie'
 };
 
 
@@ -24,13 +24,13 @@ Aceasta este pagina despre _companie_
 };
 
 export const termsPageTitle: MessageWith0Arg = {
-    en: "Terms and conditions",
-    ro: "Condiţii de utilizare"
+    en: `${config.STYLE_APPLICATION_NAME} - Terms And Conditions`,
+    ro: `${config.STYLE_APPLICATION_NAME} - Condiţii De Utilizare`
 };
 
 export const termsPageDescription: MessageWith0Arg = {
-    en: "Terms and conditions",
-    ro: "Condiţii de utilizare"
+    en: 'Terms and conditions',
+    ro: 'Condiţii de utilizare'
 };
 
 export const terms: MessageWith0Arg = {
@@ -43,13 +43,13 @@ Aceasta este pagina _condiţii de utilizare_
 };
 
 export const privacyPageTitle: MessageWith0Arg = {
-    en: "Privacy policy",
-    ro: "Politica de confidenţialitate"
+    en: `${config.STYLE_APPLICATION_NAME} - Privacy Policy`,
+    ro: `${config.STYLE_APPLICATION_NAME} - Politica De Confidenţialitate`
 };
 
 export const privacyPageDescription: MessageWith0Arg = {
-    en: "Privacy policy",
-    ro: "Politica de confidenţialitate"
+    en: 'Privacy policy',
+    ro: 'Politica de confidenţialitate'
 };
 
 export const privacy: MessageWith0Arg = {
@@ -62,13 +62,13 @@ Aceasta este pagina despre _confidenţialitate_
 };
 
 export const cookiesPageTitle: MessageWith0Arg = {
-    en: "Cookies policy",
-    ro: "Politica de module cookies"
+    en: `${config.STYLE_APPLICATION_NAME} - Cookies Policy`,
+    ro: `${config.STYLE_APPLICATION_NAME} - Politica De Module Cookies`
 };
 
 export const cookiesPageDescription: MessageWith0Arg = {
-    en: "Cookies policy",
-    ro: "Politica de module cookies"
+    en: 'Cookies policy',
+    ro: 'Politica de module cookies'
 };
 
 export const cookies: MessageWith0Arg = {
@@ -81,13 +81,13 @@ Aceasta este pagina despre _module cookies_
 };
 
 export const contactPageTitle: MessageWith0Arg = {
-    en: "Contact",
-    ro: "Contact"
+    en: `${config.STYLE_APPLICATION_NAME} - Contact`,
+    ro: `${config.STYLE_APPLICATION_NAME} - Contact`
 };
 
 export const contactPageDescription: MessageWith0Arg = {
-    en: "Contact",
-    ro: "Contact"
+    en: 'Contact',
+    ro: 'Contact'
 };
 
 export const contactUs: MessageWith0Arg = {

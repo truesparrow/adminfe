@@ -5,7 +5,7 @@ export const CONTENT_SERVICE_PORT = Cypress.env('CONTENT_SERVICE_PORT');
 export const SITEFE_EXTERNAL_HOST = Cypress.env('SITEFE_EXTERNAL_HOST');
 export const CONTACT_AUTHORS = 'The TruSpar Team';
 export const CONTACT_EMAIL = Cypress.env('CONTACT_EMAIL');
-export const STYLE_APPLICATION_NAME = 'TruSpar'''
+export const STYLE_APPLICATION_NAME = 'TruSpar'
 export const STYLE_PRIMARY_COLOR = '#1498d5';
 
 export const ORIGIN_DOMAIN = Cypress.env('HOST');
@@ -15,28 +15,33 @@ export const ORIGIN = `http://${ORIGIN_DOMAIN}:${port}`;
 
 export const COMPANY_PAGES_INFO = [
     {
-        title: 'About',
         path: '/company/about',
+        title: 'TruSpar - About The Company',
+        description: 'About the company',
         content: 'This is the about page'
     },
     {
-        title: 'Terms',
         path: '/company/tos',
+        title: 'TruSpar - Terms And Conditions',
+        description: 'Terms and conditions',
         content: 'This is the terms and conditions page'
     },
     {
-        title: 'Privacy',
         path: '/company/privacy',
+        title: 'TruSpar - Privacy Policy',
+        description: 'Privacy policy',
         content: 'This is the privacy page'
     },
     {
-        title: 'Cookies',
         path: '/company/cookies',
+        title: 'TruSpar - Cookies Policy',
+        description: 'Cookies policy',
         content: 'This is the cookies page'
     },
     {
-        title: 'Contact',
         path: '/company/contact',
+        title: 'TruSpar - Contact',
+        description: 'Contact',
         content: 'We\'d love to hear from you. Drop us a line at'
     }
 ];

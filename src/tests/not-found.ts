@@ -1,6 +1,6 @@
 import 'mocha'
 
-describe.only('Not found page', () => {
+describe('Not found page', () => {
     before(() => {
         cy.clearOutData();
     });
