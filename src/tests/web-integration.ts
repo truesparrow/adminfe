@@ -99,7 +99,7 @@ Contact: ${CONTACT_EMAIL}
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 `);
-                expect(resp.body).to.contain(`<loc>${ORIGIN}</loc>`);
+                expect(resp.body).to.contain(`<loc>${ORIGIN}/</loc>`);
                 expect(resp.body).to.contain(`<loc>${ORIGIN}/company/about</loc>`);
                 expect(resp.body).to.contain(`<loc>${ORIGIN}/company/tos</loc>`);
                 expect(resp.body).to.contain(`<loc>${ORIGIN}/company/privacy</loc>`);
