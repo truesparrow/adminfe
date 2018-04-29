@@ -152,7 +152,7 @@ Contact: ${CONTACT_EMAIL}
     });
 
     describe.only('Page-level machine information', () => {
-        for (const { path, title, description, failOnStatusCode, skipCanonical } of ALL_PAGES) {
+        for (const { path, title, description, robotsMeta, failOnStatusCode, skipCanonical } of ALL_PAGES) {
             it(`${path}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {
                     cy.visit(path, { failOnStatusCode: failOnStatusCode == undefined ? true : failOnStatusCode });
@@ -171,6 +171,9 @@ Contact: ${CONTACT_EMAIL}
                     cy.get('head > meta[name=keywords]').should('have.attr', 'content', 'wedding, event, website, microsite, hosted');
                     cy.get('head > meta[name=author]').should('have.attr', 'content', 'The TruSpar Team');
                     cy.get('head > link[rel=author]').should('have.attr', 'href', '/humans.txt');
+
+                    // Robots configuration
+                    cy.get('head > meta[name=robots]').should('have.attr', 'content', robotsMeta);
                 });
             });
         }

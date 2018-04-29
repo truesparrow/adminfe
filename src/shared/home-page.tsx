@@ -165,6 +165,7 @@ class _HomePage extends React.Component<HomePageProps, HomePageState> {
                     <title>{text.homePageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.homePageDescription[config.LANG()]} />
                     <link rel="canonical" href={`${config.EXTERNAL_ORIGIN}/`} />
+                    <meta name="robots" content="index,follow" />
                 </Helmet>
                 <Hero event={this.props.event} />
                 <Features />

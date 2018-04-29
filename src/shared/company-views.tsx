@@ -51,7 +51,6 @@ export class CompanyTermsPage extends React.Component<Props, {}> {
                     <title>{text.termsPageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.termsPageDescription[config.LANG()]} />
                     <link rel="canonical" href={realLink} />
-                    <meta name="robots" content="index,follow" />
                     <meta name="twitter:card" content="summary" />
                     <meta name="twitter:title" content={text.termsPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.termsPageDescription[config.LANG()]} />
@@ -62,6 +61,7 @@ export class CompanyTermsPage extends React.Component<Props, {}> {
                     <meta property="og:title" content={text.termsPageTitle[config.LANG()]} />
                     <meta property="og:description" content={text.termsPageDescription[config.LANG()]} />
                     <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
+                    <meta name="robots" content="index,follow" />
                 </Helmet>
                 <ReactMarkdown
                     escapeHtml={true}
@@ -81,7 +81,6 @@ export class CompanyPrivacyPage extends React.Component<Props, {}> {
                     <title>{text.privacyPageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.privacyPageDescription[config.LANG()]} />
                     <link rel="canonical" href={realLink} />
-                    <meta name="robots" content="index,follow" />
                     <meta name="twitter:card" content="summary" />
                     <meta name="twitter:title" content={text.privacyPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.privacyPageDescription[config.LANG()]} />
@@ -92,6 +91,7 @@ export class CompanyPrivacyPage extends React.Component<Props, {}> {
                     <meta property="og:title" content={text.privacyPageTitle[config.LANG()]} />
                     <meta property="og:description" content={text.privacyPageDescription[config.LANG()]} />
                     <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
+                    <meta name="robots" content="index,follow" />
                 </Helmet>
                 <ReactMarkdown
                     escapeHtml={true}
@@ -111,7 +111,6 @@ export class CompanyCookiesPage extends React.Component<Props, {}> {
                     <title>{text.cookiesPageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.cookiesPageDescription[config.LANG()]} />
                     <link rel="canonical" href={realLink} />
-                    <meta name="robots" content="index,follow" />
                     <meta name="twitter:card" content="summary" />
                     <meta name="twitter:title" content={text.cookiesPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.cookiesPageDescription[config.LANG()]} />
@@ -122,6 +121,7 @@ export class CompanyCookiesPage extends React.Component<Props, {}> {
                     <meta property="og:title" content={text.cookiesPageTitle[config.LANG()]} />
                     <meta property="og:description" content={text.cookiesPageDescription[config.LANG()]} />
                     <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
+                    <meta name="robots" content="index,follow" />
                 </Helmet>
                 <ReactMarkdown
                     escapeHtml={true}
@@ -140,7 +140,6 @@ export class CompanyContactPage extends React.Component<Props, {}> {
                     <title>{text.contactPageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.contactPageDescription[config.LANG()]} />
                     <link rel="canonical" href={realLink} />
-                    <meta name="robots" content="index,follow" />
                     <meta name="twitter:card" content="summary" />
                     <meta name="twitter:title" content={text.contactPageTitle[config.LANG()]} />
                     <meta name="twitter:description" content={text.contactPageDescription[config.LANG()]} />
@@ -151,6 +150,7 @@ export class CompanyContactPage extends React.Component<Props, {}> {
                     <meta property="og:title" content={text.contactPageTitle[config.LANG()]} />
                     <meta property="og:description" content={text.contactPageDescription[config.LANG()]} />
                     <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
+                    <meta name="robots" content="index,follow" />
                 </Helmet>
                 <ReactMarkdown
                     escapeHtml={true}
