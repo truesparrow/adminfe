@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 
 import {
@@ -51,6 +52,10 @@ class _AdminSitePage extends React.Component<Props, State> {
         return (
             <div
                 className="admin-site-page">
+                <Helmet>
+                    <title>{text.pageTitle[config.LANG()]}</title>
+                    <meta name="description" content={text.pageDescription[config.LANG()]} />
+                </Helmet>
                 <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}
                 </p>

@@ -1,14 +1,16 @@
 import { Message, MessageWith0Arg } from '@truesparrow/common-js'
 
+import * as config from './config'
+
 
 export const pageTitle: Message = {
-    en: 'TruSpar - Account',
-    ro: 'TruSpar - Cont'
+    en: `${config.STYLE_APPLICATION_NAME} - Account`,
+    ro: `${config.STYLE_APPLICATION_NAME} - Cont`
 };
 
 export const pageDescription: MessageWith0Arg = {
-    en: 'Account administration page',
-    ro: 'Pagina de administrare a contului'
+    en: 'Account administration',
+    ro: 'Administrarea contului'
 };
 
 export const adminAccountPage: Message = {
