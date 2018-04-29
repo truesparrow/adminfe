@@ -6,11 +6,6 @@ export const shouldBeLoggedIn: Message = {
     ro: 'Ar trebui să fiți logați'
 };
 
-export const pageTitle: Message = {
-    en: 'Admin',
-    ro: 'Administrare'
-};
-
 export const aboutUs: Message = {
     en: 'About Us',
     ro: 'Despre noi'
