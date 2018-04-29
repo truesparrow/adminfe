@@ -11,9 +11,35 @@ describe.only('Large scale SEO & Web integration', () => {
     });
 
     describe('favicons', () => {
-        it('Should be referenced by pages', () => {
-            // TODO
-        });
+        for (const { path, failOnStatusCode } of ALL_PAGES) {
+            it(`${path} should reference favicons`, () => {
+                cy.loginAsUser('user1.json').then(_ => {
+                    cy.visit(path, { failOnStatusCode: failOnStatusCode == undefined ? true : failOnStatusCode });
+                    cy.get('head > link[rel=apple-touch-icon]')
+                        .should('have.attr', 'sizes', '180x180')
+                        .should('have.attr', 'href', '/real/client/apple-touch-icon.png');
+                    cy.get('head > link[rel=icon][sizes=32x32]')
+                        .should('have.attr', 'type', 'image/png')
+                        .should('have.attr', 'href', '/real/client/favicon-32x32.png');
+                    cy.get('head > link[rel=icon][sizes=16x16]')
+                        .should('have.attr', 'type', 'image/png')
+                        .should('have.attr', 'href', '/real/client/favicon-16x16.png');
+                    cy.get('head > link[rel=mask-icon]')
+                        .should('have.attr', 'href', '/real/client/safari-pinned-tab.svg')
+                        .should('have.attr', 'color', '#5bbad5');
+                    cy.get('head > link[rel=\'shortcut icon\']')
+                        .should('have.attr', 'href', '/real/client/favicon.ico');
+                    cy.get('head > meta[name=msapplication-TileColor]')
+                        .should('have.attr', 'content', '#1498d5');
+                    cy.get('head > meta[name=theme-color]')
+                        .should('have.attr', 'content', '#1498d5');
+                    cy.get('head > link[rel=manifest]')
+                        .should('have.attr', 'href', '/site.webmanifest');
+                    cy.get('head > meta[name=msapplication-config]')
+                        .should('have.attr', 'content', '/browserconfig.xml');
+                });
+            });
+        }
 
         it('Should exist', () => {
             cy.request('/real/client/android-chrome-192x192.png');
@@ -125,13 +151,20 @@ Contact: ${CONTACT_EMAIL}
         });
     });
 
-    describe('Title and description', () => {
+    describe('Page-level machine information', () => {
         for (const { path, title, description, failOnStatusCode } of ALL_PAGES) {
-            it(`${path} has proper title and description`, () => {
+            it(`${path}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {
                     cy.visit(path, { failOnStatusCode: failOnStatusCode == undefined ? true : failOnStatusCode });
+
+                    // Page specific generic web configuration
                     cy.title().should('equal', title);
                     cy.get('head > meta[name=description]').should('have.attr', 'content', description);
+
+                    // Common generic web configuration
+                    cy.get('head > meta[name=keywords]').should('have.attr', 'content', 'wedding, event, website, microsite, hosted');
+                    cy.get('head > meta[name=author]').should('have.attr', 'content', 'The TruSpar Team');
+                    cy.get('head > link[rel=author]').should('have.attr', 'href', '/humans.txt');
                 });
             });
         }
