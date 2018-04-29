@@ -5,7 +5,7 @@ import 'mocha'
 import { CONTACT_AUTHORS, CONTACT_EMAIL, ORIGIN, STYLE_APPLICATION_NAME, STYLE_PRIMARY_COLOR, ALL_PAGES } from './shared'
 
 
-describe.only('Large scale SEO & Web integration', () => {
+describe('Large scale SEO & Web integration', () => {
     before(() => {
         cy.clearOutData();
     });
@@ -151,11 +151,14 @@ Contact: ${CONTACT_EMAIL}
         });
     });
 
-    describe('Page-level machine information', () => {
+    describe.only('Page-level machine information', () => {
         for (const { path, title, description, failOnStatusCode } of ALL_PAGES) {
             it(`${path}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {
                     cy.visit(path, { failOnStatusCode: failOnStatusCode == undefined ? true : failOnStatusCode });
+
+                    // Language
+                    cy.get('html').should('have.attr', 'lang', 'en');
 
                     // Page specific generic web configuration
                     cy.title().should('equal', title);

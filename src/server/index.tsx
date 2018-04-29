@@ -132,6 +132,7 @@ async function main() {
         const helmetData = Helmet.renderStatic();
 
         return [Mustache.render(bundles.getHtmlIndexTemplate(), {
+            LANGUAGE: language,
             GOOGLE_MAPS_API_KEY: config.GOOGLE_MAPS_API_KEY,
             SEO_KEYWORDS: config.SEO_KEYWORDS,
             CONTACT_AUTHORS: config.CONTACT_AUTHORS,
