@@ -21,8 +21,26 @@ export function FacebookOpenGraph(props: FacebookOpenGraphProps) {
             <meta property="og:description" content={props.description} />
             <meta property="og:site_name" content={commonText.siteName[config.LANG()]} />
             <meta property="og:image" content={`${config.EXTERNAL_ORIGIN}/real/client/home-page-hero.jpg`} />
-            <meta property="og:locale" content={config.LANG()} />
+            // <meta property="og:locale" content={config.LANG()} />
             <meta property="fb:app_id" content={config.FACEBOOK_APP_ID} />
+        </Helmet>
+    );
+}
+
+interface TwitterCardProps {
+    title: string;
+    description: string;
+}
+
+export function TwitterCard(props: TwitterCardProps) {
+    return (
+        <Helmet>
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:title" content={props.title} />
+            <meta name="twitter:description" content={props.description} />
+            <meta name="twitter:creator" content={`@${config.STYLE_APPLICATION_NAME}`} />
+            <meta name="twitter:site" content={`@${config.STYLE_APPLICATION_NAME}`} />
+            <meta name="twitter:image" content={`${config.EXTERNAL_ORIGIN}/real/client/home-page-hero.jpg`} />
         </Helmet>
     );
 }

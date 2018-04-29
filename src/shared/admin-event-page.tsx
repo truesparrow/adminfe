@@ -15,7 +15,7 @@ import * as config from './config'
 import { SubEventEditor } from './subevent-editor'
 import { EventState, OpState, StatePart } from './store'
 import * as services from './services'
-import { FacebookOpenGraph } from './web-metadata'
+import { FacebookOpenGraph, TwitterCard } from './web-metadata'
 
 import * as text from './admin-event-page.text'
 
@@ -64,6 +64,9 @@ class _AdminEventPage extends React.Component<Props, State> {
                 </Helmet>
                 <FacebookOpenGraph
                     realLink={realLink}
+                    title={text.pageTitle[config.LANG()]}
+                    description={text.pageDescription[config.LANG()]} />
+                <TwitterCard
                     title={text.pageTitle[config.LANG()]}
                     description={text.pageDescription[config.LANG()]} />
                 <p className="fill-out-details">

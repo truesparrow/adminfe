@@ -183,17 +183,25 @@ Contact: ${CONTACT_EMAIL}
                     // Robots configuration
                     cy.get('head > meta[name=robots]').should('have.attr', 'content', robotsMeta);
 
-                    // Facebook OpenGraph
-
                     if (!skipCanonical) {
+                        // Facebook OpenGraph
+
                         cy.get('head > meta[property=\'og:url\']').should('have.attr', 'content', `${ORIGIN}${path}`);
                         cy.get('head > meta[property=\'og:title\']').should('have.attr', 'content', title);
                         cy.get('head > meta[property=\'og:description\']').should('have.attr', 'content', description);
                         cy.get('head > meta[property=\'og:site_name\']').should('have.attr', 'content', 'TruSpar');
                         cy.get('head > meta[property=\'og:image\']').should('have.attr', 'content', `${ORIGIN}/real/client/home-page-hero.jpg`);
-                        cy.log(typeof FACEBOOK_APP_ID);
-                        cy.get('head > meta[property=\'og:locale\']').should('have.attr', 'content', 'en');
+                        // cy.get('head > meta[property=\'og:locale\']').should('have.attr', 'content', 'en');
                         cy.get('head > meta[property=\'fb:app_id\']').should('have.attr', 'content', FACEBOOK_APP_ID);
+
+                        // Twitter Card
+
+                        cy.get('head > meta[name=\'twitter:card\']').should('have.attr', 'content', 'summary');
+                        cy.get('head > meta[name=\'twitter:title\']').should('have.attr', 'content', title);
+                        cy.get('head > meta[name=\'twitter:description\']').should('have.attr', 'content', description);
+                        cy.get('head > meta[name=\'twitter:creator\']').should('have.attr', 'content', '@TruSpar');
+                        cy.get('head > meta[name=\'twitter:site\']').should('have.attr', 'content', '@TruSpar');
+                        cy.get('head > meta[name=\'twitter:image\']').should('have.attr', 'content', `${ORIGIN}/real/client/home-page-hero.jpg`);
                     }
                 });
             });

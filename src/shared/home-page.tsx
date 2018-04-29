@@ -7,7 +7,7 @@ import { Event } from '@truesparrow/content-sdk-js'
 
 import * as config from './config'
 import { EventState, OpState } from './store'
-import { FacebookOpenGraph } from './web-metadata'
+import { FacebookOpenGraph, TwitterCard } from './web-metadata'
 
 import * as commonText from './common.text'
 import * as text from './home-page.text'
@@ -173,6 +173,9 @@ class _HomePage extends React.Component<HomePageProps, HomePageState> {
                 </Helmet>
                 <FacebookOpenGraph
                     realLink={realLink}
+                    title={text.homePageTitle[config.LANG()]}
+                    description={text.homePageDescription[config.LANG()]} />
+                <TwitterCard
                     title={text.homePageTitle[config.LANG()]}
                     description={text.homePageDescription[config.LANG()]} />
                 <Hero event={this.props.event} />

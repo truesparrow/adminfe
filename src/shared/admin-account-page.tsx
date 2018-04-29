@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 
 import * as config from './config'
-import { FacebookOpenGraph } from './web-metadata'
+import { FacebookOpenGraph, TwitterCard } from './web-metadata'
 
 import * as text from './admin-account-page.text'
 
@@ -17,6 +17,9 @@ export const AdminAccountPage = () => {
         </Helmet>
         <FacebookOpenGraph
             realLink={realLink}
+            title={text.pageTitle[config.LANG()]}
+            description={text.pageDescription[config.LANG()]} />
+        <TwitterCard
             title={text.pageTitle[config.LANG()]}
             description={text.pageDescription[config.LANG()]} />
         {text.adminAccountPage[config.LANG()]}

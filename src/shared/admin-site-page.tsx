@@ -13,7 +13,7 @@ import * as commonText from './common.text'
 import * as config from './config'
 import { EventState, OpState, StatePart } from './store'
 import * as services from './services'
-import { FacebookOpenGraph } from './web-metadata'
+import { FacebookOpenGraph, TwitterCard } from './web-metadata'
 
 import * as text from './admin-site-page.text'
 
@@ -61,6 +61,9 @@ class _AdminSitePage extends React.Component<Props, State> {
                 </Helmet>
                 <FacebookOpenGraph
                     realLink={realLink}
+                    title={text.pageTitle[config.LANG()]}
+                    description={text.pageDescription[config.LANG()]} />
+                <TwitterCard
                     title={text.pageTitle[config.LANG()]}
                     description={text.pageDescription[config.LANG()]} />
                 <p className="fill-out-details">
