@@ -151,7 +151,7 @@ Contact: ${CONTACT_EMAIL}
         });
     });
 
-    describe.only('Page-level machine information', () => {
+    describe('Page-level machine information', () => {
         for (const { path, title, description, robotsMeta, failOnStatusCode, skipCanonical } of ALL_PAGES) {
             it(`${path}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {

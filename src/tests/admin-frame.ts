@@ -36,11 +36,11 @@ describe('Admin frame', () => {
     });
 
     describe('Sidebar', () => {
-        for (let { title, path, content } of ADMIN_PAGES_INFO) {
+        for (let { title, shortTitle, path, content } of ADMIN_PAGES_INFO) {
             it(`Shows and links to admin page for ${title}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {
                     cy.visit('/admin');
-                    cy.get('div.side-menu').contains(title).click();
+                    cy.get('div.side-menu').contains(shortTitle).click();
                     cy.url().should('include', path);
                     cy.contains(content);
                 });

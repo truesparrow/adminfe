@@ -39,6 +39,7 @@
 
         <!-- Important resource loading -->
 
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{{ GOOGLE_MAPS_API_KEY }}}&libraries=places"></script>
         <script>
          window.__TRUESPARROW_CLIENT_CONFIG = {{{ CLIENT_CONFIG }}};
          window.__TRUESPARROW_CLIENT_INITIAL_STATE = {{{ CLIENT_INITIAL_STATE }}};
@@ -49,7 +50,6 @@
 
         <!-- Secondary resouce loading -->
 
-        <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{{ GOOGLE_MAPS_API_KEY }}}&libraries=places"></script>
         <script async src="https://www.google-analytics.com/analytics.js"></script>
     </body>
 </html>
