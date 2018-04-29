@@ -133,6 +133,7 @@ async function main() {
 
         return [Mustache.render(bundles.getHtmlIndexTemplate(), {
             GOOGLE_MAPS_API_KEY: config.GOOGLE_MAPS_API_KEY,
+            CONTACT_AUTHORS: config.CONTACT_AUTHORS,
             PAGE_TITLE_HTML: helmetData.title,
             PAGE_META_HTML: helmetData.meta,
             PAGE_LINK_HTML: helmetData.link,
