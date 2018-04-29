@@ -55,6 +55,7 @@ class _AdminSitePage extends React.Component<Props, State> {
                 <Helmet>
                     <title>{text.pageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.pageDescription[config.LANG()]} />
+                    <link rel="canonical" href={`${config.EXTERNAL_ORIGIN}/admin/site`} />
                 </Helmet>
                 <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}

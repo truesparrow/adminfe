@@ -174,6 +174,7 @@ class _AdminMainPage extends React.Component<Props, State> {
                 <Helmet>
                     <title>{text.pageTitle[config.LANG()]}</title>
                     <meta name="description" content={text.pageDescription[config.LANG()]} />
+                    <link rel="canonical" href={`${config.EXTERNAL_ORIGIN}/admin/main`} />
                 </Helmet>
                 {this.state.hasSelectPictureError && <div>{text.errorUploadingImage[config.LANG()]} </div>}
                 <p className="fill-out-details">

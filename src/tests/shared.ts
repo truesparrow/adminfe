@@ -18,6 +18,7 @@ interface PageInfo {
     title: string;
     description: string;
     failOnStatusCode?: boolean;
+    skipCanonical?: boolean;
     content?: string;
 }
 
@@ -32,7 +33,8 @@ export const HOME_PAGES_INFO: PageInfo[] = [
         path: '/inexistent-page',
         title: 'TruSpar - Page Not Found',
         description: 'Page not found',
-        failOnStatusCode: false
+        failOnStatusCode: false,
+        skipCanonical: true
     }
 ];
 

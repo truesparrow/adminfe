@@ -152,7 +152,7 @@ Contact: ${CONTACT_EMAIL}
     });
 
     describe.only('Page-level machine information', () => {
-        for (const { path, title, description, failOnStatusCode } of ALL_PAGES) {
+        for (const { path, title, description, failOnStatusCode, skipCanonical } of ALL_PAGES) {
             it(`${path}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {
                     cy.visit(path, { failOnStatusCode: failOnStatusCode == undefined ? true : failOnStatusCode });
@@ -163,6 +163,9 @@ Contact: ${CONTACT_EMAIL}
                     // Page specific generic web configuration
                     cy.title().should('equal', title);
                     cy.get('head > meta[name=description]').should('have.attr', 'content', description);
+                    if (!skipCanonical) {
+                        cy.get('head > link[rel=canonical]').should('have.attr', 'href', `${ORIGIN}${path}`);
+                    }
 
                     // Common generic web configuration
                     cy.get('head > meta[name=keywords]').should('have.attr', 'content', 'wedding, event, website, microsite, hosted');

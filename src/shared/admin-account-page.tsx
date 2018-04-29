@@ -11,6 +11,7 @@ export const AdminAccountPage = () =>
         <Helmet>
             <title>{text.pageTitle[config.LANG()]}</title>
             <meta name="description" content={text.pageDescription[config.LANG()]} />
+            <link rel="canonical" href={`${config.EXTERNAL_ORIGIN}/admin/account`} />
         </Helmet>
         {text.adminAccountPage[config.LANG()]}
     </div>;
