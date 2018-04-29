@@ -1,7 +1,7 @@
 import 'mocha'
 
 
-describe('Home page', () => {
+describe.only('Home page', () => {
     before(() => {
         cy.clearOutData();
     });
@@ -32,5 +32,11 @@ describe('Home page', () => {
                 cy.url().should('include', '/admin');
             });
         });
+    });
+
+    it('Web integration', () => {
+        cy.visit('/');
+        cy.title().should('equal', 'TruSpar');
+        cy.get('head > meta[name=description]').should('have.attr', 'content', 'TruSpar lets you easily build a website for your wedding');
     });
 });

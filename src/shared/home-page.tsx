@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -160,6 +161,10 @@ class _HomePage extends React.Component<HomePageProps, HomePageState> {
     render() {
         return (
             <div>
+                <Helmet>
+                    <title>{text.homePageTitle[config.LANG()]}</title>
+                    <meta name="description" content={text.homePageDescription[config.LANG()]} />
+                </Helmet>
                 <Hero event={this.props.event} />
                 <Features />
                 <Pricing />

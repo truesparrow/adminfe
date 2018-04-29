@@ -1,5 +1,17 @@
 import { Message, MessageWith0Arg } from '@truesparrow/common-js'
 
+import * as config from './config'
+
+
+export const homePageTitle: Message = {
+    en: config.STYLE_APPLICATION_NAME,
+    ro: config.STYLE_APPLICATION_NAME
+};
+
+export const homePageDescription: MessageWith0Arg = {
+    en: `${config.STYLE_APPLICATION_NAME} lets you easily build a website for your wedding`,
+    ro: `${config.STYLE_APPLICATION_NAME} vă permite să construiți site-uri pentru nunta voastră`
+};
 
 export const bigTitle: Message = {
     en: 'Wedding Websites',

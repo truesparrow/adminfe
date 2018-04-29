@@ -3,7 +3,7 @@ import 'mocha'
 import { COMPANY_PAGES_INFO } from './shared'
 
 
-describe.only('Company pages', () => {
+describe('Company pages', () => {
     before(() => {
         cy.clearOutData();
     });
