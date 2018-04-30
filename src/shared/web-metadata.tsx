@@ -38,8 +38,8 @@ export function TwitterCard(props: TwitterCardProps) {
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:title" content={props.title} />
             <meta name="twitter:description" content={props.description} />
-            <meta name="twitter:creator" content={`@${config.STYLE_APPLICATION_NAME}`} />
-            <meta name="twitter:site" content={`@${config.STYLE_APPLICATION_NAME}`} />
+            <meta name="twitter:creator" content={`${config.SEO_TWITTER_HANDLE}`} />
+            <meta name="twitter:site" content={`${config.SEO_TWITTER_HANDLE}`} />
             <meta name="twitter:image" content={`${config.EXTERNAL_ORIGIN}/real/client/home-page-hero.jpg`} />
         </Helmet>
     );

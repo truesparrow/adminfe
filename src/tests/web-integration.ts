@@ -199,8 +199,8 @@ Contact: ${CONTACT_EMAIL}
                         cy.get('head > meta[name=\'twitter:card\']').should('have.attr', 'content', 'summary');
                         cy.get('head > meta[name=\'twitter:title\']').should('have.attr', 'content', title);
                         cy.get('head > meta[name=\'twitter:description\']').should('have.attr', 'content', description);
-                        cy.get('head > meta[name=\'twitter:creator\']').should('have.attr', 'content', '@TruSpar');
-                        cy.get('head > meta[name=\'twitter:site\']').should('have.attr', 'content', '@TruSpar');
+                        cy.get('head > meta[name=\'twitter:creator\']').should('have.attr', 'content', '@trusparevents');
+                        cy.get('head > meta[name=\'twitter:site\']').should('have.attr', 'content', '@trusparevents');
                         cy.get('head > meta[name=\'twitter:image\']').should('have.attr', 'content', `${ORIGIN}/real/client/home-page-hero.jpg`);
                     }
                 });

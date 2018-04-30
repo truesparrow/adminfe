@@ -96,6 +96,7 @@ async function main() {
             env: config.ENV,
             internalOrigin: config.INTERNAL_ORIGIN,
             externalOrigin: config.EXTERNAL_ORIGIN,
+            seoTwitterHandle: config.SEO_TWITTER_HANDLE,
             contactEmail: config.CONTACT_EMAIL,
             demoSiteUri: config.DEMO_SITE_URI,
             styleApplicationName: config.STYLE_APPLICATION_NAME,
