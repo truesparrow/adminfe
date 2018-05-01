@@ -24,6 +24,7 @@ interface PageInfo {
     failOnStatusCode?: boolean;
     skipCanonical?: boolean;
     content?: string;
+    breadcrumbName?: string;
 }
 
 
@@ -85,7 +86,8 @@ export const COMPANY_PAGES_INFO: PageInfo[] = [
         shortTitle: 'About',
         description: 'About the company',
         robotsMeta: 'index,follow',
-        content: 'This is the about page'
+        content: 'This is the about page',
+        breadcrumbName: 'About'
     },
     {
         path: '/company/tos',
@@ -93,7 +95,8 @@ export const COMPANY_PAGES_INFO: PageInfo[] = [
         shortTitle: 'Terms',
         description: 'Terms and conditions',
         robotsMeta: 'index,follow',
-        content: 'This is the terms and conditions page'
+        content: 'This is the terms and conditions page',
+        breadcrumbName: 'Terms And Conditions'
     },
     {
         path: '/company/privacy',
@@ -101,7 +104,8 @@ export const COMPANY_PAGES_INFO: PageInfo[] = [
         shortTitle: 'Privacy',
         description: 'Privacy policy',
         robotsMeta: 'index,follow',
-        content: 'This is the privacy page'
+        content: 'This is the privacy page',
+        breadcrumbName: 'Privacy'
     },
     {
         path: '/company/cookies',
@@ -109,7 +113,8 @@ export const COMPANY_PAGES_INFO: PageInfo[] = [
         shortTitle: 'Cookies',
         description: 'Cookies policy',
         robotsMeta: 'index,follow',
-        content: 'This is the cookies page'
+        content: 'This is the cookies page',
+        breadcrumbName: 'Cookies'
     },
     {
         path: '/company/contact',
@@ -117,7 +122,8 @@ export const COMPANY_PAGES_INFO: PageInfo[] = [
         shortTitle: 'Contact',
         description: 'Contact',
         robotsMeta: 'index,follow',
-        content: 'We\'d love to hear from you. Drop us a line at'
+        content: 'We\'d love to hear from you. Drop us a line at',
+        breadcrumbName: 'Contact'
     }
 ];
 

@@ -3,13 +3,15 @@ import * as ReactMarkdown from 'react-markdown'
 import { Helmet } from 'react-helmet'
 
 import * as config from './config'
-import { FacebookOpenGraph, TwitterCard } from './web-metadata'
+import { FacebookOpenGraph, MicrodataBreadcrumbs, TwitterCard } from './web-metadata'
 
 import * as text from './company-views.text'
 
 
 interface Props {
 }
+
+const COMPANY_ABOUT_REAL_LINK: string = `${config.EXTERNAL_ORIGIN}/company/about`;
 
 
 export class CompanyAboutPage extends React.Component<Props, {}> {
@@ -33,6 +35,14 @@ export class CompanyAboutPage extends React.Component<Props, {}> {
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.about[config.LANG()]} />
+                <MicrodataBreadcrumbs
+                    items={[{
+                        url: COMPANY_ABOUT_REAL_LINK,
+                        name: text.company[config.LANG()]
+                    }, {
+                        url: realLink,
+                        name: text.aboutPageShort[config.LANG()]
+                    }]} />
             </div>
         );
     }
@@ -60,6 +70,14 @@ export class CompanyTermsPage extends React.Component<Props, {}> {
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.terms[config.LANG()]} />
+                <MicrodataBreadcrumbs
+                    items={[{
+                        url: COMPANY_ABOUT_REAL_LINK,
+                        name: text.company[config.LANG()]
+                    }, {
+                        url: realLink,
+                        name: text.termsPageShort[config.LANG()]
+                    }]} />
             </div>
         );
     }
@@ -87,6 +105,14 @@ export class CompanyPrivacyPage extends React.Component<Props, {}> {
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.privacy[config.LANG()]} />
+                <MicrodataBreadcrumbs
+                    items={[{
+                        url: COMPANY_ABOUT_REAL_LINK,
+                        name: text.company[config.LANG()]
+                    }, {
+                        url: realLink,
+                        name: text.privacyPageShort[config.LANG()]
+                    }]} />
             </div>
         );
     }
@@ -114,6 +140,14 @@ export class CompanyCookiesPage extends React.Component<Props, {}> {
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.cookies[config.LANG()]} />
+                <MicrodataBreadcrumbs
+                    items={[{
+                        url: COMPANY_ABOUT_REAL_LINK,
+                        name: text.company[config.LANG()]
+                    }, {
+                        url: realLink,
+                        name: text.cookiesPageShort[config.LANG()]
+                    }]} />
             </div>
         );
     }
@@ -140,6 +174,14 @@ export class CompanyContactPage extends React.Component<Props, {}> {
                 <ReactMarkdown
                     escapeHtml={true}
                     source={text.contactUs[config.LANG()]} />
+                <MicrodataBreadcrumbs
+                    items={[{
+                        url: COMPANY_ABOUT_REAL_LINK,
+                        name: text.company[config.LANG()]
+                    }, {
+                        url: realLink,
+                        name: text.contactPageShort[config.LANG()]
+                    }]} />
             </div>
         );
     }

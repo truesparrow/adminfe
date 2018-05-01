@@ -17,10 +17,12 @@ export const CONTEXT: Context = Context.Client;
 export const NAME: string = 'adminfe';
 export const INTERNAL_ORIGIN: string = clientConfig.internalOrigin;
 export const EXTERNAL_ORIGIN: string = clientConfig.externalOrigin;
+export const SEO_FACEBOOK_HANDLE: string = clientConfig.seoFacebookHandle;
 export const SEO_TWITTER_HANDLE: string = clientConfig.seoTwitterHandle;
 export const CONTACT_EMAIL: string = clientConfig.contactEmail;
 export const DEMO_SITE_URI: string = clientConfig.demoSiteUri;
 export const STYLE_APPLICATION_NAME: string = clientConfig.styleApplicationName;
+export const STYLE_LOGO_URI: string = clientConfig.styleLogoUri;
 
 export const CONTENT_SERVICE_HOST: string = clientConfig.contentServiceHost;
 export const CONTENT_SERVICE_PORT: number = clientConfig.contentServicePort;

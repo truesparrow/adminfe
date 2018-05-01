@@ -160,7 +160,7 @@ Contact: ${CONTACT_EMAIL}
     });
 
     describe('Page-level machine information', () => {
-        for (const { path, title, description, robotsMeta, failOnStatusCode, skipCanonical } of ALL_PAGES) {
+        for (const { path, title, description, robotsMeta, failOnStatusCode, skipCanonical, breadcrumbName } of ALL_PAGES) {
             it(`${path}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {
                     cy.visit(path, { failOnStatusCode: failOnStatusCode == undefined ? true : failOnStatusCode });
@@ -203,6 +203,54 @@ Contact: ${CONTACT_EMAIL}
                         cy.get('head > meta[name=\'twitter:creator\']').should('have.attr', 'content', '@trusparevents');
                         cy.get('head > meta[name=\'twitter:site\']').should('have.attr', 'content', '@trusparevents');
                         cy.get('head > meta[name=\'twitter:image\']').should('have.attr', 'content', `${ORIGIN}/real/client/home-page-hero.jpg`);
+                    }
+
+                    // Microdata for organization
+
+                    cy.get('head > script[type=\'application/ld+json\']').first().should('exist');
+                    cy.get('head > script[type=\'application/ld+json\']').first().then($script => {
+                        const organization = JSON.parse($script.text());
+                        const target = {
+                            '@context': 'http://schema.org',
+                            '@type': 'Organization',
+                            'name': 'TruSpar',
+                            'url': ORIGIN,
+                            'logo': `${ORIGIN}/real/client/android-chrome-192x192.png`,
+                            'sameAs': [
+                                `https://facebook.com/TruSpar`,
+                                `https://twitter.com/@trusparevents`
+                            ]
+                        };
+                        expect(organization).to.eql(target);
+                    });
+
+                    // Microdata for breadcrumbs
+
+                    if (breadcrumbName != undefined) {
+                        cy.get('head > script[type=\'application/ld+json\']').first().next().should('exist');
+                        cy.get('head > script[type=\'application/ld+json\']').first().next().then($script => {
+                            const breadcrumbs = JSON.parse($script.text());
+                            const target = {
+                                '@context': 'http://schema.org',
+                                '@type': 'BreadcrumbList',
+                                'itemListElement': [{
+                                    '@type': 'ListItem',
+                                    'position': 1,
+                                    'item': {
+                                        '@id': `${ORIGIN}/company/about`,
+                                        'name': 'Company'
+                                    }
+                                }, {
+                                    '@type': 'ListItem',
+                                    'position': 2,
+                                    'item': {
+                                        '@id': `${ORIGIN}${path}`,
+                                        'name': breadcrumbName
+                                    }
+                                }]
+                            };
+                            expect(breadcrumbs).to.eql(target);
+                        });
                     }
                 });
             });

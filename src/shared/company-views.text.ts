@@ -3,6 +3,11 @@ import { MessageWith0Arg } from '@truesparrow/common-js'
 import * as config from './config'
 
 
+export const company: MessageWith0Arg = {
+    en: 'Company',
+    ro: 'Companie'
+};
+
 export const aboutPageTitle: MessageWith0Arg = {
     en: `${config.STYLE_APPLICATION_NAME} - About The Company`,
     ro: `${config.STYLE_APPLICATION_NAME} - Despre Companie`
@@ -13,6 +18,10 @@ export const aboutPageDescription: MessageWith0Arg = {
     ro: 'Despre companie'
 };
 
+export const aboutPageShort: MessageWith0Arg = {
+    en: 'About',
+    ro: 'Despre'
+};
 
 export const about: MessageWith0Arg = {
     en: `
@@ -31,6 +40,11 @@ export const termsPageTitle: MessageWith0Arg = {
 export const termsPageDescription: MessageWith0Arg = {
     en: 'Terms and conditions',
     ro: 'Condiţii de utilizare'
+};
+
+export const termsPageShort: MessageWith0Arg = {
+    en: 'Terms And Conditions',
+    ro: 'Condiţii De Utilizare'
 };
 
 export const terms: MessageWith0Arg = {
@@ -52,6 +66,11 @@ export const privacyPageDescription: MessageWith0Arg = {
     ro: 'Politica de confidenţialitate'
 };
 
+export const privacyPageShort: MessageWith0Arg = {
+    en: 'Privacy',
+    ro: 'Confidenţialitate'
+};
+
 export const privacy: MessageWith0Arg = {
     en: `
 This is the _privacy_ page
@@ -71,6 +90,11 @@ export const cookiesPageDescription: MessageWith0Arg = {
     ro: 'Politica de module cookies'
 };
 
+export const cookiesPageShort: MessageWith0Arg = {
+    en: 'Cookies',
+    ro: 'Module Cookies'
+};
+
 export const cookies: MessageWith0Arg = {
     en: `
 This is the _cookies_ page
@@ -86,6 +110,11 @@ export const contactPageTitle: MessageWith0Arg = {
 };
 
 export const contactPageDescription: MessageWith0Arg = {
+    en: 'Contact',
+    ro: 'Contact'
+};
+
+export const contactPageShort: MessageWith0Arg = {
     en: 'Contact',
     ro: 'Contact'
 };

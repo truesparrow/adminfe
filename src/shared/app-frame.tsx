@@ -13,6 +13,7 @@ import { Footer } from './footer'
 import { Header } from './header'
 import { HomePage } from './home-page'
 import { NotFoundPage } from './not-found-page'
+import { MicrodataOrganization } from './web-metadata'
 
 
 export interface Props {
@@ -25,6 +26,7 @@ export class AppFrame extends React.Component<Props, State> {
     render() {
         return (
             <div>
+                <MicrodataOrganization />
                 <Header />
                 <main>
                     <Switch>

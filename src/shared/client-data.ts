@@ -25,6 +25,9 @@ export class ClientConfig {
     externalOrigin: string;
 
     @MarshalWith(r.StringMarshaller)
+    seoFacebookHandle: string;
+
+    @MarshalWith(r.StringMarshaller)
     seoTwitterHandle: string;
 
     @MarshalWith(r.StringMarshaller) // TODO: should be email marshaller
