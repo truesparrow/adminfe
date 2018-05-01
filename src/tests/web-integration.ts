@@ -186,12 +186,13 @@ Contact: ${CONTACT_EMAIL}
                     if (!skipCanonical) {
                         // Facebook OpenGraph
 
+                        cy.get('head > meta[property=\'og:type\']').should('have.attr', 'content', `website`);
                         cy.get('head > meta[property=\'og:url\']').should('have.attr', 'content', `${ORIGIN}${path}`);
                         cy.get('head > meta[property=\'og:title\']').should('have.attr', 'content', title);
                         cy.get('head > meta[property=\'og:description\']').should('have.attr', 'content', description);
                         cy.get('head > meta[property=\'og:site_name\']').should('have.attr', 'content', 'TruSpar');
                         cy.get('head > meta[property=\'og:image\']').should('have.attr', 'content', `${ORIGIN}/real/client/home-page-hero.jpg`);
-                        // cy.get('head > meta[property=\'og:locale\']').should('have.attr', 'content', 'en');
+                        cy.get('head > meta[property=\'og:image:alt\']').should('have.attr', 'content', description);
                         cy.get('head > meta[property=\'fb:app_id\']').should('have.attr', 'content', FACEBOOK_APP_ID);
 
                         // Twitter Card
