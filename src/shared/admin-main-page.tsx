@@ -230,8 +230,8 @@ class _AdminMainPage extends React.Component<Props, State> {
     private async _handleAddImage(): Promise<void> {
         try {
             const fileStackPicker = await services.FILE_STACK_CLIENT();
-            const newPicture = await fileStackPicker.selectImageWithWidget(this.state.pictures.size + 1);
-            const newPictures = this.state.pictures.push(newPicture);
+            const addedPictures = await fileStackPicker.selectImageWithWidget(this.state.pictures.size + 1);
+            const newPictures = this.state.pictures.push(...addedPictures);
 
             this.setState({
                 hasSelectPictureError: false,
