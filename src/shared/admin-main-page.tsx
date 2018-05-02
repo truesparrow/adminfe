@@ -11,7 +11,6 @@ import {
     UpdateEventOptions
 } from '@truesparrow/content-sdk-js'
 
-import * as commonText from './common.text'
 import * as config from './config'
 import * as services from './services'
 import { EventState, OpState, StatePart } from './store'
@@ -105,7 +104,6 @@ interface Props {
 
 interface State {
     hasSelectPictureError: boolean;
-    modified: boolean;
     pictures: List<Picture>;
     /*
      * A counter incremented every time a new drag and drop event occurs. This is used as a sort of
@@ -126,7 +124,6 @@ class _AdminMainPage extends React.Component<Props, State> {
         super(props);
         this.state = {
             hasSelectPictureError: false,
-            modified: false,
             pictures: List(props.event.pictureSet.pictures),
             dragAndDropGeneration: 0,
             showCarousel: false,
@@ -137,7 +134,6 @@ class _AdminMainPage extends React.Component<Props, State> {
     componentWillReceiveProps(newProps: Props) {
         this.setState({
             hasSelectPictureError: false,
-            modified: false,
             pictures: List(newProps.event.pictureSet.pictures),
             // Skip dragAndDropGeneration - nothing changes this.
             showCarousel: false,
@@ -202,20 +198,6 @@ class _AdminMainPage extends React.Component<Props, State> {
                     {pictureRegion}
                 </div>
                 <div className="action-buttons">
-                    <button
-                        className="sign-up"
-                        disabled={!this.state.modified}
-                        type="button"
-                        onClick={_ => this._handleSave()}>
-                        {commonText.save[config.LANG()]}
-                    </button>
-                    <button
-                        className="sign-up"
-                        disabled={!this.state.modified}
-                        type="button"
-                        onClick={_ => this._handleReset()}>
-                        {commonText.reset[config.LANG()]}
-                    </button>
                 </div>
                 {this.state.showCarousel &&
                     <PicturesCarousel
@@ -253,10 +235,9 @@ class _AdminMainPage extends React.Component<Props, State> {
 
             this.setState({
                 hasSelectPictureError: false,
-                modified: true,
                 pictures: newPictures,
                 showCarousel: false
-            });
+            }, this._updateServer);
         } catch (e) {
             // If the user canceled the dialog, we don't do anything.
             if (e.hasOwnProperty('FPError') && e.hasOwnProperty('code') && e.code == 101) {
@@ -268,7 +249,6 @@ class _AdminMainPage extends React.Component<Props, State> {
 
             this.setState({
                 hasSelectPictureError: true,
-                modified: false,
                 showCarousel: false
             });
         }
@@ -281,10 +261,9 @@ class _AdminMainPage extends React.Component<Props, State> {
             .toList();
         this.setState({
             hasSelectPictureError: false,
-            modified: true,
             pictures: newPictures,
             showCarousel: false
-        });
+        }, this._updateServer);
     }
 
     private _handleMovePictureViaDragula(_el: HTMLDivElement, target: HTMLDivElement, _sibling: HTMLDivElement, _source: HTMLDivElement): void {
@@ -301,14 +280,13 @@ class _AdminMainPage extends React.Component<Props, State> {
         // div, which will trigger a call to _decorateForDragula, which will call
         // destroy, which will call this function all over again and cause all manner
         // of niceties.
-        setTimeout(() => {
+        setImmediate(() => {
             this.setState({
-                modified: true,
                 pictures: List(newPictures),
                 dragAndDropGeneration: this.state.dragAndDropGeneration + 1,
                 showCarousel: false
-            });
-        }, 0);
+            }, this._updateServer);
+        });
     }
 
     private _handleOpenCarousel(picture: Picture): void {
@@ -325,7 +303,7 @@ class _AdminMainPage extends React.Component<Props, State> {
         });
     }
 
-    private async _handleSave(): Promise<void> {
+    private async _updateServer(): Promise<void> {
         this.props.onEventLoading();
 
         try {
@@ -347,17 +325,6 @@ class _AdminMainPage extends React.Component<Props, State> {
                 this.props.onEventFailed('Could not load event for user');
             }
         }
-    }
-
-    private _handleReset(): void {
-        this.setState({
-            hasSelectPictureError: false,
-            modified: false,
-            pictures: List(this.props.event.pictureSet.pictures),
-            // Nothing changes dragAndDropGeneration
-            showCarousel: false,
-            carouselPictureIndex: null
-        });
     }
 }
 
