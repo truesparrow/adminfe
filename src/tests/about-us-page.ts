@@ -19,9 +19,6 @@ describe('About us page', () => {
                 .should('exist')
                 .and('have.attr', 'src', `${ORIGIN}/real/client/sparrow.jpg`);
 
-            cy.log('Click save');
-            cy.clickSave('Add pictures about your event here.');
-
             cy.log('Check that we have the right data back');
             cy.visit('/admin/main');
             cy.get('main').get('div.picture-container').within(() => {
@@ -47,9 +44,6 @@ describe('About us page', () => {
             cy.get('main').find('img.thumbnail').eq(2)
                 .should('exist')
                 .and('have.attr', 'src', `${ORIGIN}/real/client/ceremony.jpg`);
-
-            cy.log('Click save');
-            cy.clickSave('Add pictures about your event here.');
 
             cy.log('Check that we have the right data back');
             cy.visit('/admin/main');
@@ -86,9 +80,6 @@ describe('About us page', () => {
                 .and('have.attr', 'src', `${ORIGIN}/real/client/couple.jpg`);
             cy.get('main').find('img.thumbnail').eq(1).should('not.exist');
 
-            cy.log('Click save');
-            cy.clickSave('Add pictures about your event here.');
-
             cy.log('Check that we have the right data back');
             cy.visit('/admin/main');
             cy.get('main').find('img.thumbnail').eq(0)
@@ -112,8 +103,7 @@ describe('About us page', () => {
                 .should('exist')
                 .and('have.attr', 'src', `${ORIGIN}/real/client/couple.jpg`);
 
-            cy.log('Click save');
-            cy.clickSave('Add pictures about your event here.');
+            cy.visit('/admin/main');
 
             cy.log('Remove the first image');
             cy.get('main').find('img.thumbnail').eq(0).parent().find('button.remove-picture').click();
@@ -121,9 +111,6 @@ describe('About us page', () => {
                 .should('exist')
                 .and('have.attr', 'src', `${ORIGIN}/real/client/couple.jpg`);
             cy.get('main').find('img.thumbnail').eq(1).should('not.exist');
-
-            cy.log('Click save');
-            cy.clickSave('Add pictures about your event here.');
 
             cy.log('Check that the right data is back on a new load');
             cy.visit('/admin/main');

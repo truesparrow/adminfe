@@ -85,9 +85,6 @@ describe('Admin frame', () => {
                     cy.get('main').find('img.thumbnail').eq(1).parent().find('button.remove-picture').click();
                     cy.get('main').find('img.thumbnail').eq(0).parent().find('button.remove-picture').click();
 
-                    cy.log('Click save');
-                    cy.clickSave('Add pictures about your event here.');
-
                     cy.log('Check preview button does not exist');
                     cy.get('div.preview').should('not.exist');
                 });

@@ -269,7 +269,7 @@ class _AdminMainPage extends React.Component<Props, State> {
     private _handleMovePictureViaDragula(_el: HTMLDivElement, target: HTMLDivElement, _sibling: HTMLDivElement, _source: HTMLDivElement): void {
         // Need to correct the positions of elements.
         const newPictures: Picture[] = [];
-        for (let position = 1; position <= target.childNodes.entries.length; position++) {
+        for (let position = 1; position <= target.childNodes.length; position++) {
             const originalPosition = Number.parseInt((target.childNodes.item(position - 1) as HTMLDivElement).getAttribute('data-position') as string);
             const picture = this.state.pictures.get(originalPosition - 1);
             newPictures.push(Object.assign({}, picture, { position }));

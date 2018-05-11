@@ -89,7 +89,7 @@ function clickSave(loadingDoneText: string) {
 export function replaceSelectImage(win: Window) {
     // Overwrite with a dumb value it otherwise cy.stub complains about it. We could just use the
     // function from above, but we get extra infrastructure out of Cypress via cy.stub.
-    win.TRUESPARROW_SELECT_IMAGE = (_key: string, _position: number) => { return Promise.resolve(new Picture()); };
+    win.TRUESPARROW_SELECT_IMAGE = (_key: string, _position: number) => { return Promise.resolve([new Picture()]); };
     cy.stub(win, 'TRUESPARROW_SELECT_IMAGE',
         (_key: string, position: number) => {
             const picture = new Picture();
@@ -120,7 +120,7 @@ export function replaceSelectImage(win: Window) {
                     throw new Error('Should not get here');
             }
 
-            return Promise.resolve(picture);
+            return Promise.resolve([picture]);
         });
 }
 
