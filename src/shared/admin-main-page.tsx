@@ -255,15 +255,17 @@ class _AdminMainPage extends React.Component<Props, State> {
     }
 
     private _handleRemovePicture(position: number): void {
-        const newPictures = this.state.pictures
-            .remove(position - 1)
-            .map((pic: Picture, position: number) => Object.assign({}, pic, { position: position + 1 }))
-            .toList();
-        this.setState({
-            hasSelectPictureError: false,
-            pictures: newPictures,
-            showCarousel: false
-        }, this._updateServer);
+        if (confirm(text.reallyRemoveImage[config.LANG()])) {
+            const newPictures = this.state.pictures
+                .remove(position - 1)
+                .map((pic: Picture, position: number) => Object.assign({}, pic, { position: position + 1 }))
+                .toList();
+            this.setState({
+                hasSelectPictureError: false,
+                pictures: newPictures,
+                showCarousel: false
+            }, this._updateServer);
+        }
     }
 
     private _handleMovePictureViaDragula(_el: HTMLDivElement, target: HTMLDivElement, _sibling: HTMLDivElement, _source: HTMLDivElement): void {
