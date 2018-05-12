@@ -23,6 +23,7 @@ export const CONTACT_EMAIL: string = clientConfig.contactEmail;
 export const DEMO_SITE_URI: string = clientConfig.demoSiteUri;
 export const STYLE_APPLICATION_NAME: string = clientConfig.styleApplicationName;
 export const STYLE_LOGO_URI: string = clientConfig.styleLogoUri;
+export const STYLE_LOADING_IMAGE_BASE: string = clientConfig.styleLoadingImageBase;
 
 export const CONTENT_SERVICE_HOST: string = clientConfig.contentServiceHost;
 export const CONTENT_SERVICE_PORT: number = clientConfig.contentServicePort;

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
-import { List } from 'immutable'
+import { List, Repeat } from 'immutable'
 
 import { isClient } from '@truesparrow/common-js'
 import {
@@ -94,7 +94,6 @@ class PicturesCarousel extends React.Component<PicturesCarouselProps, PicturesCa
     }
 }
 
-
 interface Props {
     event: Event;
     onEventLoading: () => void;
@@ -105,6 +104,7 @@ interface Props {
 interface State {
     hasSelectPictureError: boolean;
     pictures: List<Picture>;
+    loadingPicturesCount: number;
     /*
      * A counter incremented every time a new drag and drop event occurs. This is used as a sort of
      * cache-buster for the React DOM diff algorithm and ensures that the elements in the gallery
@@ -125,6 +125,7 @@ class _AdminMainPage extends React.Component<Props, State> {
         this.state = {
             hasSelectPictureError: false,
             pictures: List(props.event.pictureSet.pictures),
+            loadingPicturesCount: 0,
             dragAndDropGeneration: 0,
             showCarousel: false,
             carouselPictureIndex: null
@@ -135,6 +136,7 @@ class _AdminMainPage extends React.Component<Props, State> {
         this.setState({
             hasSelectPictureError: false,
             pictures: List(newProps.event.pictureSet.pictures),
+            loadingPicturesCount: 0,
             // Skip dragAndDropGeneration - nothing changes this.
             showCarousel: false,
             carouselPictureIndex: null
@@ -162,7 +164,26 @@ class _AdminMainPage extends React.Component<Props, State> {
                             className="remove-picture"
                             onClick={_ => this._handleRemovePicture(pic.position)}>
                             x
-                        </button>
+                            </button>
+                    </div>
+                </div>
+            );
+        });
+
+        const loadingPicturesRegion = this.state.loadingPicturesCount > 0 && Repeat('x', this.state.loadingPicturesCount).map((_, key) => {
+            const realKey = this.state.pictures.size + (key as number);
+            return (
+                <div
+                    key={`${this.state.dragAndDropGeneration}${realKey}`}
+                    data-generation={this.state.dragAndDropGeneration}
+                    data-position={realKey}
+                    className="picture">
+                    <div className="picture-container">
+                        <img
+                            className="thumbnail"
+                            src={config.STYLE_LOADING_IMAGE_BASE + config.LANG() + '.png'} // Sigh
+                            width={`${Picture.THUMBNAIL_WIDTH}`}
+                            height={`${Picture.THUMBNAIL_HEIGHT}`} />
                     </div>
                 </div>
             );
@@ -196,6 +217,7 @@ class _AdminMainPage extends React.Component<Props, State> {
                 </div>
                 <div className="pictures-section" ref={this._decorateForDragula.bind(this)}>
                     {pictureRegion}
+                    {loadingPicturesRegion}
                 </div>
                 <div className="action-buttons">
                 </div>
@@ -230,12 +252,13 @@ class _AdminMainPage extends React.Component<Props, State> {
     private async _handleAddImage(): Promise<void> {
         try {
             const fileStackPicker = await services.FILE_STACK_CLIENT();
-            const addedPictures = await fileStackPicker.selectImageWithWidget(this.state.pictures.size + 1);
+            const addedPictures = await fileStackPicker.selectImageWithWidget(this.state.pictures.size + 1, count => this._handleImagesSelected(count));
             const newPictures = this.state.pictures.push(...addedPictures);
 
             this.setState({
                 hasSelectPictureError: false,
                 pictures: newPictures,
+                loadingPicturesCount: 0,
                 showCarousel: false
             }, this._updateServer);
         } catch (e) {
@@ -252,6 +275,12 @@ class _AdminMainPage extends React.Component<Props, State> {
                 showCarousel: false
             });
         }
+    }
+
+    private _handleImagesSelected(count: number): void {
+        this.setState({
+            loadingPicturesCount: count
+        });
     }
 
     private _handleRemovePicture(position: number): void {

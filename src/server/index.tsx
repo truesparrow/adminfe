@@ -103,6 +103,7 @@ async function main() {
             styleApplicationName: config.STYLE_APPLICATION_NAME,
             styleLogoUri: config.STYLE_LOGO_URI,
             stylePrimaryColor: config.STYLE_PRIMARY_COLOR,
+            styleLoadingImageBase: config.STYLE_LOADING_IMAGE_BASE,
             siteFeExternalHost: config.SITEFE_EXTERNAL_HOST,
             contentServiceHost: config.CONTENT_SERVICE_HOST,
             contentServicePort: config.CONTENT_SERVICE_PORT,

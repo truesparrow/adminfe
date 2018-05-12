@@ -82,6 +82,8 @@ module.exports = {
             {from: './src/shared/static/placeholders/ceremony.jpg'},
             {from: './src/shared/static/placeholders/couple.jpg'},
             {from: './src/shared/static/placeholders/sparrow.jpg'},
+            {from: './src/shared/static/placeholders/loading-image-en.png'},
+            {from: './src/shared/static/placeholders/loading-image-ro.png'},
             {from: './src/shared/static/index.html'},
             {from: './src/shared/static/logo-big.jpg'},
             {from: './src/shared/static/logo-auth0.jpg'},

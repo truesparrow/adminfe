@@ -47,6 +47,9 @@ export class ClientConfig {
     stylePrimaryColor: string;
 
     @MarshalWith(r.StringMarshaller)
+    styleLoadingImageBase: string;
+
+    @MarshalWith(r.StringMarshaller)
     siteFeExternalHost: string;
 
     @MarshalWith(r.StringMarshaller)

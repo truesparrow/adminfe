@@ -31,6 +31,7 @@ export const STYLE_APPLICATION_NAME = 'TruSpar';
 export const STYLE_LOGO_URI = '/real/client/android-chrome-192x192.png';
 export const STYLE_PRIMARY_COLOR = '#1498d5';
 export const STYLE_GRAY_COLOR = '#5bbad5';
+export const STYLE_LOADING_IMAGE_BASE = '/real/client/loading-image-';
 
 export const IDENTITY_SERVICE_HOST: string = getFromEnv('IDENTITY_SERVICE_HOST');
 export const IDENTITY_SERVICE_PORT: number = parseInt(getFromEnv('IDENTITY_SERVICE_PORT'), 10);
