@@ -15,6 +15,10 @@ export function Footer() {
                 <Link to="/company/cookies">{text.cookies[config.LANG()]}</Link>
                 <Link to="/company/contact">{text.contact[config.LANG()]}</Link>
             </p>
+            <p className="social-links">
+                <a target="_blank" href={`https://www.facebook.com/${config.SEO_FACEBOOK_HANDLE}`}>Facebook</a>
+                <a target="_blank" href={`https://twitter.com/${config.SEO_TWITTER_HANDLE}`}>Twitter</a>
+            </p>
             <p className="copyright">
                 <span>{text.copyright[config.LANG()]}</span>
             </p>
