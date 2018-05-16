@@ -219,8 +219,6 @@ class _AdminMainPage extends React.Component<Props, State> {
                     {pictureRegion}
                     {loadingPicturesRegion}
                 </div>
-                <div className="action-buttons">
-                </div>
                 {this.state.showCarousel &&
                     <PicturesCarousel
                         pictures={this.state.pictures}

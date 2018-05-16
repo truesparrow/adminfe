@@ -8,6 +8,7 @@ import { Event } from '@truesparrow/content-sdk-js'
 import { AdminAccountPage } from './admin-account-page'
 import { AdminEventPage } from './admin-event-page'
 import { AdminMainPage } from './admin-main-page'
+import { EventSetupWizard } from './event-setup-wizard'
 import { AdminSitePage } from './admin-site-page'
 import * as config from './config'
 import * as services from './services'
@@ -32,9 +33,17 @@ interface Props {
 }
 
 interface State {
+    showSetupEvent: boolean;
 }
 
 class _AdminFrame extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            showSetupEvent: false
+        };
+    }
+
     async componentDidMount() {
         if (!config.SESSION().hasUser()) {
             const auth0Lock = await services.AUTH0_LOCK();
@@ -42,20 +51,22 @@ class _AdminFrame extends React.Component<Props, State> {
             return;
         }
 
-        if (this.props.isPreloaded) {
-            return;
-        }
+        //if (this.props.isPreloaded) {
+        //    return;
+        //}
 
         this.props.onEventLoading();
 
         try {
             const event = await services.CONTENT_PRIVATE_CLIENT().getEvent();
             this.props.onEventReady(false, event);
+            this.setState({ showSetupEvent: true });
         } catch (e) {
             if (e.name == 'EventNotFoundError') {
                 try {
                     const event = await services.CONTENT_PRIVATE_CLIENT().createEvent(config.SESSION());
                     this.props.onEventReady(false, event);
+                    this.setState({ showSetupEvent: true });
                 } catch (e) {
                     console.log(e);
                     services.ROLLBAR_CLIENT().error(e);
@@ -102,6 +113,13 @@ class _AdminFrame extends React.Component<Props, State> {
                     <span className="message">{text.eventIsDeleted[config.LANG()]}</span>
                 </div>
             );
+        } else if (this.state.showSetupEvent) {
+            return (
+                <div className="admin-frame">
+                    {helmet}
+                    <EventSetupWizard onSetupDone={() => this._onSetupDone()} />
+                </div>
+            );
         } else {
             return (
                 <div className="admin-frame">
@@ -136,6 +154,10 @@ class _AdminFrame extends React.Component<Props, State> {
                 </div>
             );
         }
+    }
+
+    private _onSetupDone() {
+        this.setState({ showSetupEvent: false });
     }
 }
 
