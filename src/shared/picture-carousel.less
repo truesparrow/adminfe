@@ -1,0 +1,74 @@
+@import './common.less';
+
+
+.picture-carousel {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    left: 0rem;
+    top: 0rem;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    button.carousel-button {
+        outline: none;
+        width: 2rem;
+        height: 2rem;
+        color: white;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: none;
+        padding: 0px;
+        position: relative;
+
+        &.close {
+            background-image: url('./static/menu-icon-close-white.svg');
+        }
+
+        &.backward {
+            margin-right: 1rem;
+            @media all and (max-width: 1000px) {
+                margin-right: 0rem;
+            }
+            background-image: url('./static/left-arrow-white.svg');
+        }
+
+        &.forward {
+            margin-left: 1rem;
+            @media all and (max-width: 1000px) {
+                margin-left: 0rem;
+            }
+            background-image: url('./static/right-arrow-white.svg');
+        }
+    }
+
+    .carousel-header {
+        margin: 1rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .carousel-big-picture {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 2;
+
+        @media all and (max-width: 1000px) {
+            justify-content: space-evenly;
+        }
+
+        .carousel-image {
+            width: 800px;
+            height: 450px;
+
+            @media all and (max-width: 1000px) {
+                width: 70%;
+                height: auto;
+            }
+        }
+    }
+}

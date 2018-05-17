@@ -15,84 +15,12 @@ import * as config from './config'
 import * as services from './services'
 import { EventState, OpState, StatePart } from './store'
 import { FacebookOpenGraph, TwitterCard } from './web-metadata'
+import { PictureCarousel } from './picture-carousel'
 
 import * as text from './admin-main-page.text'
 
 const Dragula = isClient(config.CONTEXT) ? require('react-dragula') : undefined;
 
-
-interface PicturesCarouselProps {
-    pictures: List<Picture>;
-    initialIndex: number;
-    onCloseCarousel: () => void;
-}
-
-interface PicturesCarouselState {
-    currentIndex: number;
-}
-
-
-class PicturesCarousel extends React.Component<PicturesCarouselProps, PicturesCarouselState> {
-    constructor(props: PicturesCarouselProps) {
-        super(props);
-        this.state = {
-            currentIndex: props.initialIndex
-        };
-    }
-
-    componentWillReceiveProps(newProps: PicturesCarouselProps) {
-        this.setState({
-            currentIndex: newProps.initialIndex
-        });
-    }
-
-    render() {
-        const { pictures } = this.props;
-        const picture = pictures.get(this.state.currentIndex);
-
-        return (
-            <div className="pictures-carousel">
-                <div className="carousel-header">
-                    <button
-                        className="carousel-button close"
-                        onClick={_ => this._handleClose()}>
-                    </button>
-                </div>
-                <div className="carousel-big-picture">
-                    <button
-                        className="carousel-button backward"
-                        onClick={_ => this._handleBackward()}>
-                    </button>
-                    <img
-                        className="carousel-image"
-                        src={picture.mainImage.uri}
-                        width="800px"
-                        height="450px" />
-                    <button
-                        className="carousel-button forward"
-                        onClick={_ => this._handleForward()}>
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
-    private _handleClose(): void {
-        this.props.onCloseCarousel();
-    }
-
-    private _handleBackward(): void {
-        this.setState({
-            currentIndex: (this.state.currentIndex + 1) % this.props.pictures.size
-        });
-    }
-
-    private _handleForward(): void {
-        this.setState({
-            currentIndex: (this.state.currentIndex - 1) % this.props.pictures.size
-        });
-    }
-}
 
 interface Props {
     event: Event;
@@ -220,7 +148,7 @@ class _AdminMainPage extends React.Component<Props, State> {
                     {loadingPicturesRegion}
                 </div>
                 {this.state.showCarousel &&
-                    <PicturesCarousel
+                    <PictureCarousel
                         pictures={this.state.pictures}
                         initialIndex={this.state.carouselPictureIndex as number}
                         onCloseCarousel={() => this._handleCloseCarousel()} />}
