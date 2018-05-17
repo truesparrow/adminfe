@@ -2,6 +2,11 @@ import { Message, MessageWith0Arg, MessageWith1Arg } from '@truesparrow/common-j
 import { SubDomainMarshaller } from '@truesparrow/content-sdk-js'
 
 
+export const dns: Message = {
+    en: 'DNS',
+    ro: 'DNS'
+};
+
 export const subDomain: Message = {
     en: 'Subdomain',
     ro: 'Subdomeniul'

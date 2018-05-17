@@ -2,17 +2,11 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 
-import {
-    Event,
-    SubEventDetails,
-    UpdateEventOptions,
-    TitleErrorReason,
-    TitleMarshaller
-} from '@truesparrow/content-sdk-js'
+import { Event, UpdateEventOptions } from '@truesparrow/content-sdk-js'
 
 import * as commonText from './common.text'
 import * as config from './config'
-import { SubEventEditor } from './subevent-editor'
+import { EventEditor, EventEventOptions } from './event-editor'
 import { EventState, OpState, StatePart } from './store'
 import * as services from './services'
 import { FacebookOpenGraph, TwitterCard } from './web-metadata'
@@ -29,24 +23,16 @@ interface Props {
 
 interface State {
     modified: boolean;
-    titleError: TitleErrorReason,
-    title: string;
-    civilCeremonyDetailsValid: boolean;
-    civilCeremonyDetails: SubEventDetails;
-    religiousCeremonyDetailsValid: boolean;
-    religiousCeremonyDetails: SubEventDetails;
-    receptionDetailsValid: boolean;
-    receptionDetails: SubEventDetails;
+    eventOptions: EventEventOptions;
+    eventOptionsValid: boolean;
 }
 
 
 class _AdminEventPage extends React.Component<Props, State> {
-    private readonly _titleMarshaller: TitleMarshaller;
 
     constructor(props: Props) {
         super(props);
         this.state = this._stateFromProps(props);
-        this._titleMarshaller = new TitleMarshaller();
     }
 
     componentWillReceiveProps(newProps: Props) {
@@ -72,59 +58,14 @@ class _AdminEventPage extends React.Component<Props, State> {
                 <p className="fill-out-details">
                     {text.fillOut[config.LANG()]}
                 </p>
-                <form className="admin-form">
-                    <label className="admin-form-group">
-                        <span
-                            className="admin-form-label">
-                            {text.eventTitle[config.LANG()]}
-                            <span
-                                className="admin-form-error">
-                                {this.state.titleError == TitleErrorReason.TooShort ? text.titleTooShort[config.LANG()] :
-                                    this.state.titleError == TitleErrorReason.TooLong ? text.titleTooLong[config.LANG()] : ''}
-                            </span>
-                        </span>
-                        <input
-                            className={"admin-form-input" + (this.state.titleError != TitleErrorReason.OK ? " admin-form-input-error" : "")}
-                            type="text"
-                            value={this.state.title}
-                            onChange={e => this._handleChangeTitle(e)}
-                            placeholder={text.titlePlaceholder[config.LANG()]}
-                            required={true}
-                            minLength={TitleMarshaller.TITLE_MIN_SIZE}
-                            maxLength={TitleMarshaller.TITLE_MAX_SIZE} />
-                    </label>
-                </form>
-                <h2 className="subevents">{text.subEvents[config.LANG()]}</h2>
-                <div className="admin-section">
-                    <h3 className="admin-title">{this.state.civilCeremonyDetails.title[config.LANG()]}</h3>
-                    <SubEventEditor
-                        details={this.state.civilCeremonyDetails}
-                        onDetailsChange={newDetails => this._handleCivilCeremonyDetails(newDetails)}
-                        onDetailsWithErrors={() => this.setState({ civilCeremonyDetailsValid: false })} />
-                </div>
-                <div className="admin-section">
-                    <h3 className="admin-title">{this.state.religiousCeremonyDetails.title[config.LANG()]}</h3>
-                    <SubEventEditor
-                        details={this.state.religiousCeremonyDetails}
-                        onDetailsChange={newDetails => this._handleReligiousCeremonyDetails(newDetails)}
-                        onDetailsWithErrors={() => this.setState({ religiousCeremonyDetailsValid: false })} />
-                </div>
-                <div className="admin-section">
-                    <h3 className="admin-title">{this.state.receptionDetails.title[config.LANG()]}</h3>
-                    <SubEventEditor
-                        details={this.state.receptionDetails}
-                        onDetailsChange={newDetails => this._handleReceptionDetails(newDetails)}
-                        onDetailsWithErrors={() => this.setState({ receptionDetailsValid: false })} />
-                </div>
+                <EventEditor
+                    eventOptions={this.state.eventOptions}
+                    onChange={eventOptions => this._handleEventOptionsChange(eventOptions)}
+                    onError={() => this._handleEventOptionsError()} />
                 <div className="action-buttons">
                     <button
                         className="sign-up"
-                        disabled={
-                            !this.state.modified ||
-                            this.state.titleError != TitleErrorReason.OK ||
-                            !this.state.civilCeremonyDetailsValid ||
-                            !this.state.religiousCeremonyDetailsValid ||
-                            !this.state.receptionDetailsValid}
+                        disabled={!this.state.modified || !this.state.eventOptionsValid}
                         type="button"
                         onClick={_ => this._handleSave()}>
                         {commonText.save[config.LANG()]}
@@ -141,46 +82,23 @@ class _AdminEventPage extends React.Component<Props, State> {
         );
     }
 
-    private _handleChangeTitle(e: React.FormEvent<HTMLInputElement>): void {
-        const error = this._titleMarshaller.verify(e.currentTarget.value);
-
+    private _handleEventOptionsChange(eventOptions: EventEventOptions) {
         this.setState({
             modified: true,
-            titleError: error,
-            title: e.currentTarget.value
+            eventOptions: eventOptions,
+            eventOptionsValid: true
         });
     }
 
-    private _handleCivilCeremonyDetails(newDetails: SubEventDetails): void {
+    private _handleEventOptionsError() {
         this.setState({
             modified: true,
-            civilCeremonyDetailsValid: true,
-            civilCeremonyDetails: newDetails
-        });
-    }
-
-    private _handleReligiousCeremonyDetails(newDetails: SubEventDetails): void {
-        this.setState({
-            modified: true,
-            religiousCeremonyDetailsValid: true,
-            religiousCeremonyDetails: newDetails
-        });
-    }
-
-    private _handleReceptionDetails(newDetails: SubEventDetails): void {
-        this.setState({
-            modified: true,
-            receptionDetailsValid: true,
-            receptionDetails: newDetails
+            eventOptionsValid: false
         });
     }
 
     private async _handleSave() {
-        if (!this.state.modified ||
-            this.state.titleError != TitleErrorReason.OK ||
-            !this.state.civilCeremonyDetailsValid ||
-            !this.state.religiousCeremonyDetailsValid ||
-            !this.state.receptionDetailsValid) {
+        if (!this.state.modified || !this.state.eventOptionsValid) {
             throw new Error('Unallowed call to save');
         }
 
@@ -188,12 +106,8 @@ class _AdminEventPage extends React.Component<Props, State> {
 
         try {
             const updateOptions: UpdateEventOptions = {
-                title: this.state.title,
-                subEventDetails: [
-                    this.state.civilCeremonyDetails,
-                    this.state.religiousCeremonyDetails,
-                    this.state.receptionDetails
-                ]
+                title: this.state.eventOptions.title,
+                subEventDetails: this.state.eventOptions.subEventDetails
             };
 
             const event = await services.CONTENT_PRIVATE_CLIENT().updateEvent(config.SESSION(), updateOptions);
@@ -218,14 +132,11 @@ class _AdminEventPage extends React.Component<Props, State> {
 
         return {
             modified: false,
-            titleError: TitleErrorReason.OK,
-            title: event.title,
-            civilCeremonyDetailsValid: true,
-            civilCeremonyDetails: event.subEventDetails[0],
-            religiousCeremonyDetailsValid: true,
-            religiousCeremonyDetails: event.subEventDetails[1],
-            receptionDetailsValid: true,
-            receptionDetails: event.subEventDetails[2]
+            eventOptions: {
+                title: event.title,
+                subEventDetails: event.subEventDetails
+            },
+            eventOptionsValid: true
         };
     }
 }

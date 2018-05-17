@@ -2,16 +2,12 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 
-import {
-    Event,
-    UpdateEventOptions
-} from '@truesparrow/content-sdk-js'
-
+import { Event } from '@truesparrow/content-sdk-js'
 
 import * as commonText from './common.text'
 import * as config from './config'
 import * as services from './services'
-import { SiteEditor } from './site-editor'
+import { SiteEditor, SiteEventOptions } from './site-editor'
 import { EventState, OpState, StatePart } from './store'
 import { FacebookOpenGraph, TwitterCard } from './web-metadata'
 
@@ -27,8 +23,8 @@ interface Props {
 
 interface State {
     modified: boolean;
-    updateOptions: UpdateEventOptions;
-    updateOptionsValid: boolean;
+    siteOptions: SiteEventOptions;
+    siteOptionsValid: boolean;
 }
 
 class _AdminSitePage extends React.Component<Props, State> {
@@ -62,16 +58,15 @@ class _AdminSitePage extends React.Component<Props, State> {
                     {text.fillOut[config.LANG()]}
                 </p>
                 <div className="admin-section">
-                    <h3 className="admin-title">{text.dns[config.LANG()]}</h3>
                     <SiteEditor
-                        updateOptions={this.state.updateOptions}
-                        onChange={updateOptions => this._handleUpdateOptions(updateOptions)}
+                        siteOptions={this.state.siteOptions}
+                        onChange={siteOptions => this._handleUpdateOptions(siteOptions)}
                         onError={() => this._handleUpdateOptionsError()} />
                 </div>
                 <div className="action-buttons">
                     <button
                         className="sign-up"
-                        disabled={!this.state.modified || !this.state.updateOptionsValid}
+                        disabled={!this.state.modified || !this.state.siteOptionsValid}
                         type="button"
                         onClick={_ => this._handleSave()}>
                         {commonText.save[config.LANG()]}
@@ -88,23 +83,30 @@ class _AdminSitePage extends React.Component<Props, State> {
         );
     }
 
-    private _handleUpdateOptions(updateOptions: UpdateEventOptions) {
-        this.setState({ modified: true, updateOptions: updateOptions, updateOptionsValid: true });
+    private _handleUpdateOptions(siteOptions: SiteEventOptions) {
+        this.setState({
+            modified: true,
+            siteOptions: siteOptions,
+            siteOptionsValid: true
+        });
     }
 
     private _handleUpdateOptionsError() {
-        this.setState({ updateOptionsValid: false });
+        this.setState({
+            modified: true,
+            siteOptionsValid: false
+        });
     }
 
     private async _handleSave() {
         console.log('there');
 
-        if (!this.state.modified || !this.state.updateOptionsValid) {
+        if (!this.state.modified || !this.state.siteOptionsValid) {
             throw new Error('Unallowed call to save');
         }
 
         try {
-            const event = await services.CONTENT_PRIVATE_CLIENT().updateEvent(config.SESSION(), this.state.updateOptions);
+            const event = await services.CONTENT_PRIVATE_CLIENT().updateEvent(config.SESSION(), this.state.siteOptions);
             this.props.onEventReady(false, event);
         } catch (e) {
             if (e.name == 'DeletedEventForUserError') {
@@ -126,10 +128,10 @@ class _AdminSitePage extends React.Component<Props, State> {
     private _stateFromProps(props: Props): State {
         return {
             modified: false,
-            updateOptions: {
+            siteOptions: {
                 subDomain: props.event.subDomain,
             },
-            updateOptionsValid: true
+            siteOptionsValid: true
         };
     }
 }

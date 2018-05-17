@@ -2,8 +2,7 @@ import * as React from 'react'
 
 import {
     SubDomainErrorReason,
-    SubDomainMarshaller,
-    UpdateEventOptions
+    SubDomainMarshaller
 } from '@truesparrow/content-sdk-js'
 
 import * as config from './config'
@@ -12,9 +11,14 @@ import * as services from './services'
 import * as text from './site-editor.text'
 
 
+export interface SiteEventOptions {
+    subDomain: string;
+}
+
+
 interface Props {
-    updateOptions: UpdateEventOptions;
-    onChange: (updateOptions: UpdateEventOptions) => void;
+    siteOptions: SiteEventOptions;
+    onChange: (siteOptions: SiteEventOptions) => void;
     onError: () => void;
 }
 
@@ -50,6 +54,7 @@ export class SiteEditor extends React.Component<Props, State> {
     render() {
         return (
             <div className="site-editor">
+                <h3 className="admin-title">{text.dns[config.LANG()]}</h3>
                 <form className="admin-form subdomain">
                     <label className="admin-form-group">
                         <span
@@ -116,7 +121,7 @@ export class SiteEditor extends React.Component<Props, State> {
                         subDomainCheckError: null,
                         subDomainAvailable: available
                     }, () => {
-                        const updateOptions: UpdateEventOptions = {
+                        const updateOptions: SiteEventOptions = {
                             subDomain: this.state.subDomain
                         };
                         this.props.onChange(updateOptions);
@@ -144,7 +149,7 @@ export class SiteEditor extends React.Component<Props, State> {
                 subDomainCheckError: null,
                 subDomainAvailable: available
             }, () => {
-                const updateOptions: UpdateEventOptions = {
+                const updateOptions: SiteEventOptions = {
                     subDomain: this.state.subDomain
                 };
                 this.props.onChange(updateOptions);
@@ -167,11 +172,10 @@ export class SiteEditor extends React.Component<Props, State> {
 
     private _stateFromProps(props: Props): State {
         return {
-            modified: false,
             subDomainError: SubDomainErrorReason.OK,
             subDomainAvailable: true,
             subDomainCheckError: null,
-            subDomain: props.updateOptions.subDomain as string
+            subDomain: props.siteOptions.subDomain as string
         };
     }
 }
