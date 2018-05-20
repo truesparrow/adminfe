@@ -99,8 +99,6 @@ class _AdminSitePage extends React.Component<Props, State> {
     }
 
     private async _handleSave() {
-        console.log('there');
-
         if (!this.state.modified || !this.state.siteOptionsValid) {
             throw new Error('Unallowed call to save');
         }
