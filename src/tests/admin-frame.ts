@@ -5,6 +5,7 @@ import { MarshalFrom } from 'raynor'
 import { SESSION_TOKEN_COOKIE_NAME } from '@truesparrow/identity-sdk-js/client'
 import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 
+import { replaceSelectImage } from './commands'
 import { ADMIN_PAGES_INFO, ORIGIN } from './shared'
 
 
@@ -91,6 +92,99 @@ describe('Admin frame', () => {
                     cy.log('Check preview button does not exist');
                     cy.get('div.preview').should('not.exist');
                 });
+            });
+        });
+    });
+
+    describe('Setup wizard', () => {
+        it('Should skip to regular admin page after pressing Skip', () => {
+            cy.loginAsUser('user1.json').then(([_sessionToken, _session, _userData]) => {
+                cy.visit('/admin');
+                cy.contains('Let\'s take a few minutes to create an event');
+                cy.clickSkip();
+                cy.contains('Add pictures about your event here');
+            });
+        });
+
+        it('Should setup an event with some data', () => {
+            cy.loginAsUser('user1.json').then(([_sessionToken, _session, _userData]) => {
+                cy.visit('/admin', { onBeforeLoad: replaceSelectImage });
+
+                cy.log('Upload image');
+                cy.get('main button.sign-up').contains('Add image').click();
+
+                cy.log('Edit the title');
+                cy.get('main').get('form.admin-form').first().as('form');
+                cy.get('@form').get('input.admin-form-input').clear().type('Our wedding');
+
+                cy.contains('Next').click();
+
+                cy.log('Edit the subdomain field');
+                cy.get('main').get('span.subdomain-part-input').get('input').clear().type('special');
+                cy.get('main').contains('Subdomain is currently available');
+
+                cy.contains('Done').click();
+
+                cy.log('Check about us is correct');
+                cy.get('main').find('img.thumbnail').eq(0)
+                    .should('exist')
+                    .and('have.attr', 'src', `${ORIGIN}/real/client/sparrow.jpg`);
+
+                cy.log('Check event is correct');
+                cy.contains('Event').click();
+                cy.get('main').get('form.admin-form').first().get('input.admin-form-input')
+                    .should('have.attr', 'value', 'Our wedding');
+
+                cy.log('Check site is correct');
+                cy.contains('Site').click();
+                cy.get('main').get('span.subdomain-part-input').get('input').should('have.attr', 'value', 'special');
+            });
+        });
+
+        it('Should allow navigation back and forth between event and site', () => {
+            cy.loginAsUser('user1.json').then(([_sessionToken, _session, _userData]) => {
+                cy.visit('/admin', { onBeforeLoad: replaceSelectImage });
+
+                cy.log('Upload image');
+                cy.get('main button.sign-up').contains('Add image').click();
+
+                cy.log('Edit the title');
+                cy.get('main').get('form.admin-form').first().as('form');
+                cy.get('@form').get('input.admin-form-input').clear().type('Our wedding');
+
+                cy.contains('Next').click();
+
+                cy.log('Edit the subdomain field');
+                cy.get('main').get('span.subdomain-part-input').get('input').clear().type('special');
+                cy.get('main').contains('Subdomain is currently available');
+
+                cy.contains('Back').click();
+
+                cy.get('main').get('form.admin-form').first().as('form');
+                cy.get('@form').get('input.admin-form-input').should('have.attr', 'value', 'Our wedding');
+
+                cy.contains('Next').click();
+                cy.get('main').get('span.subdomain-part-input').get('input').should('have.attr', 'value', 'special');
+            });
+        });
+
+        it('Skipping in the middle does not keep state', () => {
+            cy.loginAsUser('user1.json').then(([_sessionToken, _session, _userData]) => {
+                cy.visit('/admin', { onBeforeLoad: replaceSelectImage });
+
+                cy.log('Upload image');
+                cy.get('main button.sign-up').contains('Add image').click();
+
+                cy.clickSkip();
+
+                cy.log('Check about us is correct');
+                cy.contains('Add image');
+                cy.get('main').find('img.thumbnail').should('not.exist');
+
+                cy.log('Check event is correct');
+                cy.contains('Event').click();
+                cy.get('main').get('form.admin-form').first().get('input.admin-form-input')
+                    .should('have.attr', 'value', 'Default title');
             });
         });
     });
