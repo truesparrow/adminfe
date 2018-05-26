@@ -25,7 +25,7 @@ interface PageInfo {
     skipCanonical?: boolean;
     content?: string;
     breadcrumbName?: string;
-    shouldSkip?: string;
+    shouldSkip?: boolean;
 }
 
 
