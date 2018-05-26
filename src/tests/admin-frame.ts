@@ -113,9 +113,12 @@ describe('Admin frame', () => {
                 cy.log('Upload image');
                 cy.get('main button.sign-up').contains('Add image').click();
 
-                cy.log('Edit the title');
+                cy.log('Edit the title and enable first subevent');
                 cy.get('main').get('form.admin-form').first().as('form');
                 cy.get('@form').get('input.admin-form-input').clear().type('Our wedding');
+                cy.get('main').get('div.admin-section').first().within(() => {
+                    cy.get('input[type=checkbox]').click();
+                });
 
                 cy.contains('Next').click();
 
@@ -136,7 +139,7 @@ describe('Admin frame', () => {
                     .should('have.attr', 'value', 'Our wedding');
 
                 cy.log('Check site is correct');
-                cy.contains('Site').click();
+                cy.get('a[href="/admin/site"]').click();
                 cy.get('main').get('span.subdomain-part-input').get('input').should('have.attr', 'value', 'special');
             });
         });
@@ -148,14 +151,17 @@ describe('Admin frame', () => {
                 cy.log('Upload image');
                 cy.get('main button.sign-up').contains('Add image').click();
 
-                cy.log('Edit the title');
+                cy.log('Edit the title and enable first subevent');
                 cy.get('main').get('form.admin-form').first().as('form');
                 cy.get('@form').get('input.admin-form-input').clear().type('Our wedding');
+                cy.get('main').get('div.admin-section').first().within(() => {
+                    cy.get('input[type=checkbox]').click();
+                });
 
                 cy.contains('Next').click();
 
                 cy.log('Edit the subdomain field');
-                cy.get('main').get('span.subdomain-part-input').get('input').clear().type('special');
+                cy.get('main').get('span.subdomain-part-input').get('input').clear().type('special-x');
                 cy.get('main').contains('Subdomain is currently available');
 
                 cy.contains('Back').click();
@@ -164,7 +170,7 @@ describe('Admin frame', () => {
                 cy.get('@form').get('input.admin-form-input').should('have.attr', 'value', 'Our wedding');
 
                 cy.contains('Next').click();
-                cy.get('main').get('span.subdomain-part-input').get('input').should('have.attr', 'value', 'special');
+                cy.get('main').get('span.subdomain-part-input').get('input').should('have.attr', 'value', 'special-x');
             });
         });
 
