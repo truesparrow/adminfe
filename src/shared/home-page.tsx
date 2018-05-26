@@ -56,7 +56,7 @@ export class Hero extends React.Component<HeroProps, {}> {
                                     'height': '12px',
                                     'width': 'auto',
                                     'position': 'relative',
-                                    'vertical-align': 'middle',
+                                    'verticalAlign': 'middle',
                                     'top': '-1px',
                                     'fill': 'white'
                                 }}
