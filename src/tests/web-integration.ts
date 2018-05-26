@@ -160,10 +160,13 @@ Contact: ${CONTACT_EMAIL}
     });
 
     describe('Page-level machine information', () => {
-        for (const { path, title, description, robotsMeta, failOnStatusCode, skipCanonical, breadcrumbName } of ALL_PAGES) {
+        for (const { path, title, description, robotsMeta, failOnStatusCode, skipCanonical, breadcrumbName, shouldSkip } of ALL_PAGES) {
             it(`${path}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {
                     cy.visit(path, { failOnStatusCode: failOnStatusCode == undefined ? true : failOnStatusCode });
+                    if (shouldSkip) {
+                        cy.clickSkip();
+                    }
 
                     // Language
                     cy.get('html').should('have.attr', 'lang', 'en');

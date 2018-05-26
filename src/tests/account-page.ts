@@ -9,6 +9,7 @@ describe('Account page', () => {
     it('Should be a scaffold', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/account');
+            cy.clickSkip();
             cy.get('main').contains('Account page');
         });
     });

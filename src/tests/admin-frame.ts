@@ -31,6 +31,7 @@ describe('Admin frame', () => {
     it('Should show the about us page when going to the admin area', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin');
+            cy.clickSkip();
             cy.contains('Add pictures about your event here');
         });
     });
@@ -40,6 +41,7 @@ describe('Admin frame', () => {
             it(`Shows and links to admin page for ${title}`, () => {
                 cy.loginAsUser('user1.json').then(_ => {
                     cy.visit('/admin');
+                    cy.clickSkip();
                     cy.get('div.side-menu').contains(shortTitle).click();
                     cy.url().should('include', path);
                     cy.contains(content as string);
@@ -54,6 +56,7 @@ describe('Admin frame', () => {
         it.skip('The logout flow', () => {
             cy.loginAsUser('user1.json').then(([sessionToken, _session, _data]) => {
                 cy.visit('/admin');
+                cy.clickSkip();
 
                 cy.log('Press the logout button');
                 cy.get('header').get('button.menu-closed').click();

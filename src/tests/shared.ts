@@ -25,6 +25,7 @@ interface PageInfo {
     skipCanonical?: boolean;
     content?: string;
     breadcrumbName?: string;
+    shouldSkip?: string;
 }
 
 
@@ -54,28 +55,32 @@ export const ADMIN_PAGES_INFO: PageInfo[] = [
         shortTitle: 'About Us',
         description: 'Pictures and details about you',
         robotsMeta: 'noindex,nofollow',
-        content: 'Add pictures about your event here'
+        content: 'Add pictures about your event here',
+        shouldSkip: true
     }, {
         path: '/admin/event',
         title: 'TruSpar - Event',
         shortTitle: 'Event',
         description: 'Event settings',
         robotsMeta: 'noindex,nofollow',
-        content: 'Fill out details about your event here'
+        content: 'Fill out details about your event here',
+        shouldSkip: true
     }, {
         path: '/admin/site',
         title: 'TruSpar - Site',
         shortTitle: 'Site',
         description: 'Site settings',
         robotsMeta: 'noindex,nofollow',
-        content: 'Change the details about your generated site here'
+        content: 'Change the details about your generated site here',
+        shouldSkip: true
     }, {
         path: '/admin/account',
         title: 'TruSpar - Account',
         shortTitle: 'Account',
         description: 'Account administration',
         robotsMeta: 'noindex,nofollow',
-        content: 'Account page'
+        content: 'Account page',
+        shouldSkip: true
     }
 ];
 

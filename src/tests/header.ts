@@ -115,6 +115,7 @@ describe('Header', () => {
                         cy.visit('/');
                         cy.get('header').get('button.menu-closed').click();
                         cy.get('#overlay-menu').contains(title).click();
+                        cy.clickSkip();
                         cy.url().should('include', path);
                         cy.contains(content);
                     });
