@@ -3,7 +3,7 @@ import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 
-import { Event } from '@truesparrow/content-sdk-js'
+import { Event, UpdateEventOptions } from '@truesparrow/content-sdk-js'
 
 import { AdminAccountPage } from './admin-account-page'
 import { AdminEventPage } from './admin-event-page'
@@ -33,14 +33,12 @@ interface Props {
 }
 
 interface State {
-    showSetupEvent: boolean;
 }
 
 class _AdminFrame extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            showSetupEvent: false
         };
     }
 
@@ -51,22 +49,20 @@ class _AdminFrame extends React.Component<Props, State> {
             return;
         }
 
-        //if (this.props.isPreloaded) {
-        //    return;
-        //}
+        if (this.props.isPreloaded) {
+            return;
+        }
 
         this.props.onEventLoading();
 
         try {
             const event = await services.CONTENT_PRIVATE_CLIENT().getEvent();
             this.props.onEventReady(false, event);
-            this.setState({ showSetupEvent: true });
         } catch (e) {
             if (e.name == 'EventNotFoundError') {
                 try {
                     const event = await services.CONTENT_PRIVATE_CLIENT().createEvent(config.SESSION());
                     this.props.onEventReady(false, event);
-                    this.setState({ showSetupEvent: true });
                 } catch (e) {
                     console.log(e);
                     services.ROLLBAR_CLIENT().error(e);
@@ -113,11 +109,14 @@ class _AdminFrame extends React.Component<Props, State> {
                     <span className="message">{text.eventIsDeleted[config.LANG()]}</span>
                 </div>
             );
-        } else if (this.state.showSetupEvent) {
+        } else if ((this.props.event as Event).uiState.showSetupWizard) {
             return (
                 <div className="admin-frame">
                     {helmet}
-                    <EventSetupWizard onSetupDone={() => this._onSetupDone()} />
+                    <EventSetupWizard
+                        event={this.props.event as Event}
+                        onDone={newEventOptions => this._handleSetupDone(newEventOptions)}
+                        onSkip={() => this._handleSetupSkipped()} />
                 </div>
             );
         } else {
@@ -156,8 +155,38 @@ class _AdminFrame extends React.Component<Props, State> {
         }
     }
 
-    private _onSetupDone() {
-        this.setState({ showSetupEvent: false });
+    private async _handleSetupDone(newEventOptions: UpdateEventOptions): Promise<void> {
+        this.props.onEventLoading();
+
+        try {
+            const event = await services.CONTENT_PRIVATE_CLIENT().updateEvent(config.SESSION(), newEventOptions);
+            this.props.onEventReady(false, event);
+        } catch (e) {
+            if (e.name == 'DeletedEventForUserError') {
+                this.props.onEventReady(true, null);
+            } else {
+                console.log(e);
+                services.ROLLBAR_CLIENT().error(e);
+                this.props.onEventFailed('Could not load event for user');
+            }
+        }
+    }
+
+    private async _handleSetupSkipped(): Promise<void> {
+        this.props.onEventLoading();
+
+        try {
+            const event = await services.CONTENT_PRIVATE_CLIENT().uiMarkSkippedSetupWizard(config.SESSION());
+            this.props.onEventReady(false, event);
+        } catch (e) {
+            if (e.name == 'DeletedEventForUserError') {
+                this.props.onEventReady(true, null);
+            } else {
+                console.log(e);
+                services.ROLLBAR_CLIENT().error(e);
+                this.props.onEventFailed('Could not load event for user');
+            }
+        }
     }
 }
 

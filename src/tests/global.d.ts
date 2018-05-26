@@ -11,6 +11,7 @@ declare global {
             loginAsUser(userFixture: string): Chainable<[SessionToken, Session, any]>;
             addEvent(sessionToken: SessionToken, userFixture: string): Chainable<Event>;
             clickSave(loadingDoneText: string): Chainable<Subject>;
+            clickSkip(): Chainable<Subject>;
         }
     }
 }

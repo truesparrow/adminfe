@@ -13,6 +13,8 @@ describe('About us page', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/main', { onBeforeLoad: replaceSelectImage });
 
+            cy.clickSkip();
+
             cy.log('Upload image');
             cy.get('main button.sign-up').contains('Add image').click();
             cy.get('main').find('img.thumbnail').eq(0)
@@ -30,6 +32,8 @@ describe('About us page', () => {
     it('Allows uploading three images', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/main', { onBeforeLoad: replaceSelectImage });
+
+            cy.clickSkip();
 
             cy.log('Upload images');
             cy.get('main button.sign-up').contains('Add image').click();
@@ -63,6 +67,8 @@ describe('About us page', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/main', { onBeforeLoad: replaceSelectImage });
 
+            cy.clickSkip();
+
             cy.log('Upload images');
             cy.get('main button.sign-up').contains('Add image').click();
             cy.get('main').find('img.thumbnail').eq(0)
@@ -92,6 +98,8 @@ describe('About us page', () => {
     it('Remove image after being saved', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/main', { onBeforeLoad: replaceSelectImage });
+
+            cy.clickSkip();
 
             cy.log('Upload images');
             cy.get('main button.sign-up').contains('Add image').click();

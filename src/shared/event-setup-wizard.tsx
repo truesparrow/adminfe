@@ -1,6 +1,11 @@
 import * as React from 'react'
 
+import { Event, UpdateEventOptions } from '@truesparrow/content-sdk-js'
+
+import { AboutUsEditor, AboutUsEventOptions } from './about-us-editor'
 import * as config from './config'
+import { EventEditor, EventEventOptions } from './event-editor'
+import { SiteEditor, SiteEventOptions } from './site-editor'
 
 import * as text from './event-setup-wizard.text'
 
@@ -12,18 +17,39 @@ enum Page {
 }
 
 interface Props {
-    onSetupDone: () => void;
+    event: Event;
+    onDone: (eventOptions: UpdateEventOptions) => void;
+    onSkip: () => void;
 }
 
 interface State {
     currentPage: Page;
+    aboutUsOptions: AboutUsEventOptions;
+    aboutUsOptionsValid: boolean;
+    eventOptions: EventEventOptions;
+    eventOptionsValid: boolean;
+    siteOptions: SiteEventOptions;
+    siteOptionsValid: boolean;
 }
 
 export class EventSetupWizard extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            currentPage: Page.PICTURES
+            currentPage: Page.PICTURES,
+            aboutUsOptions: {
+                pictureSet: props.event.pictureSet
+            },
+            aboutUsOptionsValid: true,
+            eventOptions: {
+                title: props.event.title,
+                subEventDetails: props.event.subEventDetails
+            },
+            eventOptionsValid: true,
+            siteOptions: {
+                subDomain: props.event.subDomain
+            },
+            siteOptionsValid: true
         };
     }
 
@@ -35,13 +61,11 @@ export class EventSetupWizard extends React.Component<Props, State> {
                         <p className="fill-out-details">
                             {text.fillOut[config.LANG()]}
                         </p>
+                        <AboutUsEditor
+                            aboutUsOptions={this.state.aboutUsOptions}
+                            onChange={newAboutUsOptions => this._handleAboutUsOptionsChanged(newAboutUsOptions)}
+                            onError={() => this._handleAboutUsOptionsError()} />
                         <div className="button-bar">
-                            <button
-                                className="sign-up"
-                                type="button"
-                                onClick={_ => this._handleNext()}>
-                                {text.next[config.LANG()]}
-                            </button>
                             <button
                                 className="sign-up"
                                 type="button"
@@ -49,7 +73,7 @@ export class EventSetupWizard extends React.Component<Props, State> {
                                 {text.skip[config.LANG()]}
                             </button>
                         </div>
-                    </div>
+                    </div >
                 );
             case Page.EVENT:
                 return (
@@ -57,16 +81,15 @@ export class EventSetupWizard extends React.Component<Props, State> {
                         <p className="fill-out-details">
                             {text.fillOut[config.LANG()]}
                         </p>
+                        <EventEditor
+                            eventOptions={this.state.eventOptions}
+                            onChange={newEventOptions => this._handleEventOptionsChanged(newEventOptions)}
+                            onError={() => this._handleEventOptionsError()} />
                         <div className="button-bar">
                             <button
                                 className="sign-up"
                                 type="button"
-                                onClick={_ => this._handlePrev()}>
-                                {text.prev[config.LANG()]}
-                            </button>
-                            <button
-                                className="sign-up"
-                                type="button"
+                                disabled={!this.state.eventOptionsValid}
                                 onClick={_ => this._handleNext()}>
                                 {text.next[config.LANG()]}
                             </button>
@@ -85,16 +108,22 @@ export class EventSetupWizard extends React.Component<Props, State> {
                         <p className="fill-out-details">
                             {text.fillOut[config.LANG()]}
                         </p>
+                        <SiteEditor
+                            siteOptions={this.state.siteOptions}
+                            onChange={newSiteOptions => this._handleSiteOptionsChanged(newSiteOptions)}
+                            onError={() => this._handleSiteOptionsError()} />
                         <div className="button-bar">
                             <button
                                 className="sign-up"
                                 type="button"
+                                disabled={!this.state.siteOptionsValid}
                                 onClick={_ => this._handlePrev()}>
                                 {text.prev[config.LANG()]}
                             </button>
                             <button
                                 className="sign-up"
                                 type="button"
+                                disabled={!this.state.siteOptionsValid}
                                 onClick={_ => this._handleDone()}>
                                 {text.done[config.LANG()]}
                             </button>
@@ -110,6 +139,46 @@ export class EventSetupWizard extends React.Component<Props, State> {
         }
     }
 
+    private _handleAboutUsOptionsChanged(newAboutUsOptions: AboutUsEventOptions): void {
+        this.setState({
+            currentPage: nextPage(this.state.currentPage),
+            aboutUsOptions: newAboutUsOptions,
+            aboutUsOptionsValid: true
+        });
+    }
+
+    private _handleAboutUsOptionsError(): void {
+        this.setState({
+            aboutUsOptionsValid: false
+        });
+    }
+
+    private _handleEventOptionsChanged(newEventOptions: EventEventOptions): void {
+        this.setState({
+            eventOptions: newEventOptions,
+            eventOptionsValid: true
+        });
+    }
+
+    private _handleEventOptionsError(): void {
+        this.setState({
+            eventOptionsValid: false
+        });
+    }
+
+    private _handleSiteOptionsChanged(newSiteOptions: SiteEventOptions): void {
+        this.setState({
+            siteOptions: newSiteOptions,
+            siteOptionsValid: true
+        });
+    }
+
+    private _handleSiteOptionsError(): void {
+        this.setState({
+            siteOptionsValid: false
+        });
+    }
+
     private _handlePrev() {
         this.setState({ currentPage: prevPage(this.state.currentPage) });
     }
@@ -118,12 +187,23 @@ export class EventSetupWizard extends React.Component<Props, State> {
         this.setState({ currentPage: nextPage(this.state.currentPage) });
     }
 
-    private _handleSkip() {
-        this.props.onSetupDone();
+    private _handleDone() {
+        if (!this.state.aboutUsOptionsValid || !this.state.eventOptionsValid || !this.state.siteOptionsValid) {
+            throw new Error('Invalid state for done');
+        }
+
+        const newEventOptions = {
+            pictureSet: this.state.aboutUsOptions.pictureSet,
+            title: this.state.eventOptions.title,
+            subEventDetails: this.state.eventOptions.subEventDetails,
+            subDomain: this.state.siteOptions.subDomain
+        };
+
+        this.props.onDone(newEventOptions);
     }
 
-    private _handleDone() {
-        this.props.onSetupDone();
+    private _handleSkip() {
+        this.props.onSkip();
     }
 }
 

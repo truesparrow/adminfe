@@ -30,38 +30,39 @@
             line-height: 2rem;
         }
     }
+}
 
-    .admin-form {
-        .admin-form-group {
-            display: flex;
-            flex-direction: column;
 
-            &.horz {
-                flex-direction: row;
+.admin-form {
+    .admin-form-group {
+        display: flex;
+        flex-direction: column;
+
+        &.horz {
+            flex-direction: row;
+        }
+
+        .admin-form-label {
+            line-height: 1rem;
+            font-size: 0.75rem;
+
+            .admin-form-error {
+                margin-left: 0.5rem;
+                color: #fe0000;
             }
+        }
 
-            .admin-form-label {
-                line-height: 1rem;
-                font-size: 0.75rem;
+        .admin-form-input {
+            line-height: 2rem;
+            height: 2rem;
+            padding: 0.5rem;
+            flex-grow: 1; // Not always used
+            min-width: 0rem;
+        }
 
-                .admin-form-error {
-                    margin-left: 0.5rem;
-                    color: #fe0000;
-                }
-            }
-
-            .admin-form-input {
-                line-height: 2rem;
-                height: 2rem;
-                padding: 0.5rem;
-                flex-grow: 1; // Not always used
-                min-width: 0rem;
-            }
-
-            .admin-form-input-error {
-                background-color: rgba(255, 0, 0, 0.05);
-                border-color: rgba(255, 0, 0, 0.1);
-            }
+        .admin-form-input-error {
+            background-color: rgba(255, 0, 0, 0.05);
+            border-color: rgba(255, 0, 0, 0.1);
         }
     }
 }

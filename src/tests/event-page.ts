@@ -10,6 +10,8 @@ describe('Event page', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/event');
 
+            cy.clickSkip();
+
             cy.log('Edit the title');
             cy.get('main').get('form.admin-form').first().as('form');
             cy.get('@form').get('input.admin-form-input').clear().type('Our wedding');
@@ -27,6 +29,8 @@ describe('Event page', () => {
     it('Allows changing the civil ceremony', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/event');
+
+            cy.clickSkip();
 
             cy.log('Edit all fields of the subevent');
             cy.get('main').get('div.admin-section').first().within(() => {
@@ -58,6 +62,8 @@ describe('Event page', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/event');
 
+            cy.clickSkip();
+
             cy.log('Edit all fields of the subevent');
             cy.get('main').get('div.admin-section').next().first().within(() => {
                 cy.get('input[type=checkbox]').click();
@@ -87,6 +93,8 @@ describe('Event page', () => {
     it('Allows changing the reception', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/event');
+
+            cy.clickSkip();
 
             cy.log('Edit all fields of the subevent');
             cy.get('main').get('div.admin-section').next().next().first().within(() => {

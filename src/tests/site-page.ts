@@ -10,6 +10,8 @@ describe('Site page', () => {
         cy.loginAsUser('user1.json').then(_ => {
             cy.visit('/admin/site');
 
+            cy.clickSkip();
+
             cy.log('Edit the subdomain field');
             cy.get('main').get('span.subdomain-part-input').get('input').clear().type('special');
             cy.get('main').contains('Subdomain is currently available');
