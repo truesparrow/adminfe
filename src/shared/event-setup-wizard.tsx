@@ -47,7 +47,8 @@ export class EventSetupWizard extends React.Component<Props, State> {
             },
             eventOptionsValid: true,
             siteOptions: {
-                subDomain: props.event.subDomain
+                subDomain: props.event.subDomain,
+                subDomainAvailable: true
             },
             siteOptionsValid: true
         };
@@ -89,7 +90,7 @@ export class EventSetupWizard extends React.Component<Props, State> {
                             <button
                                 className="sign-up"
                                 type="button"
-                                disabled={!this.state.eventOptionsValid}
+                                disabled={!this.state.eventOptionsValid || !this.state.eventOptions.subEventDetails.some(se => se.haveEvent)}
                                 onClick={_ => this._handleNext()}>
                                 {text.next[config.LANG()]}
                             </button>
@@ -123,7 +124,7 @@ export class EventSetupWizard extends React.Component<Props, State> {
                             <button
                                 className="sign-up"
                                 type="button"
-                                disabled={!this.state.siteOptionsValid}
+                                disabled={!this.state.siteOptionsValid || !this.state.siteOptions.subDomainAvailable}
                                 onClick={_ => this._handleDone()}>
                                 {text.done[config.LANG()]}
                             </button>
@@ -188,7 +189,11 @@ export class EventSetupWizard extends React.Component<Props, State> {
     }
 
     private _handleDone() {
-        if (!this.state.aboutUsOptionsValid || !this.state.eventOptionsValid || !this.state.siteOptionsValid) {
+        if (!this.state.aboutUsOptionsValid
+            || !this.state.eventOptionsValid
+            || !this.state.eventOptions.subEventDetails.some(se => se.haveEvent)
+            || !this.state.siteOptionsValid
+            || !this.state.siteOptions.subDomainAvailable) {
             throw new Error('Invalid state for done');
         }
 

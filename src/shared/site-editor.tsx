@@ -13,6 +13,7 @@ import * as text from './site-editor.text'
 
 export interface SiteEventOptions {
     subDomain: string;
+    subDomainAvailable: boolean;
 }
 
 
@@ -112,6 +113,7 @@ export class SiteEditor extends React.Component<Props, State> {
         }, () => {
             if (error != SubDomainErrorReason.OK) {
                 this.props.onError();
+                return;
             }
 
             this._subDomainChangeTimeoutId = window.setTimeout(async () => {
@@ -122,7 +124,8 @@ export class SiteEditor extends React.Component<Props, State> {
                         subDomainAvailable: available
                     }, () => {
                         const updateOptions: SiteEventOptions = {
-                            subDomain: this.state.subDomain
+                            subDomain: this.state.subDomain,
+                            subDomainAvailable: available
                         };
                         this.props.onChange(updateOptions);
                     });
@@ -150,7 +153,8 @@ export class SiteEditor extends React.Component<Props, State> {
                 subDomainAvailable: available
             }, () => {
                 const updateOptions: SiteEventOptions = {
-                    subDomain: this.state.subDomain
+                    subDomain: this.state.subDomain,
+                    subDomainAvailable: available
                 };
                 this.props.onChange(updateOptions);
             });
@@ -173,7 +177,7 @@ export class SiteEditor extends React.Component<Props, State> {
     private _stateFromProps(props: Props): State {
         return {
             subDomainError: SubDomainErrorReason.OK,
-            subDomainAvailable: true,
+            subDomainAvailable: props.siteOptions.subDomainAvailable,
             subDomainCheckError: null,
             subDomain: props.siteOptions.subDomain as string
         };

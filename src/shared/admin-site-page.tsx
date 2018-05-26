@@ -66,7 +66,7 @@ class _AdminSitePage extends React.Component<Props, State> {
                 <div className="action-buttons">
                     <button
                         className="sign-up"
-                        disabled={!this.state.modified || !this.state.siteOptionsValid}
+                        disabled={!this.state.modified || !this.state.siteOptionsValid || !this.state.siteOptions.subDomainAvailable}
                         type="button"
                         onClick={_ => this._handleSave()}>
                         {commonText.save[config.LANG()]}
@@ -99,7 +99,7 @@ class _AdminSitePage extends React.Component<Props, State> {
     }
 
     private async _handleSave() {
-        if (!this.state.modified || !this.state.siteOptionsValid) {
+        if (!this.state.modified || !this.state.siteOptionsValid || !this.state.siteOptions.subDomainAvailable) {
             throw new Error('Unallowed call to save');
         }
 
@@ -128,6 +128,7 @@ class _AdminSitePage extends React.Component<Props, State> {
             modified: false,
             siteOptions: {
                 subDomain: props.event.subDomain,
+                subDomainAvailable: true
             },
             siteOptionsValid: true
         };
