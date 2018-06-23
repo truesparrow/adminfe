@@ -17,3 +17,23 @@ export const adminAccountPage: Message = {
     en: 'Account page',
     ro: 'Pagina de cont'
 };
+
+export const fillOut: Message = {
+    en: 'Change the details about your account here',
+    ro: 'Schimbați detalii despre contul dumneavoastra aici'
+};
+
+export const closeAccount: Message = {
+    en: 'Close account',
+    ro: 'Închideți contul'
+};
+
+export const closingAccount: MessageWith0Arg = {
+    en: 'Closing account',
+    ro: 'Închidem contul'
+};
+
+export const reallyCloseAccount: MessageWith0Arg = {
+    en: 'Are you sure? This operation cannot be undone',
+    ro: 'Sunteți sigur? Această operați nu poate fi întoară'
+};

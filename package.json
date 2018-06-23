@@ -1,6 +1,6 @@
 {
     "name": "@truesparrow/adminfe",
-    "version": "0.17.3",
+    "version": "0.18.0",
     "description": "The frontend to the truesparrow application - editor, landing pages, about etc",
     "author": "CHM SQRT2 Team",
     "scripts": {
@@ -52,6 +52,7 @@
         "mustache": "=2.3.0",
         "normalize.css": "=7.0.0",
         "pg": "=7.4.0",
+        "query-string": "^6.1.0",
         "raynor": "=0.14.0",
         "react": "=16.2.0",
         "react-datetime": "=2.12.0",
@@ -84,6 +85,7 @@
         "@types/mocha": "=2.2.44",
         "@types/mustache": "=0.8.30",
         "@types/node": "=8.0.57",
+        "@types/query-string": "^6.1.0",
         "@types/react": "=16.0.29",
         "@types/react-dom": "=16.0.3",
         "@types/react-helmet": "=5.0.3",

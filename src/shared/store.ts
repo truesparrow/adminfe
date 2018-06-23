@@ -37,6 +37,7 @@ export interface EventReady {
     type: OpState.Ready;
     eventIsDeleted: boolean;
     event: Event | null;
+    chargebeeManageAccountUri?: string | null;
 }
 export interface EventFailed {
     part: StatePart.Event;
@@ -83,7 +84,8 @@ export function createStoreFromInitialState(reducers: Reducer<any>, clientInitia
         store.dispatch({
             part: StatePart.Event,
             type: OpState.Preloaded,
-            event: clientInitialState.event
+            event: clientInitialState.event,
+            chargebeeManageAccountUri: clientInitialState.chargebeeManageAccountUri
         });
     }
 

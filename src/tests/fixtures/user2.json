@@ -2,5 +2,8 @@
     "name": "Andreea",
     "picture": "http://localhost:10003/real/client/avatar.svg",
     "sub": "WILL BE REPLACED",
-    "locale": "en"
+    "locale": "en",
+    "email": "user2@gmail.com",
+    "given_name": "Andreea",
+    "family_name": "Test"
 }

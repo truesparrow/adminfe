@@ -31,6 +31,11 @@ export const site: Message = {
     ro: 'Site'
 };
 
+export const billing: Message = {
+    en: 'Billing',
+    ro: 'Facturi'
+};
+
 export const account: Message = {
     en: 'Account',
     ro: 'Cont'

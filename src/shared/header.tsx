@@ -13,6 +13,7 @@ import * as text from './header.text'
 
 
 interface LoggedInMenuProps {
+    chargebeeManageAccountUri: string | null;
 }
 
 
@@ -63,6 +64,12 @@ class LoggedInMenu extends React.Component<LoggedInMenuProps, LoggedInMenuState>
                                             {text.site[config.LANG()]}
                                         </Link>
                                     </span>
+                                    {this.props.chargebeeManageAccountUri &&
+                                        <span>
+                                            <span className="menu-icon billing"></span>
+                                            <a href={this.props.chargebeeManageAccountUri} target="_blank">{text.billing[config.LANG()]}</a>
+                                        </span>
+                                    }
                                     <span>
                                         <span className="menu-icon account"></span>
                                         <Link
@@ -110,6 +117,7 @@ class LoggedInMenu extends React.Component<LoggedInMenuProps, LoggedInMenuState>
 
 interface HeaderProps {
     event: Event | null;
+    chargebeeManageAccountUri: string | null;
 }
 
 interface HeaderState {
@@ -143,7 +151,7 @@ class _Header extends React.Component<HeaderProps, HeaderState> {
 
                 {
                     config.SESSION().hasUser()
-                        ? <LoggedInMenu />
+                        ? <LoggedInMenu chargebeeManageAccountUri={this.props.chargebeeManageAccountUri} />
                         : <Link className="sign-up anonymous" to="/admin" role="button">
                             {commonText.signUp[config.LANG()]}
                         </Link>
@@ -155,7 +163,8 @@ class _Header extends React.Component<HeaderProps, HeaderState> {
 
 function stateToProps(state: any) {
     return {
-        event: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.event : null
+        event: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.event : null,
+        chargebeeManageAccountUri: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.chargebeeManageAccountUri : null
     };
 }
 

@@ -61,7 +61,7 @@ before_script:
 
 script:
 - npm run test
-- npm run e2e-tests-prod
+# - npm run e2e-tests-prod
 
 after_success:
 - npm run push-coverage-to-codecov

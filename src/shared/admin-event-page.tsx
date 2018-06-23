@@ -155,7 +155,7 @@ function stateToProps(state: any) {
 function dispatchToProps(dispatch: (newState: EventState) => void) {
     return {
         onEventLoading: () => dispatch({ part: StatePart.Event, type: OpState.Loading }),
-        onEventReady: (eventIsDeleted: boolean, event: Event) => dispatch({ part: StatePart.Event, type: OpState.Ready, eventIsDeleted: eventIsDeleted, event: event }),
+        onEventReady: (eventIsDeleted: boolean, event: Event | null) => dispatch({ part: StatePart.Event, type: OpState.Ready, eventIsDeleted: eventIsDeleted, event: event }),
         onEventFailed: (errorMessage: string) => dispatch({ part: StatePart.Event, type: OpState.Failed, errorMessage })
     };
 }

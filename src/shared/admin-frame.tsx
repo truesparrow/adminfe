@@ -2,8 +2,9 @@ import * as React from 'react'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
+import * as qs from 'query-string'
 
-import { Event, UpdateEventOptions } from '@truesparrow/content-sdk-js'
+import { Event, EventPlan, UpdateEventOptions } from '@truesparrow/content-sdk-js'
 
 import { AdminAccountPage } from './admin-account-page'
 import { AdminEventPage } from './admin-event-page'
@@ -26,9 +27,10 @@ interface Props {
     isFailed: boolean;
     eventIsDeleted: boolean;
     event: Event | null;
+    chargebeeManageAccountUri?: string;
     errorMessage: string | null;
     onEventLoading: () => void;
-    onEventReady: (eventIsDeleted: boolean, event: Event | null) => void;
+    onEventReady: (eventIsDeleted: boolean, event: Event | null, chargebeeManageAccountUri?: string) => void;
     onEventFailed: (errorMessage: string) => void;
 }
 
@@ -36,6 +38,7 @@ interface State {
 }
 
 class _AdminFrame extends React.Component<Props, State> {
+
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -57,12 +60,15 @@ class _AdminFrame extends React.Component<Props, State> {
 
         try {
             const event = await services.CONTENT_PRIVATE_CLIENT().getEvent();
-            this.props.onEventReady(false, event);
+            const chargebeeManageAccountUri = await services.CONTENT_PRIVATE_CLIENT().getChargebeeManagePageUri();
+            this.props.onEventReady(false, event, chargebeeManageAccountUri);
         } catch (e) {
             if (e.name == 'EventNotFoundError') {
                 try {
-                    const event = await services.CONTENT_PRIVATE_CLIENT().createEvent(config.SESSION());
-                    this.props.onEventReady(false, event);
+                    const plan = qs.parse(this.props.location.search).plan as EventPlan;
+                    const event = await services.CONTENT_PRIVATE_CLIENT().createEvent(config.SESSION(), plan);
+                    const chargebeeManageAccountUri = await services.CONTENT_PRIVATE_CLIENT().getChargebeeManagePageUri();
+                    this.props.onEventReady(false, event, chargebeeManageAccountUri);
                 } catch (e) {
                     console.log(e);
                     services.ROLLBAR_CLIENT().error(e);
@@ -138,6 +144,10 @@ class _AdminFrame extends React.Component<Props, State> {
                                 <NavLink to="/admin/site">{text.site[config.LANG()]}</NavLink>
                             </li>
                             <li>
+                                <span className="menu-icon billing"></span>
+                                <a href={this.props.chargebeeManageAccountUri} target="_blank">{text.billing[config.LANG()]}</a>
+                            </li>
+                            <li>
                                 <span className="menu-icon account"></span>
                                 <NavLink to="/admin/account">{text.account[config.LANG()]}</NavLink>
                             </li>
@@ -160,7 +170,11 @@ class _AdminFrame extends React.Component<Props, State> {
 
         try {
             const event = await services.CONTENT_PRIVATE_CLIENT().updateEvent(config.SESSION(), newEventOptions);
-            this.props.onEventReady(false, event);
+            let chargebeeManageAccountUri = this.props.chargebeeManageAccountUri;
+            if (this.props.chargebeeManageAccountUri == null) {
+                chargebeeManageAccountUri = await services.CONTENT_PRIVATE_CLIENT().getChargebeeManagePageUri();
+            }
+            this.props.onEventReady(false, event, chargebeeManageAccountUri);
         } catch (e) {
             if (e.name == 'DeletedEventForUserError') {
                 this.props.onEventReady(true, null);
@@ -177,7 +191,11 @@ class _AdminFrame extends React.Component<Props, State> {
 
         try {
             const event = await services.CONTENT_PRIVATE_CLIENT().uiMarkSkippedSetupWizard(config.SESSION());
-            this.props.onEventReady(false, event);
+            let chargebeeManageAccountUri = this.props.chargebeeManageAccountUri;
+            if (this.props.chargebeeManageAccountUri == null) {
+                chargebeeManageAccountUri = await services.CONTENT_PRIVATE_CLIENT().getChargebeeManagePageUri();
+            }
+            this.props.onEventReady(false, event, chargebeeManageAccountUri);
         } catch (e) {
             if (e.name == 'DeletedEventForUserError') {
                 this.props.onEventReady(true, null);
@@ -198,6 +216,7 @@ function stateToProps(state: any) {
         isFailed: state.event.type == OpState.Failed,
         eventIsDeleted: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.eventIsDeleted : false,
         event: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.event : null,
+        chargebeeManageAccountUri: state.event.type == OpState.Ready || state.event.type == OpState.Preloaded ? state.event.chargebeeManageAccountUri : null,
         errorMessage: state.event.type == OpState.Failed ? state.event.errorMessage : null
     };
 }
@@ -205,7 +224,7 @@ function stateToProps(state: any) {
 function dispatchToProps(dispatch: (newState: EventState) => void) {
     return {
         onEventLoading: () => dispatch({ part: StatePart.Event, type: OpState.Loading }),
-        onEventReady: (eventIsDeleted: boolean, event: Event) => dispatch({ part: StatePart.Event, type: OpState.Ready, eventIsDeleted: eventIsDeleted, event: event }),
+        onEventReady: (eventIsDeleted: boolean, event: Event | null, chargebeeManageAccountUri?: string) => dispatch({ part: StatePart.Event, type: OpState.Ready, eventIsDeleted: eventIsDeleted, event: event, chargebeeManageAccountUri }),
         onEventFailed: (errorMessage: string) => dispatch({ part: StatePart.Event, type: OpState.Failed, errorMessage })
     };
 }

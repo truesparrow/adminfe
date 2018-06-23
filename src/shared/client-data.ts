@@ -92,5 +92,8 @@ export class ClientConfig {
 
 export class ClientInitialState {
     @MarshalWith(OptionalOf(MarshalFrom(Event)))
-    event: Event | null
+    event: Event | null;
+
+    @MarshalWith(OptionalOf(r.SecureWebUriMarshaller))
+    chargebeeManageAccountUri: string | null;
 }

@@ -59,8 +59,8 @@ export const GOOGLE_MAPS_API_KEY = getFromEnv('GOOGLE_MAPS_API_KEY');
 export const CLS_NAMESPACE_NAME: string = 'truesparrow.request';
 export const ALLOWED_PATHS: PathMatch[] = [
     { path: '/', mode: 'full' },
-    { path: '/admin', mode: 'full' },
-    { path: '/admin/', mode: 'prefix' }
+    // TODO: not wise to have this as prefix
+    { path: '/admin', mode: 'prefix' }
 ];
 export const LOGOUT_ROUTE_PATH: string = '/real/auth0-auth-flow/logout';
 

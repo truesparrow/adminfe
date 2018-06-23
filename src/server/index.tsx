@@ -33,6 +33,7 @@ import {
 import {
     ContentPrivateClient,
     Event,
+    EventPlan,
     newContentPrivateClient
 } from '@truesparrow/content-sdk-js'
 import {
@@ -262,14 +263,18 @@ async function main() {
     appRouter.use(newSessionMiddleware(SessionLevel.None, SessionInfoSource.Cookie, config.ENV, identityClient));
     appRouter.get('*', wrap(async (req: RequestWithIdentity, res: express.Response) => {
         let event: Event | null = null;
+        let chargebeeManageAccountUri: string | null = null;
 
         if (req.session.hasUser()) {
             try {
                 event = await contentPrivateClient.withContext(req.sessionToken).getEvent();
+                chargebeeManageAccountUri = await contentPrivateClient.withContext(req.sessionToken).getChargebeeManagePageUri();
             } catch (e) {
                 if (e.name == 'EventNotFoundError') {
                     try {
-                        event = await contentPrivateClient.withContext(req.sessionToken).createEvent(req.session);
+                        const plan = (req.query.plan as EventPlan) || EventPlan.QuickStarter;
+                        event = await contentPrivateClient.withContext(req.sessionToken).createEvent(req.session, plan);
+                        chargebeeManageAccountUri = await contentPrivateClient.withContext(req.sessionToken).getChargebeeManagePageUri();
                     } catch (e) {
                         // Nothing happens here. We'll try again on the client. But we do log the error.
                         req.log.warn(e);
@@ -284,7 +289,8 @@ async function main() {
         }
 
         const initialState: ClientInitialState = {
-            event: event
+            event: event,
+            chargebeeManageAccountUri: chargebeeManageAccountUri
         };
 
         const [content, specialStatus] = serverSideRender(

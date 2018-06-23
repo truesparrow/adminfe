@@ -110,6 +110,7 @@ module.exports = {
             {from: './src/shared/static/main-icon.svg'},
             {from: './src/shared/static/event-icon.svg'},
             {from: './src/shared/static/site-icon.svg'},
+            {from: './src/shared/static/billing-icon.svg'},
             {from: './src/shared/static/account-icon.svg'},
             {from: './src/shared/static/open-in-new-tab-icon.svg'},
             {from: './src/shared/static/powered-by-google.png'},

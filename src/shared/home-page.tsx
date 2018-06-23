@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { Event } from '@truesparrow/content-sdk-js'
+import { Event, EventPlan } from '@truesparrow/content-sdk-js'
 
 import * as config from './config'
 import { EventState, OpState } from './store'
@@ -29,9 +29,9 @@ export class Hero extends React.Component<HeroProps, {}> {
                     <p className="subtitle">{text.subTitle[config.LANG()]}</p>
 
                     <div className="cta-buttons">
-                        <Link className="sign-up" to="/admin" role="button">
-                            {event == null ? commonText.signUp[config.LANG()] : text.goToAdmin[config.LANG()]}
-                        </Link>
+                        {event == null
+                            ? <Link className="sign-up" to={`/admin?plan=${EventPlan.QuickStarter}`} role="button">{commonText.signUp[config.LANG()]}</Link>
+                            : <Link className="sign-up" to="/admin" role="button">{text.goToAdmin[config.LANG()]}</Link>}
 
                         <a className="sign-up" href={config.DEMO_SITE_URI} target="_blank" role="button">
                             {text.demo[config.LANG()]}
@@ -126,7 +126,7 @@ export function Pricing() {
                         <li className="feature">✓ {text.monthlyInvoice[config.LANG()]}</li>
                     </ul>
 
-                    <Link className="sign-up compensate" to="/admin" role="button">{commonText.signUp[config.LANG()]}</Link>
+                    <Link className="sign-up compensate" to={`/admin?plan=${EventPlan.QuickStarter}`} role="button">{commonText.signUp[config.LANG()]}</Link>
                 </div>
 
                 <div className="option">
@@ -142,7 +142,7 @@ export function Pricing() {
                         <li className="feature">✓ <em>{text.save20Pc[config.LANG()]}</em></li>
                     </ul>
 
-                    <Link className="sign-up" to="/admin" role="button">{commonText.signUp[config.LANG()]}</Link>
+                    <Link className="sign-up" to={`/admin?plan=${EventPlan.LongTermThinker}`} role="button">{commonText.signUp[config.LANG()]}</Link>
                 </div>
             </div>
         </div>
